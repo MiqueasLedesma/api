@@ -16,7 +16,7 @@ const sequelize = new Sequelize(
 const basename = path.basename(__filename);
 const modelDefiners = [];
 
-fs.readdirSync(path.join(__dirname, "models"))
+fs.readdirSync(path.join(__dirname, "../models"))
     .filter(
         (file) =>
             file.indexOf(".") !== 0 &&
@@ -24,7 +24,7 @@ fs.readdirSync(path.join(__dirname, "models"))
             file.slice(-3) === ".js"
     )
     .forEach((file) => {
-        modelDefiners.push(require(path.join(__dirname, "models", file)));
+        modelDefiners.push(require(path.join(__dirname, "../models", file)));
     });
 
 // Injectamos la conexion (sequelize) a todos los modelos

@@ -1,4 +1,4 @@
-const { Product, User, Brand, Category, Image } = require('../server/db');
+const { Product, User, Brand, Category, Image } = require('../server/database/db');
 
 
 

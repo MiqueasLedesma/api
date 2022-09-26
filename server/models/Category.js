@@ -1,9 +1,9 @@
-const {DataTypes} = require('sequelize');
+const { DataTypes } = require('sequelize');
 
-module.exports = (sequelize)=>{
-    sequelize.define('category',{
-        
-        name:{
+module.exports = (sequelize) => {
+    sequelize.define('category', {
+
+        name: {
             type: DataTypes.STRING,
             allowNull: false
 
@@ -13,6 +13,6 @@ module.exports = (sequelize)=>{
         //     allowNull: false
         // }
     },
-    { timestamps: false }
+        { timestamps: false }
     )
 }
