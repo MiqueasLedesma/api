@@ -5,6 +5,6 @@ const { conn } = require("./server/database/db");
 conn.sync({ force: false }).then(() => {
     //alter: true, force: false      alter: true,
     server.listen(3001, () => {
-        console.log("%s listening at 3001", "localhost"); // eslint-disable-line no-console
+        console.log(`%s 🚀 listening at 3001 🚀`);  // eslint-disable-line no-console
     });
 });
