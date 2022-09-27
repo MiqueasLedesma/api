@@ -27,12 +27,12 @@ const getProducts = async (req, res) => {
                         [Op.iLike]: '%' + name + '%' // No sensitive (acepta mayusculas y minusculas)
                     }
                 }
-            }).then(r => res.send(r)) // .then() -> envia la respuesta
+            }).then(r => res.send(r)) // .then() -> envia la respuesta devuelve  todas las coincidencias
         } catch (error) {
             console.log(error);
             res.status(400).send('failed!');
         }
-    } else {
+    } else {     // Si no recibe name entonces devulve todos
         try {
             const allProduct = await Product.findAll();
             console.log(allProduct);
@@ -75,15 +75,15 @@ const postProduct = async (req, res) => {
         let brandDb = await Brand.findAll({
             where: { name: brand }
         })  //===============>>>>>>>>>> image presenta problemas se sugiere q este dento de la entidad producto
-        /* let imageDb = await Image.findAll({
+        let imageDb = await Image.findAll({
            where:{ name: image}
-        }) */
+        }) 
         let categoryDb = await Category.findAll({
             where: { name: category }
         })
 
         newProduct.addBrand(brandDb)
-        // newProduct.addImage(imageDb)
+        newProduct.addImage(imageDb)
         newProduct.addCategory(categoryDb)
 
         console.log(newProduct)
