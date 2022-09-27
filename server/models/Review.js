@@ -2,9 +2,13 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     sequelize.define(
-        "image",
+        "review",
         {
-            url: {
+            stars: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
+            detail: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
