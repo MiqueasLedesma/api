@@ -75,15 +75,15 @@ const postProduct = async (req, res) => {
         let brandDb = await Brand.findAll({
             where: { name: brand }
         })  //===============>>>>>>>>>> image presenta problemas se sugiere q este dento de la entidad producto
-        let imageDb = await Image.findAll({
+        /* let imageDb = await Image.findAll({
            where:{ name: image}
-        }) 
+        })  */
         let categoryDb = await Category.findAll({
             where: { name: category }
         })
 
         newProduct.addBrand(brandDb)
-        newProduct.addImage(imageDb)
+        //newProduct.addImage(imageDb)
         newProduct.addCategory(categoryDb)
 
         console.log(newProduct)
