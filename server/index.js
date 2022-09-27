@@ -8,7 +8,7 @@ const cors = require("cors");
 
 require('./database/db')
 
-// server.name = "Authentication";
+// db= "authentication";
 
 server.use(express());
 server.use(express.urlencoded({ extended: true, limit: "150mb" }));
