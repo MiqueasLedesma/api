@@ -7,7 +7,7 @@ router.get('/', getProducts,  async (req, res) => {
     //getProducts();
 });
 
-router.get('/:id', getProductByID, async (req , res) => {
+router.get('/:id', getProductByID , async (req , res) => {
 
 });
 

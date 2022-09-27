@@ -5,7 +5,6 @@ const { Product, User, Brand, Category, Image } = require('../server/database/db
 // ===> Controlador para buscar producto por id, devuelve toda la informacion disponible del producto en la tabla
 const getProductByID = async (req, res) => {
     const { id } = req.params;
-    console.log(id);
     if (!id) return res.status(400).send('bad request!') // Si no recibe ningun id retorna bad request
     else {
         try {
