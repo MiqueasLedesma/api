@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { getProducts, postProduct } = require("./controllers.js");
+const { getProducts, postProduct, postImage } = require("./controllers.js");
 
 
 router.get('/', getProducts,  async (req, res) => {
@@ -15,6 +15,8 @@ router.put('/', async (req, res) =>{
 
 });
 
+router.post('/image',postImage, async (req, res) =>{
 
+});
 
 module.exports = router;

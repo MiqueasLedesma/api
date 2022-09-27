@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const routes = require("../routes/index.js");
 const server = express();
 const cors = require("cors");
+const fileUpload = require('express-fileupload');
 
 require('./database/db')
 
@@ -16,6 +17,12 @@ server.use(express.json({ limit: "50mb" }));
 server.use(cookieparser());
 server.use(morgan("dev"));
 server.use(cors());
+
+server.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : './uploads'
+  }));
+
 server.use("/", routes);
 
 module.exports = server;

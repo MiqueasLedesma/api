@@ -1,5 +1,5 @@
 const { Product, User, Brand, Category, Image } = require('../server/database/db');
-
+const { uploadImage } = require('../utils/cloudinary')
 
 
 // ===>>>> Controlador para todos los productos  falta por id y por name
@@ -69,4 +69,17 @@ const postProduct = async (req, res)=>{
 
 };
 
-module.exports = { getProducts, postProduct };
+const postImage = async (req, res) => {
+    try {
+        //console.log(req.files.image.tempFilePath)
+        if(req.files?.image){
+            const result = await uploadImage(req.files.image.tempFilePath)
+            res.status(200).send(result)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+module.exports = { getProducts, postProduct, postImage };
