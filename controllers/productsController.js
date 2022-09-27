@@ -41,7 +41,7 @@ const getProducts = async (req, res) => {
             console.log(error)
             res.send('failed!')
         }
-    }
+    };
 };
 
 // ============>>>>>>>>>Post de un producto
@@ -93,9 +93,26 @@ const postProduct = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-    }
-
-
+    };
 };
 
+
+
 module.exports = { getProducts, postProduct, getProductByID };
+
+
+
+
+
+
+// {
+//     "name":"tarjeta grafica",
+//     "description":"con goma",
+//     "purchasePrice": 20.1,
+//     "salePrice": 44.5,
+//     "stock": 100,
+//     "brand":"Sony", 
+//     "category":"Periferico",
+//     "rating": 4,
+//     "status": true
+// }
