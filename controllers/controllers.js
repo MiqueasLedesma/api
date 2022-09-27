@@ -1,97 +1,67 @@
-const { Op } = require('sequelize');
 const { Product, User, Brand, Category, Image } = require('../server/database/db');
 
 
-// ===> Controlador para buscar producto por id, devuelve toda la informacion disponible del producto en la tabla
-const getProductByID = async (req, res) => {
-    const { id } = req.params;
-    console.log(id);
-    if (!id) return res.status(400).send('bad request!') // Si no recibe ningun id retorna bad request
-    else {
-        try {
-            await Product.findByPk(id).then(r => res.send(r)); // .then()   
-        } catch (error) {
-            console.log(error);
-            res.status(400).send('failed!')
-        };
-    };
-};
 
-// ===>>>> Controlador para todos los productos y por query.name
+// ===>>>> Controlador para todos los productos  falta por id y por name
 const getProducts = async (req, res) => {
-    if (req.query.name) { // En la misma ruta que trae todos los productos, si recibe un query busca por query
-        const { name } = req.query;
-        try {
-            await Product.findAll({
-                where: {
-                    name: {
-                        [Op.iLike]: '%' + name + '%' // No sensitive (acepta mayusculas y minusculas)
-                    }
-                }
-            }).then(r => res.send(r)) // .then() -> envia la respuesta
-        } catch (error) {
-            console.log(error);
-            res.status(400).send('failed!');
-        }
-    } else {
-        try {
-            const allProduct = await Product.findAll();
-            console.log(allProduct);
-            return res.send(allProduct);
-        } catch (error) {
-            console.log(error)
-            res.send('failed!')
-        }
+
+    try {
+        const allProduct = await Product.findAll();
+        console.log(allProduct);
+        return res.send(allProduct);
+    } catch (error) {
+        console.log(error)
+        res.send('failed!')
     }
 };
 
 // ============>>>>>>>>>Post de un producto
 
-const postProduct = async (req, res) => {
+const postProduct = async (req, res)=>{
 
-    const { name, description, purchasePrice, salePrice, stock, status, brand, category, rating } = req.body;
+    const {name, description, purchasePrise, salePrice, stock, status, brand, image, category} = req.body;
     try {
-        if (!name || !description || !purchasePrice || !salePrice || !stock || !status || !rating) {
-            return res.send('information is missing!') // Cambie el mensaje, significa 'falta informacion!'
+        if(!name || !description || !purchasePrise || !salePrice || !stock || !status){
+            return res.send('need more data!')
         }
 
         let allProduct = await Product.findAll()
         let aProduct = allProduct.find(e => e.name.toLowerCase() === name.toLowerCase() && e.status === status)
 
-        if (aProduct) {
+        if (aProduct){
             return res.send('the product exist!')
         }
 
         let newProduct = await Product.create({
             name,
             description,
-            purchasePrice,
+            purchasePrise,
             salePrice,
             stock,
             status,
-            brand,
-            category,
-            rating
+            brand, 
+            image,
+            category
         })
-        let brandDb = await Brand.findAll({
-            where: { name: brand }
-        })  //===============>>>>>>>>>> image presenta problemas se sugiere q este dento de la entidad producto
-        /* let imageDb = await Image.findAll({
-           where:{ name: image}
-        }) */
-        let categoryDb = await Category.findAll({
-            where: { name: category }
-        })
-
-        newProduct.addBrand(brandDb)
-        // newProduct.addImage(imageDb)
-        newProduct.addCategory(categoryDb)
+            let brandDb = await Brand.findAll({
+                where:{ name: brand }
+            })  //===============>>>>>>>>>> image presenta problemas se sugiere q este dento de la entidad producto
+            /* let imageDb = await Image.findAll({
+               where:{ name: image}
+            }) */
+            let categoryDb = await Category.findAll({
+                where: { name: category }
+            })
+        
+            newProduct.addBrand(brandDb)    
+           // newProduct.addImage(imageDb)
+            newProduct.addCategory(categoryDb)
 
         console.log(newProduct)
         res.send(newProduct)
-        return;
+        return ;
 
-
+        
     } catch (error) {
         console.log(error)
     }
@@ -99,4 +69,4 @@ const postProduct = async (req, res) => {
 
 };
 
-module.exports = { getProducts, postProduct, getProductByID };
+module.exports = { getProducts, postProduct };
