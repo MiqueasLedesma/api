@@ -87,10 +87,6 @@ const postProduct = async (req, res) => {
             brandId: brandDb.id,
             categoryId: categoryDb.id
         })
-        //===============>>>>>>>>>> image presenta problemas se sugiere q este dento de la entidad producto
-        /* let imageDb = await Image.findAll({
-           where:{ name: image}
-        }) */
 
         if (req.files?.image) {
             const result = await uploadImage(req.files.image.tempFilePath)
@@ -102,11 +98,6 @@ const postProduct = async (req, res) => {
             })
         }
 
-        //newProduct.addBrand(brandDb)
-        // newProduct.addImage(imageDb)
-        //newProduct.addCategory(categoryDb)
-
-        //console.log(newProduct)
         res.json(newProduct)
         return;
 
@@ -116,18 +107,6 @@ const postProduct = async (req, res) => {
     };
 };
 
-
-// {
-//     "name":"tarjeta grafica",
-//     "description":"con goma",
-//     "purchasePrice": 20.1,
-//     "salePrice": 44.5,
-//     "stock": 100,
-//     "brand":"Sony", 
-//     "category":"Periferico",
-//     "rating": 4,
-//     "status": true
-// }
 const postImage = async (req, res) => {
     try {
         //console.log(req.files.image.tempFilePath)

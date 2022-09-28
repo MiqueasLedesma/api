@@ -12,6 +12,12 @@ router.post("/register", postUser, async (req, res) =>{
     
 });
 
+router.get('/:id', async (req , res) => {
+
+});
+
+router.post('/register', postUser);
+router.post('/login', postUser);
 
 router.post("/login", postLogin, );
 
