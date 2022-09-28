@@ -11,6 +11,18 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             }, 
+            lastName:{
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            typeIdentification:{
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            identification:{
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
             contact: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
