@@ -6,11 +6,11 @@ module.exports = (sequelize) => {
     sequelize.define(
         "product",
         {
-            id: {
-                type: DataTypes.UUID,
-                primaryKey: true,
-                defaultValue: DataTypes.UUIDV4,
-            },
+            // id: {
+            //     type: DataTypes.INTEGER,
+            //     primaryKey: true,
+            //     autoIncrement: true
+            // },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,

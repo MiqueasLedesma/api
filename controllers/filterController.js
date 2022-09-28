@@ -5,13 +5,13 @@ const filterByCategoryOrBrand = async (req, res) => {
     const { category, brand } = req.body;
     console.log(category, brand)
 
-    if (!category && !brand) return getProducts(req, res);
+    if (!category.name && !brand.name) return getProducts(req, res);
 
-    if (category && !brand) {
+    if (category.name && !brand.name) {
         try {
             await findAll({
                 where: {
-                    category
+                    category: category.name
                 }
             })
                 .then(r => res.send(r))
@@ -21,11 +21,11 @@ const filterByCategoryOrBrand = async (req, res) => {
         };
     };
 
-    if (brand && !category) {
+    if (brand.name && !category.name) {
         try {
             await findAll({
                 where: {
-                    brand
+                    brand: brand.name
                 }
             })
                 .then(r => res.send(r))
@@ -35,12 +35,12 @@ const filterByCategoryOrBrand = async (req, res) => {
         };
     };
 
-    if (category && brand) {
+    if (category.name && brand.name) {
         try {
             await Product.findAll({
                 where: {
-                    category,
-                    brand
+                    category:category.name,
+                    brand: brand.name
                 }
             }).then(r => res.send(r))
         } catch (error) {
