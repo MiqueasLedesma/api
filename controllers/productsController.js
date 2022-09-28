@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const { Product, User, Brand, Category, Image } = require('../server/database/db');
-
+const { uploadImage } = require('../utils/cloudinary')
 
 // ===> Controlador para buscar producto por id, devuelve toda la informacion disponible del producto en la tabla
 const getProductByID = async (req, res) => {
@@ -27,12 +27,12 @@ const getProducts = async (req, res) => {
                         [Op.iLike]: '%' + name + '%' // No sensitive (acepta mayusculas y minusculas)
                     }
                 }
-            }).then(r => res.send(r)) // .then() -> envia la respuesta
+            }).then(r => res.send(r)) // .then() -> envia la respuesta devuelve  todas las coincidencias
         } catch (error) {
             console.log(error);
             res.status(400).send('failed!');
         }
-    } else {
+    } else {     // Si no recibe name entonces devulve todos
         try {
             const allProduct = await Product.findAll();
             console.log(allProduct);
@@ -77,13 +77,13 @@ const postProduct = async (req, res) => {
         })  //===============>>>>>>>>>> image presenta problemas se sugiere q este dento de la entidad producto
         /* let imageDb = await Image.findAll({
            where:{ name: image}
-        }) */
+        })  */
         let categoryDb = await Category.findAll({
             where: { name: category }
         })
 
         newProduct.addBrand(brandDb)
-        // newProduct.addImage(imageDb)
+        //newProduct.addImage(imageDb)
         newProduct.addCategory(categoryDb)
 
         console.log(newProduct)
@@ -96,6 +96,7 @@ const postProduct = async (req, res) => {
     };
 };
 
+<<<<<<< HEAD:controllers/productsController.js
 
 
 module.exports = { getProducts, postProduct, getProductByID };
@@ -116,3 +117,19 @@ module.exports = { getProducts, postProduct, getProductByID };
 //     "rating": 4,
 //     "status": true
 // }
+=======
+const postImage = async (req, res) => {
+    try {
+        //console.log(req.files.image.tempFilePath)
+        if(req.files?.image){
+            const result = await uploadImage(req.files.image.tempFilePath)
+            res.status(200).send(result)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+module.exports = { getProducts, postProduct, getProductByID, postImage };
+>>>>>>> b3fee667270a7248cb837af718da37391cbe73c2:controllers/controllers.js
