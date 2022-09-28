@@ -59,44 +59,44 @@ Review.belongsTo(Product)
 User.hasMany(Review)
 Review.belongsTo(User)
 
-// const injectInfo = async () => {
-//     let category = [
-//         'Monitores',
-//         'CPU',
-//         'Notebooks',
-//         'Perifericos',
-//         'Impresora',
-//         'Gabinete'
-//     ];
+const injectInfo = async () => {
+    let category = [
+        'Monitores',
+        'CPU',
+        'Notebooks',
+        'Perifericos',
+        'Impresora',
+        'Gabinete'
+    ];
 
-//     let brand = [
-//         'Sony',
-//         'Claro',
-//         'AMD',
-//         'Intel',
-//         'Redragon'
-//     ];
+    let brand = [
+        'Sony',
+        'Claro',
+        'AMD',
+        'Intel',
+        'Redragon'
+    ];
 
-//     category.forEach(e => {
-//         Category.findOrCreate({
-//             where: {
-//                 name: e,
-//                 status: true
-//             }
-//         });
-//     });
+    category.forEach(e => {
+        Category.findOrCreate({
+            where: {
+                name: e,
+                status: true
+            }
+        });
+    });
 
-//     brand.forEach(e => {
-//         Brand.findOrCreate({
-//             where: {
-//                 name: e,
-//                 status: true
-//             }
-//         });
-//     });
-// };
+    brand.forEach(e => {
+        Brand.findOrCreate({
+            where: {
+                name: e,
+                status: true
+            }
+        });
+    });
+};
 
-// injectInfo();
+injectInfo();
 
 module.exports = {
     ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
