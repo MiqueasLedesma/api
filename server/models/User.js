@@ -7,19 +7,30 @@ module.exports = (sequelize) => {
     sequelize.define(
         "user",
         {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
-            }, 
-            lastName:{
+            },
+            lastName: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            typeIdentification:{
+            fullName: {
+                type: DataTypes.VIRTUAL,
+                get() {
+                    return `${this.name} ${this.lastName}`;
+                },
+            },
+            typeIdentification: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            identification:{
+            identification: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
@@ -30,6 +41,9 @@ module.exports = (sequelize) => {
             email: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                validate: {
+                    isEmail: true, //==>> contains: '@.'
+                },
             },
             address: {
                 type: DataTypes.STRING,
@@ -38,6 +52,23 @@ module.exports = (sequelize) => {
             password: {
                 type: DataTypes.STRING,
                 allowNull: false,
+            },
+            username: {
+                type: DataTypes.STRING,
+                get() {
+                    const rawValue = this.getDataValue("username");
+                    return rawValue
+                        ? rawValue.toUpperCase().contact("@TECHSTORE")
+                        : null;
+                },
+            },
+            isAdmin: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+                allowNull: false,
+                set(value) {
+                    this.setDataValue(isAdmin, value);
+                },
             },
         },
         {
