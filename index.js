@@ -6,6 +6,7 @@ const { createProducts } = require("./dataMockup/dataProduct")
 const { createImages } = require("./dataMockup/dataImage");
 const { createUser } = require("./dataMockup/dataUser");
 
+
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
     //alter: true, force: false      alter: true,
