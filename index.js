@@ -3,7 +3,8 @@ const { conn } = require("./server/database/db");
 const { createCategories } = require("./dataMockup/dataCategory")
 const { createBrands } = require("./dataMockup/dataBrand")
 const { createProducts } = require("./dataMockup/dataProduct")
-const { createImages } = require("./dataMockup/dataImage")
+const { createImages } = require("./dataMockup/dataImage");
+const { createUser } = require("./dataMockup/dataUser");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
@@ -14,5 +15,6 @@ conn.sync({ force: true }).then(() => {
         await createBrands()
         await createProducts()
         await createImages()
+        await createUser()
     });
 });

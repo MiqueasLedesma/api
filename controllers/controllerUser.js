@@ -34,7 +34,8 @@ const postUser = async (req, res) => {
         let iduser = allUser.find(
             (e) =>
                 e.name.toLowerCase() === name.toLowerCase() &&
-                e.identification.toLowerCase() === identification.toLowerCase() &&
+                e.identification.toLowerCase() ===
+                    identification.toLowerCase() &&
                 e.email.toLowerCase() === email.toLowerCase()
         );
 
@@ -64,7 +65,7 @@ const postUser = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-    res.status(201).redirect("/login");
+    res.status(201).redirect("/:idUser/updateprofile");
 };
 
 const postLogin = async (req, res) => {
@@ -94,7 +95,7 @@ const postLogin = async (req, res) => {
     }
 };
 
-const postUpdate = async (req, res) => {
+const updatePersonalData = async (req, res) => {
     const {
         name,
         lastName,
@@ -106,6 +107,22 @@ const postUpdate = async (req, res) => {
         password,
     } = req.body;
 
+    try {
+        await User.update( {
+            where: {
+                name,
+                lastName,
+                typeIdentification,
+                identification,
+                contact,
+                email,
+                address,
+                password,
+            },
+        });
+    } catch (error) {
+        res.status(404).send(error);
+    }
 };
 
-module.exports = { postUser, postLogin };
+module.exports = { postUser, postLogin, updatePersonalData };

@@ -62,14 +62,14 @@ module.exports = (sequelize) => {
                         : null;
                 },
             },
-            isAdmin: {
+            /* isAdmin: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
                 allowNull: false,
                 set(value) {
                     this.setDataValue(isAdmin, value);
                 },
-            },
+            }, */
         },
         {
             timestamps: false,

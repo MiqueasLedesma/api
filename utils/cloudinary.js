@@ -16,4 +16,4 @@ async function uploadImage(filePath){
 
 module.exports = {
     uploadImage
-}
+};
