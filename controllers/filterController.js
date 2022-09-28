@@ -1,18 +1,31 @@
 const { getProducts } = require("./productsController");
-const { Product } = require('../server/database/db');
+const { Product, Category, Brand, Image } = require('../server/database/db');
 
 const filterByCategoryOrBrand = async (req, res) => {
     const { category, brand } = req.body;
     console.log(category, brand)
 
-    if (!category.name && !brand.name) return getProducts(req, res);
+    if (!category && !brand) return getProducts(req, res);
 
-    if (category.name && !brand.name) {
+    if (category && !brand) {
         try {
-            await findAll({
+            await Product.findAll({
+                // where:{
+                //     name : category
+                // },
+                // include:[
+                //     Image,
+                //     Brand,
+                //     Product
+                // ]
                 where: {
-                    category: category.name
-                }
+                    categoryId: category
+                },
+                include: [
+                    Category,
+                    Image,
+                    Brand
+                ]
             })
                 .then(r => res.send(r))
         } catch (error) {
@@ -21,12 +34,17 @@ const filterByCategoryOrBrand = async (req, res) => {
         };
     };
 
-    if (brand.name && !category.name) {
+    if (brand && !category) {
         try {
-            await findAll({
+            await Product.findAll({
                 where: {
-                    brand: brand.name
-                }
+                    brandId: brand
+                },
+                include: [
+                    Category,
+                    Image,
+                    Brand
+                ]
             })
                 .then(r => res.send(r))
         } catch (error) {
@@ -35,13 +53,15 @@ const filterByCategoryOrBrand = async (req, res) => {
         };
     };
 
-    if (category.name && brand.name) {
+    if (category && brand) {
         try {
             await Product.findAll({
                 where: {
-                    category:category.name,
-                    brand: brand.name
+                    brandId: brand,
+                    categoryId: category
                 }
+
+
             }).then(r => res.send(r))
         } catch (error) {
             console.log(error);
