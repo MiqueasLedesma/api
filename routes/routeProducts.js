@@ -1,20 +1,27 @@
-const { Router } = require("express");
+const { Router } = require('express');
 const router = Router();
-const {
-    getProducts,
-    postProduct,
-    getProductByID,
-    postImage,
-} = require("../controllers/controllers");
+const { getProducts, postProduct, getProductByID, postImage, postCategory } = require("../controllers/productsController");
 
-router.get("/", getProducts);
 
-router.get("/:id", getProductByID);
+router.get('/', getProducts,  async (req, res) => {
+    //getProducts();
+});
 
-router.post("/", postProduct);
+router.get('/:id', getProductByID , async (req , res) => {
 
-router.put("/", async (req, res) => {});
+});
 
-router.post("/image", postImage);
+router.post('/', postProduct,  async (req, res) => {
+    //res.send(postProduct());
+});
+
+router.put('/', async (req, res) =>{
+
+});
+
+router.post('/image', postImage);
+
+router.post('/cat', postCategory)
+
 
 module.exports = router;

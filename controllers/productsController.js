@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const { Product, User, Brand, Category, Image } = require('../server/database/db');
 const { uploadImage } = require('../utils/cloudinary')
+const fs = require('fs-extra')
 
 // ===> Controlador para buscar producto por id, devuelve toda la informacion disponible del producto en la tabla
 const getProductByID = async (req, res) => {
@@ -34,14 +35,20 @@ const getProducts = async (req, res) => {
         }
     } else {     // Si no recibe name entonces devulve todos
         try {
-            const allProduct = await Product.findAll();
+            const allProduct = await Product.findAll({
+                include: [
+                    Category,
+                    Brand,
+                    Image
+                ]
+            });
             console.log(allProduct);
             return res.send(allProduct);
         } catch (error) {
             console.log(error)
             res.send('failed!')
         }
-    }
+    };
 };
 
 // ============>>>>>>>>>Post de un producto
@@ -61,7 +68,13 @@ const postProduct = async (req, res) => {
             return res.send('the product exist!')
         }
 
-        let newProduct = await Product.create({
+        const brandDb = await Brand.findOne({
+            where: { name: brand }
+        })  
+        const categoryDb = await Category.findOne({
+            where: { name: category }
+        })
+        const newProduct = await Product.create({
             name,
             description,
             purchasePrice,
@@ -70,39 +83,57 @@ const postProduct = async (req, res) => {
             status,
             brand,
             category,
-            rating
-        })
-        let brandDb = await Brand.findAll({
-            where: { name: brand }
-        })  //===============>>>>>>>>>> image presenta problemas se sugiere q este dento de la entidad producto
+            rating,
+            brandId:brandDb.id,
+            categoryId:categoryDb.id
+        })  
+        //===============>>>>>>>>>> image presenta problemas se sugiere q este dento de la entidad producto
         /* let imageDb = await Image.findAll({
            where:{ name: image}
-        })  */
-        let categoryDb = await Category.findAll({
-            where: { name: category }
-        })
+        }) */
 
-        newProduct.addBrand(brandDb)
-        //newProduct.addImage(imageDb)
-        newProduct.addCategory(categoryDb)
+        if (req.files?.image) {
+            const result = await uploadImage(req.files.image.tempFilePath)
+            fs.unlink(req.files.image.tempFilePath)
+            const newImage = await Image.create({
+                url: result.secure_url,
+                pathImage: result.public_id,
+                productId: newProduct.id
+            })
+        }
 
-        console.log(newProduct)
-        res.send(newProduct)
+        //newProduct.addBrand(brandDb)
+        // newProduct.addImage(imageDb)
+        //newProduct.addCategory(categoryDb)
+
+        //console.log(newProduct)
+        res.json(newProduct)
         return;
 
 
     } catch (error) {
         console.log(error)
-    }
-
-
+    };
 };
 
+
+// {
+//     "name":"tarjeta grafica",
+//     "description":"con goma",
+//     "purchasePrice": 20.1,
+//     "salePrice": 44.5,
+//     "stock": 100,
+//     "brand":"Sony", 
+//     "category":"Periferico",
+//     "rating": 4,
+//     "status": true
+// }
 const postImage = async (req, res) => {
     try {
         //console.log(req.files.image.tempFilePath)
-        if(req.files?.image){
+        if (req.files?.image) {
             const result = await uploadImage(req.files.image.tempFilePath)
+            fs.unlink(req.files.image.tempFilePath)
             res.status(200).send(result)
         }
     } catch (error) {
@@ -111,4 +142,16 @@ const postImage = async (req, res) => {
 
 }
 
-module.exports = { getProducts, postProduct, getProductByID, postImage };
+const postCategory = async (req, res) => {
+    try {
+        const { name } = req.body;
+        const category = await Category.findOrCreate({
+            where: { name }
+        })
+        res.send(category)
+    } catch (error) {
+        res.status(500).send({ message: error.message })
+    }
+}
+
+module.exports = { getProducts, postProduct, getProductByID, postImage, postCategory };
