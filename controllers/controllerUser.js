@@ -34,7 +34,8 @@ const postUser = async (req, res) => {
         let iduser = allUser.find(
             (e) =>
                 e.name.toLowerCase() === name.toLowerCase() &&
-                e.identification.toLowerCase() === identification.toLowerCase()  //=====>>>>> cambiar por email
+                e.identification.toLowerCase() === identification.toLowerCase() &&
+                e.email.toLowerCase() === email.toLowerCase()
         );
 
         if (iduser) {
@@ -93,6 +94,18 @@ const postLogin = async (req, res) => {
     }
 };
 
-const postUpdate = async (req, res) => {};
+const postUpdate = async (req, res) => {
+    const {
+        name,
+        lastName,
+        typeIdentification,
+        identification,
+        contact,
+        email,
+        address,
+        password,
+    } = req.body;
+
+};
 
 module.exports = { postUser, postLogin };

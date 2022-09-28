@@ -3,9 +3,7 @@ const router = Router();
 const { postUser, postLogin } = require("../controllers/controllerUser");
 
 router.get("/");
-
-router.get("/:id");
-
+router.get("/:id",);
 router.post("/register", postUser);
 router.post("/login", postLogin);
 
