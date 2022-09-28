@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const { Product, User, Brand, Category, Image } = require('../server/database/db');
-
+const { uploadImage } = require('../utils/cloudinary')
 
 // ===> Controlador para buscar producto por id, devuelve toda la informacion disponible del producto en la tabla
 const getProductByID = async (req, res) => {
@@ -98,4 +98,17 @@ const postProduct = async (req, res) => {
 
 };
 
-module.exports = { getProducts, postProduct, getProductByID };
+const postImage = async (req, res) => {
+    try {
+        //console.log(req.files.image.tempFilePath)
+        if(req.files?.image){
+            const result = await uploadImage(req.files.image.tempFilePath)
+            res.status(200).send(result)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+module.exports = { getProducts, postProduct, getProductByID, postImage };
