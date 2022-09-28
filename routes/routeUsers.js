@@ -1,22 +1,14 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const router = Router();
-const { postUser } = require('../controllers/controllerUser');
+const { postUser, postLogin } = require("../controllers/controllerUser");
 
+router.get("/");
 
-router.get('/',   async (req, res) => {
-    //getProducts();
-});
+router.get("/:id");
 
-router.get('/:id', async (req , res) => {
+router.post("/register", postUser);
+router.post("/login", postLogin);
 
-});
-
-router.post('/register', postUser);
-router.post('/login', postUser);
-
-
-router.put('/', async (req, res) =>{
-
-});
+router.put("/");
 
 module.exports = router;
