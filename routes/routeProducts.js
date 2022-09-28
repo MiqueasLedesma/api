@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { getProducts, postProduct, getProductByID, postImage, postCategory } = require("../controllers/controllers");
+const { getProducts, postProduct, getProductByID, postImage, postCategory } = require("../controllers/productsController");
 
 
 router.get('/', getProducts,  async (req, res) => {
