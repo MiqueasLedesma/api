@@ -96,15 +96,6 @@ const postProduct = async (req, res) => {
     };
 };
 
-<<<<<<< HEAD:controllers/productsController.js
-
-
-module.exports = { getProducts, postProduct, getProductByID };
-
-
-
-
-
 
 // {
 //     "name":"tarjeta grafica",
@@ -117,7 +108,6 @@ module.exports = { getProducts, postProduct, getProductByID };
 //     "rating": 4,
 //     "status": true
 // }
-=======
 const postImage = async (req, res) => {
     try {
         //console.log(req.files.image.tempFilePath)
@@ -132,4 +122,3 @@ const postImage = async (req, res) => {
 }
 
 module.exports = { getProducts, postProduct, getProductByID, postImage };
->>>>>>> b3fee667270a7248cb837af718da37391cbe73c2:controllers/controllers.js
