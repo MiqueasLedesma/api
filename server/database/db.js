@@ -41,14 +41,14 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { User, Brand, Category, Image, Product, Review } = sequelize.models;
 
-User.belongsTo(Product, {throw: "user_product"})
-Product.belongsTo(User,{throw: "user_product"})
+//User.belongsTo(Product, {throw: "user_product"})
+//Product.belongsTo(User,{throw: "user_product"})
 
-Product.hasMany(Brand)
-Brand.belongsTo(Product)
+Product.belongsTo(Brand)
+Brand.hasMany(Product)
 
-Product.hasMany(Category)
-Category.belongsTo(Product)
+Product.belongsTo(Category)
+Category.hasMany(Product)
 
 Product.hasMany(Image)    
 Image.belongsTo(Product)
