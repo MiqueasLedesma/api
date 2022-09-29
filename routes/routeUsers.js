@@ -1,38 +1,31 @@
 const { Router } = require("express");
 const router = Router();
-const { postUser, postLogin, updatePersonalData } = require("../controllers/controllerUser");
-const { Review } = require("../server/database/db");
+const {
+    postUser,
+    postLogin,
+    updatePersonalData,
+    getUsers,
+    getIdUsers,
+} = require("../controllers/controllerUser");
 
+router.get("/", getUsers);
+router.get("/:id", getIdUsers);
 
-router.get("/");
-router.get("/:id",);
+router.post("/register", postUser, async (req, res) => {
+    try {
+        const { user } = req.body;
+        if (!user.email) {
+            return res.status(400).json({ error: "Missing data" });
+        }
+        let newUser = await postUser(user);
 
-
-router.post("/register", postUser, async (req, res) =>{
-    
-});
-
-router.get('/:id', async (req , res) => {
-
-});
-
-router.post('/register', postUser);
-router.post('/login', postUser);
-
-router.post("/login", postLogin, );
-
-router.put("/:idUser/updateprofile", updatePersonalData, async (req, res)=>{
-    const { idUser } =req.params;
-
-    try{
-        await updatePersonalData(idUser, req.body)
-        res.status(200).send('Personal Data updated!')
-        
-    }catch(error){
-        res.status(404).send(error)
+        res.status(200).json(newUser);
+    } catch (error) {
+        res.status(400).json(error);
     }
-
-
 });
+
+router.post("/login", postLogin);
+router.put("/:id/updateprofile", updatePersonalData);
 
 module.exports = router;
