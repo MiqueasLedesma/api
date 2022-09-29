@@ -15,6 +15,7 @@ const postUser = async (req, res) => {
         email,
         address,
         password,
+        isAdmin,
     } = req.body;
 
     try {
@@ -34,8 +35,7 @@ const postUser = async (req, res) => {
         let iduser = allUser.find(
             (e) =>
                 e.name.toLowerCase() === name.toLowerCase() &&
-                e.identification.toLowerCase() ===
-                    identification.toLowerCase() &&
+                e.identification.toLowerCase() === identification.toLowerCase() &&
                 e.email.toLowerCase() === email.toLowerCase()
         );
 
@@ -55,6 +55,7 @@ const postUser = async (req, res) => {
                 email,
                 address,
                 password: hash,
+                isAdmin,
             });
 
             //======>>>>>falta adicionar pais , ciudad y otras
@@ -95,34 +96,67 @@ const postLogin = async (req, res) => {
     }
 };
 
+const getUsers = async (req, res )=>{
+    const {id} = req.params
+    const admin = await User.findOne({where:{isAdmin: true}});
+    if(admin.id !== id || !id){
+        return res.status(400).send('Not found!')
+    }
+    
+    try {   
+        const allUsers = await User.findAll();
+        res.status(200).send(allUsers)
+    }catch(error){
+        console.log(error)
+    }
+};
+
+const getIdUsers = async (req, res) =>{
+    const {id} = req.params;
+    if(!id){
+        return res.send('fatal error')
+    } else if(id){
+        const user = await User.findOne(e => e.id === id);
+        return res.status(201).send(user)
+    }else{
+        return res.redirect('/home')
+    } 
+};
+
+
 const updatePersonalData = async (req, res) => {
     const {
         name,
         lastName,
-        typeIdentification,
         identification,
         contact,
         email,
         address,
         password,
+        
     } = req.body;
-
     try {
-        await User.update( {
-            where: {
-                name,
-                lastName,
-                typeIdentification,
-                identification,
-                contact,
-                email,
-                address,
-                password,
-            },
+        let dataUser = await User.findOne({
+            where: { identification, password }
         });
+        
+        if(name && lastName && contact && address && email){
+            dataUser.name = name;
+            dataUser.lastName = lastName;
+            dataUser.contact = contact;
+            dataUser.address = address;
+            dataUser.email = email;
+        }
+
+        await dataUser.save();
+        return res.status(200).send(dataUser)
+
+
     } catch (error) {
-        res.status(404).send(error);
+        console.log(error)
     }
+    
+
 };
 
-module.exports = { postUser, postLogin, updatePersonalData };
+module.exports = { postUser, postLogin, updatePersonalData, getUsers, getIdUsers };

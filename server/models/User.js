@@ -35,12 +35,12 @@ module.exports = (sequelize) => {
                 allowNull: false,
             },
             contact: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.INTEGER(12),
                 allowNull: false,
             },
             email: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
                 validate: {
                     isEmail: true, //==>> contains: '@.'
                 },
@@ -62,14 +62,14 @@ module.exports = (sequelize) => {
                         : null;
                 },
             },
-            /* isAdmin: {
+             isAdmin: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
                 allowNull: false,
-                set(value) {
+                /* set(value) {
                     this.setDataValue(isAdmin, value);
-                },
-            }, */
+                }, */
+            }, 
         },
         {
             timestamps: false,
