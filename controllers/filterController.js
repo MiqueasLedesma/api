@@ -2,7 +2,7 @@ const { Product, Category, Brand, Image } = require('../server/database/db');
 
 
 // Esta funcion recibe un req y realiza el filtrado segun marca y categoria
-const handleReq = async (req) => { 
+const handleReq = async (req) => {
 
     const { category, brand } = req.body;
 
@@ -103,5 +103,59 @@ const filterByCategoryOrBrand = async (req, res) => {
 
 // Es altamente posible que tenga que agregar otra funcion mas para hacer el paginado asique no es version final
 
+const sortAndFilter = async (req, res) => {
+    const { categoryId, brandId, sortBy } = req.body;
+    const pageAsNumber = Number.parseInt(req.query.page);
+    const sizeAsNumber = Number.parseInt(req.query.size);
+    let page = 0;
+    let size = 10;
+    if (!Number.isNaN(pageAsNumber) && pageAsNumber >= 0) page = pageAsNumber;
+    if (!Number.isNaN(sizeAsNumber) && sizeAsNumber >= 1) size = sizeAsNumber;
+    if (!sortBy) {
+        try {
+            if (!categoryId && !brandId) {
+                await Product.findAndCountAll({
+                    limit: size,
+                    offset: page * size,
+                    include: [
+                        Category,
+                        Brand,
+                        Image
+                    ],
 
-module.exports = filterByCategoryOrBrand;
+                })
+                    .then(r => res.send({
+                        content: r.rows,
+                        totalPage: Math.ceil(r.count / size)
+                    }));
+            }
+            if (categoryId && !brandId) {
+                await Product.findAndCountAll({
+                    where: {
+                        categoryId: categoryId
+                    },
+                    limit: size,
+                    offset: page * size,
+                    include: [
+                        Category,
+                        Brand,
+                        Image
+                    ]
+                })
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(400).send('failed')
+        }
+    } else {
+        // Aca va a ir un switch case;
+    }
+}
+
+
+module.exports = { filterByCategoryOrBrand, sortAndFilter };
+
+
+
+// experimento raro pa ver que onda
+
