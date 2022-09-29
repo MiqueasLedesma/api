@@ -34,33 +34,45 @@ const postUser = async (req, res) => {
         let iduser = allUser.find(
             (e) =>
                 e.name.toLowerCase() === name.toLowerCase() &&
-                e.identification.toLowerCase() ===
-                    identification.toLowerCase() &&
-                e.email.toLowerCase() === email.toLowerCase()
+                e.identification.toLowerCase() === identification.toLowerCase()
         );
-
+        let saltRounds = 11;
         if (iduser) {
-            return res
-                .status(400)
-                .send("A user with these credentials already exists.");
-        }
-        const saltRounds = 11;
-        bcrypt.hash(password, saltRounds, async function (err, hash) {
-            const newUser = await User.create({
-                name,
-                lastName,
-                typeIdentification,
-                identification,
-                contact,
-                email,
-                address,
-                password: hash,
+            bcrypt.hash(password, saltRounds, async function (err, hash) {
+                const updateUser = await User.update({
+                    name,
+                    lastName,
+                    typeIdentification,
+                    contact,
+                    email,
+                    address,
+                    password: hash,
+                }, {
+                    where: {
+                        identification: iduser.identification
+                    }
+                });
+                console.log("User updated with succefully!!");
+                res.status(201).send(updateUser);
             });
+        } else {
+            bcrypt.hash(password, saltRounds, async function (err, hash) {
+                const newUser = await User.create({
+                    name,
+                    lastName,
+                    typeIdentification,
+                    identification,
+                    contact,
+                    email,
+                    address,
+                    password: hash,
+                });
 
-            //======>>>>>falta adicionar pais , ciudad y otras
-            console.log("User created with succefully!!");
-            res.status(201).send(newUser);
-        });
+                //======>>>>>falta adicionar pais , ciudad y otras
+                console.log("User created with succefully!!");
+                res.status(201).send(newUser);
+            });
+        }
         return;
     } catch (error) {
         console.log(error);
@@ -108,7 +120,7 @@ const updatePersonalData = async (req, res) => {
     } = req.body;
 
     try {
-        await User.update( {
+        await User.update({
             where: {
                 name,
                 lastName,
