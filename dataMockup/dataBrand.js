@@ -10,6 +10,9 @@ const createBrands = async () => {
         { name: "Kingstone" },
         { name: "Western Digital" },
         { name: "Cougar" },
+        { name: "HyperX" },
+        { name: "LG" },
+        { name: "Adata" },
     ])
 }
 
