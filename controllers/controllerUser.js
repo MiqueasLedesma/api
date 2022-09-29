@@ -77,6 +77,7 @@ const postUser = async (req, res) => {
         return;
     } catch (error) {
         console.log(error);
+        return res.status(400).send(error)
     }
     res.status(201).redirect("/:idUser/updateprofile");
 };
