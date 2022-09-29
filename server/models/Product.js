@@ -6,18 +6,13 @@ module.exports = (sequelize) => {
     sequelize.define(
         "product",
         {
-            id: {
-                type: DataTypes.UUID,
-                primaryKey: true,
-                defaultValue: DataTypes.UUIDV4,
-            },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
                 unique: true,
             },
             description: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
             },
             purchasePrice: {
@@ -42,6 +37,6 @@ module.exports = (sequelize) => {
                 allowNull: false,
             },
         },
-        { timestamps: true }
+        { timestamps: false }
     );
 };

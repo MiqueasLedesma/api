@@ -1,13 +1,13 @@
 const { Router } = require('express');
 const router = Router();
-const { getProducts, postProduct, getProductByID } = require("../controllers/controllers");
+const { getProducts, postProduct, getProductByID, postImage, postCategory } = require("../controllers/productsController");
 
 
 router.get('/', getProducts,  async (req, res) => {
     //getProducts();
 });
 
-router.get('/:id', getProductByID, async (req , res) => {
+router.get('/:id', getProductByID , async (req , res) => {
 
 });
 
@@ -19,6 +19,10 @@ router.put('/', async (req, res) =>{
 
 });
 
+router.post('/image', postImage);
+
+router.post('/cat', postCategory)
 
 
 module.exports = router;
+
