@@ -15,7 +15,7 @@ const postUser = async (req, res) => {
         email,
         address,
         password,
-        isAdmin,
+        // isAdmin,
     } = req.body;
 
     try {
