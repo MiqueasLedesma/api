@@ -9,8 +9,8 @@ module.exports = (sequelize) => {
         {
             id: {
                 type: DataTypes.INTEGER,
-                autoIncrement: true,
-                primaryKey: true,
+                autoIncrement: true, 
+                primaryKey: true,               
             },
             name: {
                 type: DataTypes.STRING,
@@ -27,11 +27,12 @@ module.exports = (sequelize) => {
                 },
             },
             typeIdentification: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING,  //validar
                 allowNull: false,
             },
             identification: {
                 type: DataTypes.STRING,
+                unique: true,
                 allowNull: false,
             },
             contact: {
@@ -40,7 +41,8 @@ module.exports = (sequelize) => {
             },
             email: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
+                
                 validate: {
                     isEmail: true, //==>> contains: '@.'
                 },
@@ -55,21 +57,22 @@ module.exports = (sequelize) => {
             },
             username: {
                 type: DataTypes.STRING,
+                defaultValue: "client",
                 get() {
                     const rawValue = this.getDataValue("username");
                     return rawValue
-                        ? rawValue.toUpperCase().contact("@TECHSTORE")
+                        ? rawValue.toUpperCase()
                         : null;
                 },
             },
-            /* isAdmin: {
+             isAdmin: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
                 allowNull: false,
-                set(value) {
+                /* set(value) {
                     this.setDataValue(isAdmin, value);
-                },
-            }, */
+                }, */
+            }, 
         },
         {
             timestamps: false,
