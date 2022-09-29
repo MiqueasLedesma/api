@@ -1,7 +1,8 @@
 const { Router } = require('express');
+const { filterByCategoryOrBrand, sortAndFilter } = require('../controllers/filterController');
 const router = Router();
-const filterByCategoryOrBrand = require("../controllers/filterController");
 
-router.get('/', filterByCategoryOrBrand);
+
+router.get('/', sortAndFilter);
 
 module.exports = router;
