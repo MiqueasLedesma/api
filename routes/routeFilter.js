@@ -3,6 +3,6 @@ const { filterByCategoryOrBrand, sortAndFilter } = require('../controllers/filte
 const router = Router();
 
 
-router.get('/', sortAndFilter);
+router.get('/', filterByCategoryOrBrand);
 
 module.exports = router;
