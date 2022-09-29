@@ -11,6 +11,7 @@ const { PORT } = process.env;
 
 // Syncing all the models at once.
 
+
 conn.sync({ force: false }).then(() => {
     //alter: true, force: false      alter: true,
     server.listen(PORT || 3001, async () => {
