@@ -35,7 +35,8 @@ const postUser = async (req, res) => {
         let iduser = allUser.find(
             (e) =>
                 e.name.toLowerCase() === name.toLowerCase() &&
-                e.identification.toLowerCase() === identification.toLowerCase() &&
+                e.identification.toLowerCase() ===
+                    identification.toLowerCase() &&
                 e.email.toLowerCase() === email.toLowerCase()
         );
 
@@ -96,35 +97,60 @@ const postLogin = async (req, res) => {
     }
 };
 
-const getUsers = async (req, res )=>{
-    const {id} = req.params
-    const admin = await User.findOne({where:{isAdmin: true}});
-    if(admin.id !== id || !id){
-        return res.status(400).send('Not found!')
-    }
-    
-    try {   
-        const allUsers = await User.findAll();
-        res.status(200).send(allUsers)
-    }catch(error){
-        console.log(error)
+const getUsers = async (req, res) => {
+    /* esta es una funcion solo para el administrador 
+     const { id } = req.params;
+    const admin = await User.findOne({ where: { isAdmin: true } });
+    if (admin.id !== id || !id) {
+        return res.status(400).send("Not found!");
+    } */
+
+    try {
+        const allUsers = await User.findAndCountAll();
+
+        res.status(200).send(allUsers);
+    } catch (error) {
+        console.log(error);
     }
 };
 
-const getIdUsers = async (req, res) =>{
-    const {id} = req.params;
-    if(!id){
-        return res.send('fatal error')
-    } else if(id){
-        const user = await User.findOne(e => e.id === id);
-        return res.status(201).send(user)
-    }else{
-        return res.redirect('/home')
-    } 
+const getIdUsers = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        let userData = await userDetail(id);
+        res.status(200).send(userData);
+    } catch (error) {
+        res.status(404).send(error);
+    }
 };
 
+const userDetail = async function (id) {
+    try {
+        let user = await User.findByPk(id, {
+            model: User,
+            where: {
+                name: id.name,
+                lastName: id.lastName,
+                identification: id.identification,
+                contact: id.contact,
+                email: id.email,
+                address: id.address,
+            },
+        });
+        /*  res.status(200).send(user); */
+        if (!user) {
+            return "User not found";
+        } else {
+            return user;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 const updatePersonalData = async (req, res) => {
+    const { id } = req.params;
     const {
         name,
         lastName,
@@ -133,30 +159,44 @@ const updatePersonalData = async (req, res) => {
         email,
         address,
         password,
-        
     } = req.body;
     try {
-        let dataUser = await User.findOne({
-            where: { identification, password }
-        });
-        
-        if(name && lastName && contact && address && email){
-            dataUser.name = name;
-            dataUser.lastName = lastName;
-            dataUser.contact = contact;
-            dataUser.address = address;
-            dataUser.email = email;
+        let dataUser = await User.findByPk(id);
+
+        if (dataUser) {
+            dataUser.update({
+                name,
+                lastName,
+                contact,
+                address,
+                email,
+            });
+            /* await User.update(
+                dataUser,
+                ,
+                {
+                    where: {
+                        name: dataUser.name,
+                        lastName: dataUser.lastName,
+                        contact: dataUser.contact,
+                        address: dataUser.address,
+                        email: dataUser.email,
+                    },
+                }
+            ); */
         }
 
-        await dataUser.save();
-        return res.status(200).send(dataUser)
-
-
+        /* let a = await dataUser.save(); */
+        return res.status(200).send(dataUser);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-    
-
 };
 
-module.exports = { postUser, postLogin, updatePersonalData, getUsers, getIdUsers };
+module.exports = {
+    postUser,
+    postLogin,
+    updatePersonalData,
+    getUsers,
+    getIdUsers,
+};

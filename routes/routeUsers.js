@@ -8,7 +8,6 @@ const {
     getIdUsers,
 } = require("../controllers/controllerUser");
 
-
 router.get("/", getUsers);
 router.get("/:id", getIdUsers);
 
@@ -27,7 +26,6 @@ router.post("/register", postUser, async (req, res) => {
 });
 
 router.post("/login", postLogin);
-
-router.put("/updateprofile", updatePersonalData);
+router.put("/:id", updatePersonalData);
 
 module.exports = router;
