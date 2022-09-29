@@ -111,17 +111,6 @@ const getUsers = async (req, res) => {
     }
 };
 
-const getIdUsers = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        let userData = await userDetail(id);
-        res.status(200).send(userData);
-    } catch (error) {
-        res.status(404).send(error);
-    }
-};
-
 const userDetail = async function (id) {
     try {
         let user = await User.findByPk(id, {
@@ -135,14 +124,29 @@ const userDetail = async function (id) {
                 address: id.address,
             },
         });
-        /*  res.status(200).send(user); */
+        //  res.status(200).send(user);
+
         if (!user) {
             return "User not found";
-        } else {
+        }
+
+        if (user) {
             return user;
         }
+        
     } catch (error) {
         console.log(error);
+    }
+};
+
+const getIdUsers = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        let userData = await userDetail(id);
+        res.status(200).send(userData);
+    } catch (error) {
+        res.status(404).send(error);
     }
 };
 

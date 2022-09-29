@@ -9,8 +9,8 @@ module.exports = (sequelize) => {
         {
             id: {
                 type: DataTypes.INTEGER,
-                autoIncrement: true, 
-                primaryKey: true,               
+                autoIncrement: true,
+                primaryKey: true,
             },
             name: {
                 type: DataTypes.STRING,
@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
                 },
             },
             typeIdentification: {
-                type: DataTypes.STRING,  //validar
+                type: DataTypes.STRING, //validar
                 allowNull: false,
             },
             identification: {
@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
             email: {
                 type: DataTypes.STRING,
                 allowNull: true,
-                
+
                 validate: {
                     isEmail: true, //==>> contains: '@.'
                 },
@@ -60,19 +60,17 @@ module.exports = (sequelize) => {
                 defaultValue: "client",
                 get() {
                     const rawValue = this.getDataValue("username");
-                    return rawValue
-                        ? rawValue.toUpperCase()
-                        : null;
+                    return rawValue ? rawValue.toUpperCase() : null;
                 },
             },
-             isAdmin: {
+            isAdmin: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
                 allowNull: false,
                 /* set(value) {
                     this.setDataValue(isAdmin, value);
                 }, */
-            }, 
+            },
         },
         {
             timestamps: false,
