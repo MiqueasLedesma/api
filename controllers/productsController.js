@@ -55,17 +55,17 @@ const getProducts = async (req, res) => {
 
 const postProduct = async (req, res) => {
 
-    const { name, description, purchasePrice, salePrice, stock, status, brand, category, rating } = req.body;
+    const { name, description, purchasePrice, salePrice, stock, brand, category } = req.body;
     try {
-        if (!name || !description || !purchasePrice || !salePrice || !stock || !status || !rating) {
-            return res.send('information is missing!') // Cambie el mensaje, significa 'falta informacion!'
+        if (!name || !description || !purchasePrice || !salePrice || !stock ) {
+            return res.status(404).send('information is missing!') // Cambie el mensaje, significa 'falta informacion!'
         }
 
         let allProduct = await Product.findAll()
-        let aProduct = allProduct.find(e => e.name.toLowerCase() === name.toLowerCase() && e.status === status)
+        let aProduct = allProduct.find(e => e.name.toLowerCase() === name.toLowerCase())
 
         if (aProduct) {
-            return res.send('the product exist!')
+            return res.status(404).send('the product exist!')
         }
 
         const brandDb = await Brand.findOne({
@@ -80,10 +80,8 @@ const postProduct = async (req, res) => {
             purchasePrice,
             salePrice,
             stock,
-            status,
             brand,
             category,
-            rating,
             brandId: brandDb.id,
             categoryId: categoryDb.id
         })
