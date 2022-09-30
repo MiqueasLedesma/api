@@ -9,7 +9,13 @@ const getProductByID = async (req, res) => {
     if (!id) return res.status(400).send('bad request!') // Si no recibe ningun id retorna bad request
     else {
         try {
-            await Product.findByPk(id).then(r => res.send(r)); // .then()   
+            await Product.findByPk(id, {
+                include: [
+                    Category,
+                    Brand,
+                    Image
+                ]
+            }).then(r => res.send(r));
         } catch (error) {
             console.log(error);
             res.status(400).send('failed!')
@@ -26,8 +32,13 @@ const getProducts = async (req, res) => {
                 where: {
                     name: {
                         [Op.iLike]: '%' + name + '%' // No sensitive (acepta mayusculas y minusculas)
-                    },
-                }
+                    }
+                },
+                include: [
+                    Category,
+                    Brand,
+                    Image
+                ]
             }).then(r => res.send(r)) // .then() -> envia la respuesta devuelve  todas las coincidencias
         } catch (error) {
             console.log(error);
