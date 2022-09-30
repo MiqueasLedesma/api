@@ -7,8 +7,7 @@ const getAllBrands = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(400).send('failed!');
-    }
-}
-
+    };
+};
 
 module.exports = getAllBrands;
