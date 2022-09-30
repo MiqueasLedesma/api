@@ -11,7 +11,6 @@ const sortAndFilter = async (req, res) => {
     let brand = brandId || {[Op.between]: [1, 20]};
     let page = 0;
     let size = 10;
-    console.log(type, sort, category, brand);
     if (!Number.isNaN(pageAsNumber) && pageAsNumber >= 0) page = pageAsNumber;
     if (!Number.isNaN(sizeAsNumber) && sizeAsNumber >= 1) size = sizeAsNumber;
     try {
