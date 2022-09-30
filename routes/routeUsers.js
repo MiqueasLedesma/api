@@ -26,6 +26,6 @@ router.post("/register", postUser, async (req, res) => {
 });
 
 router.post("/login", postLogin);
-router.put("/:id", updatePersonalData);
+router.put("/:id/updateprofile", updatePersonalData);
 
 module.exports = router;
