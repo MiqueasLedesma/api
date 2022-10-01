@@ -41,13 +41,13 @@ const getProducts = async (req, res) => {
                         [Op.iLike]: '%' + name + '%' // No sensitive (acepta mayusculas y minusculas)
                     }
                 },
+                limit: size,
+                offset: page * size,
                 include: [
                     Category,
                     Brand,
                     Image
-                ],
-                limit: size,
-                offset: page * size
+                ]
             })
                 .then(r => res.send({
                     content:r.rows,
@@ -60,17 +60,17 @@ const getProducts = async (req, res) => {
     } else {     // Si no recibe name entonces devulve todos
         try {
             await Product.findAndCountAll({
+                limit: size,
+                offset: page * size,
                 include: [
                     Category,
                     Brand,
                     Image
-                ],
-                limit: size,
-                offset: page * size
+                ]
             })
                 .then(r => res.send({
                     content:r.rows,
-                    totalPage: Math.ceil((r.count / size))
+                    totalPage: Math.ceil(r.count / (size * 2))
                 }))
         } catch (error) {
             console.log(error.message)
