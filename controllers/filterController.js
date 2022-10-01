@@ -7,33 +7,32 @@ const sortAndFilter = async (req, res) => {
     const sizeAsNumber = Number.parseInt(req.query.size);
     let type = req.query.type || 'id';
     let sort = req.query.sort || 'DESC';
-    let category = categoryId || {[Op.between]: [1, 20]};
-    let brand = brandId || {[Op.between]: [1, 20]};
+    let category = categoryId || { [Op.between]: [1, 20] };
+    let brand = brandId || { [Op.between]: [1, 20] };
     let page = 0;
     let size = 10;
-    console.log(type, sort, category, brand);
     if (!Number.isNaN(pageAsNumber) && pageAsNumber >= 0) page = pageAsNumber;
     if (!Number.isNaN(sizeAsNumber) && sizeAsNumber >= 1) size = sizeAsNumber;
     try {
         await Product.findAndCountAll({
-            where:{
+            where: {
                 categoryId: category,
-                brandId: brand 
+                brandId: brand
             },
             limit: size,
             offset: page * size,
-            include:[
+            include: [
                 Category,
                 Brand,
                 Image
             ],
-            order:[
+            order: [
                 [type, sort]
             ]
         }).then(r => {
             return res.send({
-                content:r.rows,
-                totalPage: Math.ceil((r.count / size))
+                content: r.rows,
+                totalPage: Math.ceil(r.count / (size * 2))
             })
         })
     } catch (error) {
