@@ -84,13 +84,14 @@ const getProducts = async (req, res) => {
 const postProduct = async (req, res) => {
 
     const { name, description, purchasePrice, salePrice, stock, brand, category } = req.body;
+
     try {
         if (!name || !description || !purchasePrice || !salePrice || !stock ) {
             return res.send('information is missing!') // Cambie el mensaje, significa 'falta informacion!'
         }
 
         let allProduct = await Product.findAll()
-        let aProduct = allProduct.find(e => e.name.toLowerCase() === name.toLowerCase() && e.status === status)
+        let aProduct = allProduct.find(e => e.name.toLowerCase() === name.toLowerCase())
 
         if (aProduct) {
             return res.send('the product exist!')

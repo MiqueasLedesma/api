@@ -252,6 +252,139 @@ const createProducts = async () => {
             brandId: 3,
             categoryId: 9
         },
+
+
+        {
+            name: "Procesador Intel Core i7 12700K 5.0GHz Turbo Socket 1700 ",
+            description: "Modelo 12700K, Socket 1700, Alder Lake-S, Núcleos 12, Frecuencia 2700.00 mhz, Proceso De Fabricación 10 nm, Chipset, Gpu UHD Graphics 770, Hilos 20, Frecuencia Turbo 5000 mhz, Familia Intel Core i7 ",
+            purchasePrice: 350,
+            salePrice: 425,
+            stock: 20,
+            rating: 0,
+            brandId: 1,
+            categoryId: 3
+        },
+        {
+            name: "Intel Core i9-9900K Procesador de escritorio 8 núcleos hasta 5.0 GHz",
+            description: "Intel Core i9-9900K Procesador de escritorio 8 núcleos hasta 5.0 GHz Turbo desbloqueado LGA1151 300 Series 95W,  8 núcleos / 16 hilos, 3.60 GHz hasta 5.00 GHz, caché de 16 MB, Compatible solo con placas base basadas en chipsets Intel 300 Series, Intel Compatible con memoria Optane,Intel Gráficos UHD 630 ",
+            purchasePrice: 650,
+            salePrice: 720,
+            stock: 5,
+            rating: 0,
+            brandId: 1,
+            categoryId: 3
+        },
+        {
+            name: "Procesador AMD Ryzen 9 7950X 5.7GHz AM5 - No incluye Cooler - C/Video",
+            description: "Modelo Ryzen 9 7950X, Socket AM5 Ryzen 7000, Núcleos 16, Frecuencia 4500.00 mhz, Proceso De Fabricación 5 nm, Chipset Gpu AMD Radeon Graphics, Hilos 32,Frecuencia Turbo 5700 mhz, Familia AMD RYZEN 9 ",
+            purchasePrice: 300,
+            salePrice: 399.99,
+            stock: 5,
+            rating: 0,
+            brandId: 1,
+            categoryId: 3
+        },
+        {
+            name: "Placa de Video MSI Radeon RX 6700 XT 12GB GDDR6 MECH 2X",
+            description: "Chipset Gpu RX 6700 XT, Entrada Video No, Puente Para Sli/croosfirex - Doble Puente No, Características Especiales Ray Tracing, Velocidad Memoria 16000 mhz, Tipo De Memoria GDDR6, Capacidad De Memoria 12 gb, Interface De Memoria 192 bits, Velocidad Del Core Turbo 2581 mhz, Tipos De Procesos Stream, Cantidad De Procesos 2560",
+            purchasePrice: 340,
+            salePrice: 400,
+            stock: 10,
+            rating: 0,
+            brandId: 4,
+            categoryId: 6
+        },
+        {
+            name: "Mother MSI H310M PRO-VDH",
+            description: "Socket 1151 Coffe Lake,Chipsets Principal Intel H310, Boton Bios Flashback No, Cantidad De Slot Pci-e 16X 2, Cantidad De Slot Ddr4 2, Placa De Sonido 7.1 Realtek ALC 887",
+            purchasePrice: 40,
+            salePrice: 65,
+            stock: 20,
+            rating: 0,
+            brandId: 4,
+            categoryId: 1
+        },
+        {
+            name: "Mother MSI PRO B660M-A DDR4 s1700",
+            description: "Plataforma Intel, Socket 1700 Alder Lake-S, Chipsets Principal Intel B660, Boton Bios Flashback No ",
+            purchasePrice: 120,
+            salePrice: 150,
+            stock: 1,
+            rating: 0,
+            brandId: 4,
+            categoryId: 1
+        },
+        {
+            name: "Disco Solido SSD M.2 KINGSTON NV1 250GB 2100MB/s NVMe",
+            description: "Tipo De Conexión M2, Consumo 2 w, Tipo De Disco Sólido ",
+            purchasePrice: 25,
+            salePrice: 39.99,
+            stock: 30,
+            rating: 0,
+            brandId: 6,
+            categoryId: 4
+        },
+        {
+            name: "Monitor Gamer Gigabyte 27 Edge G27QC-SA Curvo 165Hz 1ms",
+            description: "Pantalla VA de 27 pulgadas de 2560 x 1440 con tasa de actualización de 165Hz, tiempo de respuesta de 1 ms (MPRT), curvatura nativa 1500R. Juego suave con sincronización adaptativa, preparado para HDR de grado de estudio y gama de colores DCI-P3 del 88% (132% sRGB). Características tácticas clásicas de GIGABYTE con OSD Sidekick",
+            purchasePrice: 250,
+            salePrice: 305,
+            stock: 5,
+            rating: 0,
+            brandId: 5,
+            categoryId: 7
+        },
+        {
+            name: "Mother Gigabyte Z590 Vision G Socket 1200 10th Gen",
+            description: "Plataforma Intel, Socket 1200 Rocket Lake-S,1200 Comet Lake, Chipsets Principal Intel Z590, Boton Bios Flashback Si, Placa De Sonido 7.1 Realtek ALC 4080 ",
+            purchasePrice: 180,
+            salePrice: 220,
+            stock: 7,
+            rating: 0,
+            brandId: 5,
+            categoryId: 1
+        },
+        {
+            name: "Mother GIGABYTE B660M AORUS PRO DDR4 S1700",
+            description: "Plataforma Intel, Socket 1700 Alder Lake-S, Chipsets Principal Intel B660, Placa De Sonido Realtek 7.1 CODEC, Tecnología Multi Gpu Crossfire ",
+            purchasePrice: 105,
+            salePrice: 150,
+            stock: 15,
+            rating: 0,
+            brandId: 5,
+            categoryId: 1
+        },
+        {
+            name: "Memoria Adata DDR4 (2x8GB) 16GB 5000MHz XPG Spectrix D50 Xtreme RGB CL19",
+            description: "Capacidad 16 gb, Velocidad 5000 mhz, Tipo DDR4, Cantidad De Memorias 2, Latencia 19 cl, Voltaje 1.50 v ",
+            purchasePrice: 100,
+            salePrice: 130,
+            stock: 10,
+            rating: 0,
+            brandId: 11,
+            categoryId: 2
+        },
+        {
+            name: "Disco Sólido SSD M.2 ADATA 2TB XPG Spectrix S40G RGB 3500MB/s NVMe PCI-E X4",
+            description: "Tipo De Conexión M2, Consumo 5 w, Tipo De Disco Sólido, Capacidad 2000 gb, Terabytes Written 1280 tb",
+            purchasePrice: 150,
+            salePrice: 199.99,
+            stock: 5,
+            rating: 0,
+            brandId: 11,
+            categoryId: 4
+        },
+        {
+            name: "Disco Sólido SSD Adata 960GB SU650 520MB/s",
+            description: "Tipo De Conexión SATA, Consumo 3 w, Tipo De Disco Sólido , Capacidad 960 gb,Terabytes Written 560 tb",
+            purchasePrice: 50,
+            salePrice: 80,
+            stock: 10,
+            rating: 0,
+            brandId: 11,
+            categoryId: 4
+        },
+
     ])
 }
 
