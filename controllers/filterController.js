@@ -2,13 +2,14 @@ const { Op } = require('sequelize');
 const { Product, Category, Brand, Image } = require('../server/database/db');
 
 const sortAndFilter = async (req, res) => {
-    const { categoryId, brandId } = req.query;
+    const { categoryId, brandId, name } = req.query;
     const pageAsNumber = Number.parseInt(req.query.page);
     const sizeAsNumber = Number.parseInt(req.query.size);
     let type = req.query.type || 'id';
     let sort = req.query.sort || 'DESC';
     let category = categoryId || { [Op.between]: [1, 20] };
     let brand = brandId || { [Op.between]: [1, 20] };
+    let nameSearch = name || ""
     let page = 0;
     let size = 10;
     if (!Number.isNaN(pageAsNumber) && pageAsNumber >= 0) page = pageAsNumber;
@@ -17,7 +18,10 @@ const sortAndFilter = async (req, res) => {
         await Product.findAndCountAll({
             where: {
                 categoryId: category,
-                brandId: brand
+                brandId: brand,
+                name: {
+                    [Op.iLike]: '%' + nameSearch + '%'
+                }
             },
             limit: size,
             offset: page * size,
