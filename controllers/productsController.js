@@ -83,9 +83,9 @@ const getProducts = async (req, res) => {
 
 const postProduct = async (req, res) => {
 
-    const { name, description, purchasePrice, salePrice, stock, status, brand, category, rating } = req.body;
+    const { name, description, purchasePrice, salePrice, stock, brand, category } = req.body;
     try {
-        if (!name || !description || !purchasePrice || !salePrice || !stock || !status || !rating) {
+        if (!name || !description || !purchasePrice || !salePrice || !stock ) {
             return res.send('information is missing!') // Cambie el mensaje, significa 'falta informacion!'
         }
 
@@ -108,10 +108,8 @@ const postProduct = async (req, res) => {
             purchasePrice,
             salePrice,
             stock,
-            status,
             brand,
             category,
-            rating,
             brandId: brandDb.id,
             categoryId: categoryDb.id
         })
