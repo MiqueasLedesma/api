@@ -32,12 +32,12 @@ module.exports = (sequelize) => {
             },
             identification: {
                 type: DataTypes.STRING,
-                unique: true,
+
                 allowNull: false,
             },
             contact: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
+                type: DataTypes.STRING,
+                allowNull: true,
             },
             email: {
                 type: DataTypes.STRING,
@@ -48,7 +48,7 @@ module.exports = (sequelize) => {
                 },
             },
             address: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
             },
             password: {
@@ -66,7 +66,7 @@ module.exports = (sequelize) => {
             isAdmin: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
-                allowNull: false,
+                allowNull: true,
                 /* set(value) {
                     this.setDataValue(isAdmin, value);
                 }, */

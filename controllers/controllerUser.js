@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("../server/database/db");
 const fs = require("fs");
+const { JWT_SECRET } = process.env;
 
 const postUser = async (req, res) => {
     const saltRounds = 11;
@@ -16,7 +17,7 @@ const postUser = async (req, res) => {
         email,
         address,
         password,
-        isAdmin,
+        
     } = req.body;
 
     try {
@@ -25,7 +26,6 @@ const postUser = async (req, res) => {
             !lastName ||
             !typeIdentification ||
             !identification ||
-            !contact ||
             !email ||
             !address ||
             !password
@@ -55,20 +55,32 @@ const postUser = async (req, res) => {
                 email,
                 address,
                 password: hash,
-                isAdmin,
+                
             });
+            const token = jwt.sign({ id: newUser.id }, JWT_SECRET);
+            let userData = {
+                name: newUser.name,
+                lastName: newUser.lastName,
+                typeIdentification: newUser.typeIdentification,
+                identification: newUser.identification,
+                contact: newUser.contact,
+                email: newUser.email,
+                token: token,
+            };
+
+            console.log(`el usuatio ${userData} el token ${token}`);
             console.log("User created with succefully!!");
-            res.status(201).send(newUser);
+            return res.status(201).json(userData);
         });
         return;
     } catch (error) {
         console.log(error);
     }
-    res.status(201).redirect("/:id/updateprofile");
+    //res.status(201).redirect("/welcom");
 };
 
 const postLogin = async (req, res) => {
-    const { JWT_SECRET } = process.env;
+    //const { JWT_SECRET } = process.env;
     const { email, password } = req.body;
 
     if (email && password) {
@@ -79,7 +91,12 @@ const postLogin = async (req, res) => {
         if (user) {
             bcrypt.compare(password, user.password, function (err, result) {
                 if (result === true) {
+
+                    
                     const token = jwt.sign({ id: user.id }, JWT_SECRET);
+
+
+
                     res.status(200).send({ token });
                     return;
                 } else {
@@ -133,7 +150,6 @@ const userDetail = async function (id) {
         if (user) {
             return user;
         }
-        
     } catch (error) {
         console.log(error);
     }
@@ -150,9 +166,30 @@ const getIdUsers = async (req, res) => {
     }
 };
 
+const verifyToken = (req, res, next) => {
+    const bearerHeader = req.headers["authorization"];
+
+    if (typeof bearerHeader !== "undefined") {
+        const bearerToken = bearerHeader.split(" ")[1];
+        jwt.verify(bearerToken, JWT_SECRET, (error, authdata) => {
+            if (error) {
+                return res.status(403).json({ message: "Unauthorized access" });
+            } else {
+                req.authdata = authdata;
+                next();
+            }
+        });
+        //req.token = bearerToken
+        //next()
+    } else {
+        res.status(403).json({ message: "Unauthorized access" });
+    }
+};
+
 const updatePersonalData = async (req, res) => {
-    const { id } = req.params;
-    const { name, lastName, contact, email, address } = req.body;
+    let id = req.authdata.id;
+
+    const { name, lastName, contact, email, address, password, country } = req.body;
     try {
         let dataUser = await User.findByPk(id);
 
@@ -163,24 +200,19 @@ const updatePersonalData = async (req, res) => {
                 contact,
                 address,
                 email,
+                password,
+                
             });
-            /* await User.update(
-                dataUser,
-                ,
-                {
-                    where: {
-                        name: dataUser.name,
-                        lastName: dataUser.lastName,
-                        contact: dataUser.contact,
-                        address: dataUser.address,
-                        email: dataUser.email,
-                    },
-                }
-            ); */
-        }
-
-        /* let a = await dataUser.save(); */
-        return res.status(200).send(dataUser);
+        }        
+        let userData = {
+            name: dataUser.name,
+            lastName: dataUser.lastName,
+            typeIdentification: dataUser.typeIdentification,
+            identification: dataUser.identification,
+            contact: dataUser.contact,
+            email: dataUser.email,
+        };
+        return res.status(201).json(userData);
     } catch (error) {
         console.log(error);
     }
@@ -192,4 +224,5 @@ module.exports = {
     updatePersonalData,
     getUsers,
     getIdUsers,
+    verifyToken,
 };
