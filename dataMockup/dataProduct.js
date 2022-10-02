@@ -252,8 +252,6 @@ const createProducts = async () => {
             brandId: 3,
             categoryId: 9
         },
-
-
         {
             name: "Procesador Intel Core i7 12700K 5.0GHz Turbo Socket 1700 ",
             description: "Modelo 12700K, Socket 1700, Alder Lake-S, Núcleos 12, Frecuencia 2700.00 mhz, Proceso De Fabricación 10 nm, Chipset, Gpu UHD Graphics 770, Hilos 20, Frecuencia Turbo 5000 mhz, Familia Intel Core i7 ",
@@ -384,7 +382,77 @@ const createProducts = async () => {
             brandId: 11,
             categoryId: 4
         },
-
+        {
+            name: "Teclado HP HyperX Alloy CORE RGB LA",
+            description: "Tipo De Teclado Completo, Idioma Español, Distribución Latinoamerica, Color Negro, Tipo De Mecanismo Membrana, Material Plástico ",
+            purchasePrice: 25,
+            salePrice: 40,
+            stock: 30,
+            rating: 0,
+            brandId: 9,
+            categoryId: 8
+        },
+        {
+            name: "Monitor LG LCD 49 49WL95C Curvo Ultra Wide DUAL QHD",
+            description: "Monitor UltraWide™ Dual QHD (5120 x 1440), Controlador Dual PBP, 3PBP, USB Type-C™, 2 altavoces estéreo de 10 W / Rich Bass, HDR 10Base ajustable en altura, inclinación y giro",
+            purchasePrice: 400,
+            salePrice: 510,
+            stock: 5,
+            rating: 0,
+            brandId: 10,
+            categoryId: 7
+        },
+        {
+            name: "Monitor LG 24 24MK600M IPS Full HD Bordes Ultra Finos",
+            description: "Pantalla IPS Full HD, Calibración del color, Diseño prácticamente sin bordes en los 3 lados, Radeon FreeSync™, OnScreen Control, Posibilidad de montar en la pared",
+            purchasePrice: 150,
+            salePrice: 189.99,
+            stock: 15,
+            rating: 0,
+            brandId: 10,
+            categoryId: 7
+        },
+        {
+            name: "Disco Rigido WD 14TB Red Pro 7.2K RPM 512MB",
+            description: "Tipo De Conexión SATA, Consumo 10 w, Tipo De Disco Mecánico ",
+            purchasePrice: 110,
+            salePrice: 150,
+            stock: 10,
+            rating: 0,
+            brandId: 7,
+            categoryId: 4
+        },
+        {
+            name: "Disco Sólido SSD WD 480GB GREEN 545MB/s SATA",
+            description: "Tipo De Conexión SATA, Consumo 30 w, Tipo De Disco Sólido, Memoria Cache 64 mb",
+            purchasePrice: 35,
+            salePrice: 50,
+            stock: 30,
+            rating: 0,
+            brandId: 7,
+            categoryId: 4
+        },
+    
+        {
+            name: "Cooler Cougar FORZA 50",
+            description: "Como enfriador de torre de CPU para CPU de nivel de entrada, Forza 50 con su cubierta frontal de diseño único, junto con el ventilador de alto rendimiento COUGAR MHP120, brinda a los usuarios una disipación de calor perfecta. Forza 50 es absolutamente adecuado para usuarios de configuración predeterminada.",
+            purchasePrice: 50,
+            salePrice: 80,
+            stock: 20,
+            rating: 0,
+            brandId: 8,
+            categoryId: 9
+        },
+        {
+            name: "Cooler Cougar FORZA 75",
+            description: "Como enfriador de aire de torre única para CPU de nivel medio/alto, Forza 85 con su cubierta frontal de diseño único, junto con el ventilador de alto rendimiento COUGAR MHP120, brinda a los usuarios un equilibrio óptimo entre un funcionamiento ultra silencioso y una refrigeración extrema. Forza 85 está absolutamente diseñado para la mayoría de los usuarios de rendimiento. (ajuste de overclock menor capaz)",
+            purchasePrice: 80,
+            salePrice: 130,
+            stock: 10,
+            rating: 0,
+            brandId: 8,
+            categoryId: 9
+        },
     ])
 }
 
