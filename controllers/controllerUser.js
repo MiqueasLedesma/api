@@ -65,10 +65,9 @@ const postUser = async (req, res) => {
                 contact: newUser.contact,
                 email: newUser.email,
                 address: newUser.address,
-                token: token,
+                token,
             };
 
-            console.log(`el usuatio ${userData} el token ${token}`);
             console.log("User created with succefully!!");
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
@@ -203,7 +202,6 @@ const updatePersonalData = async (req, res) => {
         contact,
         email,
         address,
-        password,
     } = req.body;
     try {
         let dataUser = await User.findByPk(id);
@@ -217,17 +215,17 @@ const updatePersonalData = async (req, res) => {
                 contact,
                 address,
                 email,
-                password,
             });
         }
         let userData = {
             name: dataUser.name,
-            lastName: dataUser.lastName,
+            lastame: dataUser.lastName,
             typeIdentification: dataUser.typeIdentification,
             identification: dataUser.identification,
             contact: dataUser.contact,
             address: dataUser.address,
             email: dataUser.email,
+            token: dataUser.token,
         };
         return res.status(201).json(userData); //====>>>> respuesta al front-end
     } catch (error) {
