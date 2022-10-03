@@ -17,7 +17,6 @@ const postUser = async (req, res) => {
         email,
         address,
         password,
-        
     } = req.body;
 
     try {
@@ -26,6 +25,7 @@ const postUser = async (req, res) => {
             !lastName ||
             !typeIdentification ||
             !identification ||
+            !contact ||
             !email ||
             !address ||
             !password
@@ -55,7 +55,6 @@ const postUser = async (req, res) => {
                 email,
                 address,
                 password: hash,
-                
             });
             const token = jwt.sign({ id: newUser.id }, JWT_SECRET);
             let userData = {
@@ -70,13 +69,13 @@ const postUser = async (req, res) => {
 
             console.log(`el usuatio ${userData} el token ${token}`);
             console.log("User created with succefully!!");
-            return res.status(201).json(userData);
+            return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
         return;
     } catch (error) {
         console.log(error);
     }
-    //res.status(201).redirect("/welcom");
+    //res.status(201).redirect("/welcome");
 };
 
 const postLogin = async (req, res) => {
@@ -91,11 +90,7 @@ const postLogin = async (req, res) => {
         if (user) {
             bcrypt.compare(password, user.password, function (err, result) {
                 if (result === true) {
-
-                    
                     const token = jwt.sign({ id: user.id }, JWT_SECRET);
-
-
 
                     res.status(200).send({ token });
                     return;
@@ -189,7 +184,16 @@ const verifyToken = (req, res, next) => {
 const updatePersonalData = async (req, res) => {
     let id = req.authdata.id;
 
-    const { name, lastName, contact, email, address, password, country } = req.body;
+    const {
+        name,
+        lastName,
+        typeIdentification,
+        identification,
+        contact,
+        email,
+        address,
+        password,
+    } = req.body;
     try {
         let dataUser = await User.findByPk(id);
 
@@ -197,22 +201,25 @@ const updatePersonalData = async (req, res) => {
             dataUser.update({
                 name,
                 lastName,
+                typeIdentification,
+                identification,
                 contact,
                 address,
                 email,
                 password,
-                
             });
-        }        
+        }
         let userData = {
             name: dataUser.name,
             lastName: dataUser.lastName,
             typeIdentification: dataUser.typeIdentification,
             identification: dataUser.identification,
             contact: dataUser.contact,
+            address: dataUser.address,
             email: dataUser.email,
+            token: token,
         };
-        return res.status(201).json(userData);
+        return res.status(201).json(userData); //====>>>> respuesta al front-end
     } catch (error) {
         console.log(error);
     }
