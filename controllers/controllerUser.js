@@ -64,6 +64,7 @@ const postUser = async (req, res) => {
                 identification: newUser.identification,
                 contact: newUser.contact,
                 email: newUser.email,
+                address: newUser.address,
                 token: token,
             };
 
@@ -91,8 +92,18 @@ const postLogin = async (req, res) => {
             bcrypt.compare(password, user.password, function (err, result) {
                 if (result === true) {
                     const token = jwt.sign({ id: user.id }, JWT_SECRET);
+                    let userData = {
+                        name: user.name,
+                        lastName: user.lastName,
+                        typeIdentification: user.typeIdentification,
+                        identification: user.identification,
+                        contact: user.contact,
+                        email: user.email,
+                        address: user.address,
+                        token: token,
+                    };
 
-                    res.status(200).send({ token });
+                    res.status(201).json(userData);
                     return;
                 } else {
                     console.log("Please validate the information.");
@@ -217,7 +228,6 @@ const updatePersonalData = async (req, res) => {
             contact: dataUser.contact,
             address: dataUser.address,
             email: dataUser.email,
-            token: token,
         };
         return res.status(201).json(userData); //====>>>> respuesta al front-end
     } catch (error) {
