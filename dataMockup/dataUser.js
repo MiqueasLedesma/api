@@ -21,6 +21,18 @@ const createUser = async () => {
             password: hasPassword("pedroelgrande"),
             /* isAdmin: false, */
         },
+        {
+            name: "admin",
+            lastName: "admin",
+            username: "admin",
+            typeIdentification: "DNI",
+            identification: "123456",
+            contact: 301,
+            email: "admin@admin.com",
+            address: "calle 1 con carrea 3",
+            password: hasPassword("admin"),
+            isAdmin: true,
+        },
     ]);
 };
 
