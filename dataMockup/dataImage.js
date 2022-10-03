@@ -74,12 +74,12 @@ const createImages = async () => {
         },
         {
             url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664414379/tech-store/intel-i3-10100f-1_fyyoti.jpg",
-            pathImage: "tech-store/intel-i3-10100f-1_fyyoti.jpg",
+            pathImage: "tech-store/intel-i3-10100f-1_fyyoti",
             productId: 7
         },
         {
             url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664414379/tech-store/intel-i3-10100f-2_wjwzyp.jpg",
-            pathImage: "tech-store/intel-i3-10100f-2_wjwzyp.jpg",
+            pathImage: "tech-store/intel-i3-10100f-2_wjwzyp",
             productId: 7
         },
         {
@@ -267,6 +267,139 @@ const createImages = async () => {
             pathImage: "tech-store/Cooler-CPU-ASUS-ROG-2_mwccfa",
             productId: 25
         },
+
+
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748241/tech-store/i7-12700-1_iwqjli.jpg",
+            pathImage: "tech-store/i7-12700-1_iwqjli",
+            productId: 26
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748241/tech-store/i9-9900k-1-jpg_ybqt27.jpg",
+            pathImage: "tech-store/i9-9900k-1-jpg_ybqt27",
+            productId: 27
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748241/tech-store/Ryzen-9-7950X-1_cahano.jpg",
+            pathImage: "tech-store/Ryzen-9-7950X-1_cahano",
+            productId: 28
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748241/tech-store/MSI-Radeon-RX-6700-1_n9tqrq.jpg",
+            pathImage: "tech-store/keyboard-hyperx-2_v5j0fu",
+            productId: 29
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748241/tech-store/MSI-Radeon-RX-6700-2_gtbfbl.jpg",
+            pathImage: "tech-store/keyboard-hyperx-3_g0v70l",
+            productId: 29
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748241/tech-store/Mother-MSI-H310M-1_znnp9a.jpg",
+            pathImage: "tech-store/monitor-LG-34-1_z1uhu2",
+            productId: 30
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748242/tech-store/Mother-MSI-H310M-2_zitkod.jpg",
+            pathImage: "tech-store/monitor-LG-34-2_yb9rw3",
+            productId: 30
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748242/tech-store/Mother-MSI-PRO-B660M-1_zuusek.jpg",
+            pathImage: "tech-store/Mother-MSI-PRO-B660M-1_zuusek",
+            productId: 31
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748242/tech-store/M.2-KINGSTON-NV1-250GB-1_fkjwm7.jpg",
+            pathImage: "tech-store/M.2-KINGSTON-NV1-250GB-1_fkjwm7",
+            productId: 32
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748242/tech-store/Monitor-Gamer-Gigabyte-27-1_u5frng.jpg",
+            pathImage: "tech-store/Monitor-Gamer-Gigabyte-27-1_u5frng",
+            productId: 33
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748242/tech-store/Mother-Gigabyte-Z590-1_i3d98t.jpg",
+            pathImage: "tech-store/Mother-Gigabyte-Z590-1_i3d98t",
+            productId: 34
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/Mother-Gigabyte-Z590-2_jn4ptz.jpg",
+            pathImage: "tech-store/Mother-Gigabyte-Z590-2_jn4ptz",
+            productId: 34
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/Mother-GIGABYTE-B660M-1_ahjaur.jpg",
+            pathImage: "tech-store/Mother-GIGABYTE-B660M-1_ahjaur",
+            productId: 35
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/Mother-GIGABYTE-B660M-2_jvwfkv.jpg",
+            pathImage: "tech-store/Mother-GIGABYTE-B660M-2_jvwfkv",
+            productId: 35
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/Adata-DDR4-1_avyyu0.jpg",
+            pathImage: "tech-store/Adata-DDR4-1_avyyu0",
+            productId: 36
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/SSD-M.2-ADATA-2TB-1_gpln31.jpg",
+            pathImage: "tech-store/SSD-M.2-ADATA-2TB-1_gpln31",
+            productId: 37
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/SSD-Adata-960GB_cxllkn.jpg",
+            pathImage: "tech-store/SSD-Adata-960GB_cxllkn",
+            productId: 38
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/Teclado-HyperX-1_d37jes.jpg",
+            pathImage: "tech-store/Teclado-HyperX-1_d37jes",
+            productId: 39
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/LG-LCD-49-1_coh9im.jpg",
+            pathImage: "tech-store/LG-LCD-49-1_coh9im",
+            productId: 40
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/LG-LCD-49-2_pg1nby.jpg",
+            pathImage: "tech-store/LG-LCD-49-2_pg1nby",
+            productId: 40
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/Monitor-LG-24_uv6fc0.jpg",
+            pathImage: "tech-store/Monitor-LG-24_uv6fc0",
+            productId: 41
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748243/tech-store/Monitor-LG-24-2_mlmgjm.jpg",
+            pathImage: "tech-store/Monitor-LG-24-2_mlmgjm",
+            productId: 41
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748244/tech-store/Disco-WD-14TB-1_u1git9.jpg",
+            pathImage: "tech-store/Disco-WD-14TB-1_u1git9",
+            productId: 42
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748244/tech-store/SSD-WD-480GB-1_x5xpte.jpg",
+            pathImage: "tech-store/SSD-WD-480GB-1_x5xpte",
+            productId: 43
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748244/tech-store/Cooler-Cougar-FORZA-50-1_gaeskr.png",
+            pathImage: "tech-store/Cooler-Cougar-FORZA-50-1_gaeskr",
+            productId: 44
+        },
+        {
+            url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664748244/tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz.png",
+            pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+            productId: 45
+        },
+        
 
     ])
 }
