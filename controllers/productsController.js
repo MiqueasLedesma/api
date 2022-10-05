@@ -9,7 +9,13 @@ const getProductByID = async (req, res) => {
     if (!id) return res.status(400).send('bad request!') // Si no recibe ningun id retorna bad request
     else {
         try {
-            await Product.findByPk(id).then(r => res.send(r)); // .then()   
+            await Product.findByPk(id, {
+                include: [
+                    Category,
+                    Brand,
+                    Image
+                ]
+            }).then(r => res.send(r));
         } catch (error) {
             console.log(error);
             res.status(400).send('failed!')
@@ -19,34 +25,56 @@ const getProductByID = async (req, res) => {
 
 // ===>>>> Controlador para todos los productos y por query.name
 const getProducts = async (req, res) => {
+    const pageAsNumber = Number.parseInt(req.query.page);
+    const sizeAsNumber = Number.parseInt(req.query.size);
+    let page = 0;
+    let size = 10;
+    if (!Number.isNaN(pageAsNumber) && pageAsNumber >= 0) page = pageAsNumber;
+    if (!Number.isNaN(sizeAsNumber) && sizeAsNumber >= 1) size = sizeAsNumber;
+
     if (req.query.name) { // En la misma ruta que trae todos los productos, si recibe un query busca por query
         const { name } = req.query;
         try {
-            await Product.findAll({
+            await Product.findAndCountAll({
                 where: {
                     name: {
                         [Op.iLike]: '%' + name + '%' // No sensitive (acepta mayusculas y minusculas)
-                    },
-                }
-            }).then(r => res.send(r)) // .then() -> envia la respuesta devuelve  todas las coincidencias
-        } catch (error) {
-            console.log(error);
-            res.status(400).send('failed!');
-        }
-    } else {     // Si no recibe name entonces devulve todos
-        try {
-            const allProduct = await Product.findAll({
+                    }
+                },
+                limit: size,
+                offset: page * size,
                 include: [
                     Category,
                     Brand,
                     Image
                 ]
-            });
-            console.log(allProduct);
-            return res.send(allProduct);
+            })
+                .then(r => res.send({
+                    content: r.rows,
+                    totalPage: Math.ceil((r.count / size))
+                })) // .then() -> envia la respuesta devuelve  todas las coincidencias
         } catch (error) {
-            console.log(error)
-            res.send('failed!')
+            console.log(error);
+            res.status(400).send(error.message);
+        }
+    } else {     // Si no recibe name entonces devulve todos
+        try {
+            await Product.findAndCountAll({
+                limit: size,
+                offset: page * size,
+                include: [
+                    Category,
+                    Brand,
+                    Image
+                ]
+            })
+                .then(r => res.send({
+                    content: r.rows,
+                    totalPage: Math.ceil(r.count / (size * 2))
+                }))
+        } catch (error) {
+            console.log(error.message)
+            res.status(400).send(error.message)
         }
     };
 };
@@ -55,14 +83,15 @@ const getProducts = async (req, res) => {
 
 const postProduct = async (req, res) => {
 
-    const { name, description, purchasePrice, salePrice, stock, status, brand, category, rating } = req.body;
+    const { name, description, purchasePrice, salePrice, stock, brand, category } = req.body;
+
     try {
-        if (!name || !description || !purchasePrice || !salePrice || !stock || !status || !rating) {
+        if (!name || !description || !purchasePrice || !salePrice || !stock) {
             return res.send('information is missing!') // Cambie el mensaje, significa 'falta informacion!'
         }
 
         let allProduct = await Product.findAll()
-        let aProduct = allProduct.find(e => e.name.toLowerCase() === name.toLowerCase() && e.status === status)
+        let aProduct = allProduct.find(e => e.name.toLowerCase() === name.toLowerCase())
 
         if (aProduct) {
             return res.send('the product exist!')
@@ -80,10 +109,8 @@ const postProduct = async (req, res) => {
             purchasePrice,
             salePrice,
             stock,
-            status,
             brand,
             category,
-            rating,
             brandId: brandDb.id,
             categoryId: categoryDb.id
         })
@@ -103,7 +130,8 @@ const postProduct = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        return res.status(400).send(error.message);
     };
 };
 

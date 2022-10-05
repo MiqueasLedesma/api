@@ -7,7 +7,6 @@ const fs = require("fs");
 const { JWT_SECRET } = process.env;
 
 const postUser = async (req, res) => {
-    const saltRounds = 11;
     const {
         name,
         lastName,
@@ -38,12 +37,37 @@ const postUser = async (req, res) => {
                 e.name.toLowerCase() === name.toLowerCase() &&
                 e.identification.toLowerCase() === identification.toLowerCase()
         );
-
+        let saltRounds = 11;
         if (iduser) {
-            return res
-                .status(400)
-                .send("A user with these credentials already exists.");
-        }
+            bcrypt.hash(password, saltRounds, async function (err, hash) {
+                const updateUser = await User.update({
+                    name,
+                    lastName,
+                    typeIdentification,
+                    contact,
+                    email,
+                    address,
+                    password: hash,
+                }, {
+                    where: {
+                        identification: iduser.identification
+                    }
+                });
+                console.log("User updated with succefully!!");
+                res.status(201).send(updateUser);
+            })
+        } else {
+            bcrypt.hash(password, saltRounds, async function (err, hash) {
+                const newUser = await User.create({
+                    name,
+                    lastName,
+                    typeIdentification,
+                    identification,
+                    contact,
+                    email,
+                    address,
+                    password: hash,
+                });
 
         bcrypt.hash(password, saltRounds, async function (err, hash) {
             const newUser = await User.create({
@@ -72,8 +96,9 @@ const postUser = async (req, res) => {
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
         return;
-    } catch (error) {
+    } catch(error) {
         console.log(error);
+        return res.status(400).send(error)
     }
     //res.status(201).redirect("/welcome");
 };
