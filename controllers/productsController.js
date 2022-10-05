@@ -50,7 +50,7 @@ const getProducts = async (req, res) => {
                 ]
             })
                 .then(r => res.send({
-                    content:r.rows,
+                    content: r.rows,
                     totalPage: Math.ceil((r.count / size))
                 })) // .then() -> envia la respuesta devuelve  todas las coincidencias
         } catch (error) {
@@ -69,7 +69,7 @@ const getProducts = async (req, res) => {
                 ]
             })
                 .then(r => res.send({
-                    content:r.rows,
+                    content: r.rows,
                     totalPage: Math.ceil(r.count / (size * 2))
                 }))
         } catch (error) {
@@ -83,9 +83,10 @@ const getProducts = async (req, res) => {
 
 const postProduct = async (req, res) => {
 
-    const { name, description, purchasePrice, salePrice, stock, brand, category} = req.body;
+    const { name, description, purchasePrice, salePrice, stock, brand, category } = req.body;
+
     try {
-        if (!name || !description || !purchasePrice || !salePrice || !stock ) {
+        if (!name || !description || !purchasePrice || !salePrice || !stock) {
             return res.send('information is missing!') // Cambie el mensaje, significa 'falta informacion!'
         }
 
@@ -129,7 +130,8 @@ const postProduct = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        return res.status(400).send(error.message);
     };
 };
 
