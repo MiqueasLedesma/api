@@ -11,7 +11,7 @@ const { PORT } = process.env;
 
 // Syncing all the models at once.
 
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
     //alter: true, force: false      alter: true,
     server.listen(PORT || 3001, async () => {
         console.log(`%s 🚀 listening at ${PORT || 3001} 🚀`);  // eslint-disable-line no-console
