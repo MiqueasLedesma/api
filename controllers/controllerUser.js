@@ -7,6 +7,7 @@ const fs = require("fs");
 const { JWT_SECRET } = process.env;
 
 const postUser = async (req, res) => {
+    let saltRounds = 11;
     const {
         name,
         lastName,
@@ -29,7 +30,7 @@ const postUser = async (req, res) => {
             !address ||
             !password
         ) {
-            return res.status(400).send("information is missing!");
+            return res.status(400).send("Information is required!");
         }
         let allUser = await User.findAll();
         let iduser = allUser.find(
@@ -37,38 +38,13 @@ const postUser = async (req, res) => {
                 e.name.toLowerCase() === name.toLowerCase() &&
                 e.identification.toLowerCase() === identification.toLowerCase()
         );
-        let saltRounds = 11;
-        if (iduser) {
-            bcrypt.hash(password, saltRounds, async function (err, hash) {
-                const updateUser = await User.update({
-                    name,
-                    lastName,
-                    typeIdentification,
-                    contact,
-                    email,
-                    address,
-                    password: hash,
-                }, {
-                    where: {
-                        identification: iduser.identification
-                    }
-                });
-                console.log("User updated with succefully!!");
-                res.status(201).send(updateUser);
-            })
-        } else {
-            bcrypt.hash(password, saltRounds, async function (err, hash) {
-                const newUser = await User.create({
-                    name,
-                    lastName,
-                    typeIdentification,
-                    identification,
-                    contact,
-                    email,
-                    address,
-                    password: hash,
-                });
 
+        if (iduser) {
+            res.status(400).send(
+                "A user with these credentials already exists."
+            );
+            return;
+        }
         bcrypt.hash(password, saltRounds, async function (err, hash) {
             const newUser = await User.create({
                 name,
@@ -81,6 +57,7 @@ const postUser = async (req, res) => {
                 password: hash,
             });
             const token = jwt.sign({ id: newUser.id }, JWT_SECRET);
+
             let userData = {
                 name: newUser.name,
                 lastName: newUser.lastName,
@@ -96,15 +73,14 @@ const postUser = async (req, res) => {
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
         return;
-    } catch(error) {
+    } catch (error) {
         console.log(error);
-        return res.status(400).send(error)
+        return res.status(400).send(error);
     }
     //res.status(201).redirect("/welcome");
 };
 
 const postLogin = async (req, res) => {
-    //const { JWT_SECRET } = process.env;
     const { email, password } = req.body;
 
     if (email && password) {
@@ -116,22 +92,39 @@ const postLogin = async (req, res) => {
             bcrypt.compare(password, user.password, function (err, result) {
                 if (result === true) {
                     const token = jwt.sign({ id: user.id }, JWT_SECRET);
-                    let userData = {
-                        name: user.name,
-                        lastName: user.lastName,
-                        typeIdentification: user.typeIdentification,
-                        identification: user.identification,
-                        contact: user.contact,
-                        email: user.email,
-                        address: user.address,
-                        token: token,
-                    };
-
+                    let userData;
+                    if (user.isAdmin) {
+                        userData = {
+                            name: user.name,
+                            lastName: user.lastName,
+                            typeIdentification: user.typeIdentification,
+                            identification: user.identification,
+                            contact: user.contact,
+                            email: user.email,
+                            address: user.address,
+                            token: token,
+                            aduser: true,
+                        };
+                    } else {
+                        userData = {
+                            name: user.name,
+                            lastName: user.lastName,
+                            typeIdentification: user.typeIdentification,
+                            identification: user.identification,
+                            contact: user.contact,
+                            email: user.email,
+                            address: user.address,
+                            token: token,
+                        };
+                    }
+                    console.log("welcome");
                     res.status(201).json(userData);
                     return;
                 } else {
                     console.log("Please validate the information.");
-                    return res.status(404).redirect("/register");
+                    return res
+                        .status(404)
+                        .json({ message: "Please validate the information." });
                 }
             });
         } else {
@@ -230,18 +223,21 @@ const updatePersonalData = async (req, res) => {
     } = req.body;
     try {
         let dataUser = await User.findByPk(id);
-
-        if (dataUser) {
-            dataUser.update({
-                name,
-                lastName,
-                typeIdentification,
-                identification,
-                contact,
-                address,
-                email,
-            });
-        }
+        bcrypt.hash(password, saltRounds, async function (err, hash) {
+            if (result === true) {
+                dataUser.update({
+                    name,
+                    lastName,
+                    typeIdentification,
+                    identification,
+                    contact,
+                    address,
+                    email,
+                });
+                console.log("User updated with succefully!!");
+                res.status(201).send(dataUser);
+            }
+        });
         let userData = {
             name: dataUser.name,
             lastame: dataUser.lastName,
@@ -250,7 +246,6 @@ const updatePersonalData = async (req, res) => {
             contact: dataUser.contact,
             address: dataUser.address,
             email: dataUser.email,
-            token: dataUser.token,
         };
         return res.status(201).json(userData); //====>>>> respuesta al front-end
     } catch (error) {

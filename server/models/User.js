@@ -36,7 +36,7 @@ module.exports = (sequelize) => {
                 allowNull: false,
             },
             contact: {
-                type: DataTypes.STRING,
+                type: DataTypes.BIGINT,
                 allowNull: true,
             },
             email: {
