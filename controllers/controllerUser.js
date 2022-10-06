@@ -67,6 +67,7 @@ const postUser = async (req, res) => {
                 email: newUser.email,
                 address: newUser.address,
                 token,
+                isAdmin: true
             };
 
             console.log("User created with succefully!!");
@@ -82,56 +83,61 @@ const postUser = async (req, res) => {
 
 const postLogin = async (req, res) => {
     const { email, password } = req.body;
-
-    if (email && password) {
-        const users = await User.findAll();
-        const user = users.find(
-            (user) => user.email.toLowerCase() === email.toLowerCase()
-        );
-        if (user) {
-            bcrypt.compare(password, user.password, function (err, result) {
-                if (result === true) {
-                    const token = jwt.sign({ id: user.id }, JWT_SECRET);
-                    let userData;
-                    if (user.isAdmin) {
-                        userData = {
-                            name: user.name,
-                            lastName: user.lastName,
-                            typeIdentification: user.typeIdentification,
-                            identification: user.identification,
-                            contact: user.contact,
-                            email: user.email,
-                            address: user.address,
-                            token: token,
-                            aduser: true,
-                        };
+    try {
+        if (email && password) {
+            const users = await User.findAll();
+            const user = users.find(
+                (user) => user.email.toLowerCase() === email.toLowerCase()
+            );
+            if (user) {
+                bcrypt.compare(password, user.password, function (err, result) {
+                    if (result === true) {
+                        const token = jwt.sign({ id: user.id }, JWT_SECRET);
+                        let userData;
+                        if (user.isAdmin) {
+                            userData = {
+                                name: user.name,
+                                lastName: user.lastName,
+                                typeIdentification: user.typeIdentification,
+                                identification: user.identification,
+                                contact: user.contact,
+                                email: user.email,
+                                address: user.address,
+                                token: token,
+                                isAdmin: true,
+                            };
+                        } else {
+                            userData = {
+                                name: user.name,
+                                lastName: user.lastName,
+                                typeIdentification: user.typeIdentification,
+                                identification: user.identification,
+                                contact: user.contact,
+                                email: user.email,
+                                address: user.address,
+                                token: token,
+                                isAdmin: false,
+                            };
+                        }
+                        console.log("welcome");
+                        res.status(201).json(userData);
+                        return;
                     } else {
-                        userData = {
-                            name: user.name,
-                            lastName: user.lastName,
-                            typeIdentification: user.typeIdentification,
-                            identification: user.identification,
-                            contact: user.contact,
-                            email: user.email,
-                            address: user.address,
-                            token: token,
-                        };
+                        console.log("Please validate the information.");
+                        return res.status(404).json({
+                            message: "Please validate the information.",
+                        });
                     }
-                    console.log("welcome");
-                    res.status(201).json(userData);
-                    return;
-                } else {
-                    console.log("Please validate the information.");
-                    return res
-                        .status(404)
-                        .json({ message: "Please validate the information." });
-                }
-            });
-        } else {
-            console.log("User not found");
-            return res.status(404).send("User not found.");
+                });
+            } else {
+                console.log("User not found");
+                return res.status(404).send("User not found.");
+            }
         }
+    } catch (error) {
+        console.log(error);
     }
+
 };
 
 const getUsers = async (req, res) => {
@@ -221,23 +227,23 @@ const updatePersonalData = async (req, res) => {
         email,
         address,
     } = req.body;
+
     try {
         let dataUser = await User.findByPk(id);
-        bcrypt.hash(password, saltRounds, async function (err, hash) {
-            if (result === true) {
-                dataUser.update({
-                    name,
-                    lastName,
-                    typeIdentification,
-                    identification,
-                    contact,
-                    address,
-                    email,
-                });
-                console.log("User updated with succefully!!");
-                res.status(201).send(dataUser);
-            }
+
+        dataUser.update({
+            name,
+            lastName,
+            typeIdentification,
+            identification,
+            contact,
+            address,
+            email,
         });
+
+        console.log("User updated with succefully!!");
+        //res.status(201).send(dataUser);
+
         let userData = {
             name: dataUser.name,
             lastame: dataUser.lastName,

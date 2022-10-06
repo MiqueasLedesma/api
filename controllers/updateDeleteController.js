@@ -48,12 +48,11 @@ const getDeletedItems = async (req, res) => {
         await Product.findAll({
             where: {
                 status: false
+            },
+            include: {
+                Category, Brand, Image
             }
-            // include: {
-            //     Category,
-            //     Brand,
-            //     Image
-            // }
+
         })
             .then(r => res.send(r))
     } catch (error) {
