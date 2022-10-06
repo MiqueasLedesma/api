@@ -233,7 +233,6 @@ const updatePersonalData = async (req, res) => {
                 identification,
                 contact,
                 address,
-                email,
             });
             let userData
             if (dataUser.isAdmin) {
@@ -243,7 +242,6 @@ const updatePersonalData = async (req, res) => {
                     typeIdentification: dataUser.typeIdentification,
                     identification: dataUser.identification,
                     contact: dataUser.contact,
-                    email: dataUser.email,
                     address: dataUser.address,
                     aduser: true
                 };
@@ -254,7 +252,6 @@ const updatePersonalData = async (req, res) => {
                     typeIdentification: dataUser.typeIdentification,
                     identification: dataUser.identification,
                     contact: dataUser.contact,
-                    email: dataUser.email,
                     address: dataUser.address,
                 };
             }
