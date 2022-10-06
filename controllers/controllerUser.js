@@ -82,54 +82,58 @@ const postUser = async (req, res) => {
 const postLogin = async (req, res) => {
     //const { JWT_SECRET } = process.env;
     const { email, password } = req.body;
+    try {
+        if (email && password) {
+            const users = await User.findAll();
+            const user = users.find(
+                (user) => user.email.toLowerCase() === email.toLowerCase()
+            );
+            if (user) {
+                bcrypt.compare(password, user.password, function (err, result) {
+                    if (result === true) {
+                        const token = jwt.sign({ id: user.id }, JWT_SECRET);
+                        let userData
+                        if (user.isAdmin) {
+                            userData = {
+                                name: user.name,
+                                lastName: user.lastName,
+                                typeIdentification: user.typeIdentification,
+                                identification: user.identification,
+                                contact: user.contact,
+                                email: user.email,
+                                address: user.address,
+                                token: token,
+                                aduser: true
+                            };
+                        } else {
+                            userData = {
+                                name: user.name,
+                                lastName: user.lastName,
+                                typeIdentification: user.typeIdentification,
+                                identification: user.identification,
+                                contact: user.contact,
+                                email: user.email,
+                                address: user.address,
+                                token: token,
+                            };
+                        }
 
-    if (email && password) {
-        const users = await User.findAll();
-        const user = users.find(
-            (user) => user.email.toLowerCase() === email.toLowerCase()
-        );
-        if (user) {
-            bcrypt.compare(password, user.password, function (err, result) {
-                if (result === true) {
-                    const token = jwt.sign({ id: user.id }, JWT_SECRET);
-                    let userData
-                    if (user.isAdmin) {
-                        userData = {
-                            name: user.name,
-                            lastName: user.lastName,
-                            typeIdentification: user.typeIdentification,
-                            identification: user.identification,
-                            contact: user.contact,
-                            email: user.email,
-                            address: user.address,
-                            token: token,
-                            aduser: true
-                        };
+                        res.status(201).json(userData);
+                        return;
                     } else {
-                        userData = {
-                            name: user.name,
-                            lastName: user.lastName,
-                            typeIdentification: user.typeIdentification,
-                            identification: user.identification,
-                            contact: user.contact,
-                            email: user.email,
-                            address: user.address,
-                            token: token,
-                        };
+                        console.log("Please validate the information.");
+                        return res.status(404).redirect("/register");
                     }
-
-                    res.status(201).json(userData);
-                    return;
-                } else {
-                    console.log("Please validate the information.");
-                    return res.status(404).redirect("/register");
-                }
-            });
-        } else {
-            console.log("User not found");
-            return res.status(404).send("User not found.");
+                });
+            } else {
+                console.log("User not found");
+                return res.status(404).send("User not found.");
+            }
         }
+    } catch (error) {
+        return res(error.message).status(400)
     }
+
 };
 
 const getUsers = async (req, res) => {
@@ -256,10 +260,10 @@ const updatePersonalData = async (req, res) => {
             }
 
             return res.status(201).json(userData);
-        }else {
-            return res.send({message:"User is not found"}).status(400)
+        } else {
+            return res.send({ message: "User is not found" }).status(400)
         }
-        
+
     } catch (error) {
         console.log(error);
         return res.send(error.message).status(400)
