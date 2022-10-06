@@ -1,17 +1,28 @@
 const { Category } = require("../server/database/db")
 
+const categ = [
+    "Mother Board",
+    "Memory",
+    "Processor",
+    "Disk",
+    "Case",
+    "Graphics card GPU",
+    "Monitor",
+    "Keyboard",
+    "Cooler"
+];
+
+
 const createCategories = async () => {
-    await Category.findOrCreate([
-        { name: "Mother Board" },
-        { name: "Memory" },
-        { name: "Processor" },
-        { name: "Disk" },
-        { name: "Case" },
-        { name: "Graphics card GPU" },
-        { name: "Monitor" },
-        { name: "Keyboard" },
-        { name: "Cooler" },
-    ])
+    try {
+        await categ.map(e => Category.findOrCreate({
+            where: {
+                name: e
+            }
+        }))
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 module.exports = { createCategories };
