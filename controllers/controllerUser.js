@@ -229,7 +229,7 @@ const updatePersonalData = async (req, res) => {
                 identification,
                 contact,
                 address,
-
+                email,
             });
             let userData
             if (dataUser.isAdmin) {
@@ -259,8 +259,7 @@ const updatePersonalData = async (req, res) => {
         }else {
             return res.send({message:"User is not found"}).status(400)
         }
-
-         //====>>>> respuesta al front-end
+        
     } catch (error) {
         console.log(error);
         return res.send(error.message).status(400)
