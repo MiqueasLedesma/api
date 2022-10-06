@@ -1,7 +1,7 @@
 const { Product } = require("../server/database/db")
 
 const createProducts = async () => {
-    await Product.bulkCreate([
+    await Product.findOrCreate([
         {
             name: "Teclado Mecanico ASUS ROG Strix Scope TKL RGB Cherry Red",
             description: "1er teclado",
