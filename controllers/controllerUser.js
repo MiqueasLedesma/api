@@ -23,16 +23,12 @@ const postUser = async (req, res) => {
         if (
             !name ||
             !lastName ||
-            !typeIdentification ||
-            !identification ||
-            !contact ||
             !email ||
-            !address ||
             !password
         ) {
             return res.status(400).send("information is missing!");
         }
-        let allUser = await User.findAll();
+        /* let allUser = await User.findAll();
         let iduser = allUser.find(
             (e) =>
                 e.name.toLowerCase() === name.toLowerCase() &&
@@ -43,38 +39,42 @@ const postUser = async (req, res) => {
             return res
                 .status(400)
                 .send("A user with these credentials already exists.");
-        }
+        } */
 
         bcrypt.hash(password, saltRounds, async function (err, hash) {
-            const newUser = await User.create({
-                name,
-                lastName,
-                typeIdentification,
-                identification,
-                contact,
-                email,
-                address,
-                password: hash,
+            const newUser = await User.findOrCreate({
+                where: {
+                    email
+                },
+                defaults: {
+                    name,
+                    lastName,
+                    typeIdentification,
+                    identification,
+                    contact,
+                    email,
+                    address,
+                    password: hash,
+                }
             });
-            const token = jwt.sign({ id: newUser.id }, JWT_SECRET);
+            const token = jwt.sign({ id: newUser[0].id }, JWT_SECRET);
             let userData = {
-                name: newUser.name,
-                lastName: newUser.lastName,
-                typeIdentification: newUser.typeIdentification,
-                identification: newUser.identification,
-                contact: newUser.contact,
-                email: newUser.email,
-                address: newUser.address,
+                name: newUser[0].name,
+                lastName: newUser[0].lastName,
+                typeIdentification: newUser[0].typeIdentification || "",
+                identification: newUser[0].identification || "",
+                contact: newUser[0].contact || "",
+                email: newUser[0].email,
+                address: newUser[0].address || "",
                 token: token,
             };
 
-            console.log(`el usuatio ${userData} el token ${token}`);
-            console.log("User created with succefully!!");
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
         return;
     } catch (error) {
         console.log(error);
+        return res.send(error.message).status(400)
     }
     //res.status(201).redirect("/welcome");
 };
@@ -92,16 +92,31 @@ const postLogin = async (req, res) => {
             bcrypt.compare(password, user.password, function (err, result) {
                 if (result === true) {
                     const token = jwt.sign({ id: user.id }, JWT_SECRET);
-                    let userData = {
-                        name: user.name,
-                        lastName: user.lastName,
-                        typeIdentification: user.typeIdentification,
-                        identification: user.identification,
-                        contact: user.contact,
-                        email: user.email,
-                        address: user.address,
-                        token: token,
-                    };
+                    let userData
+                    if (user.isAdmin) {
+                        userData = {
+                            name: user.name,
+                            lastName: user.lastName,
+                            typeIdentification: user.typeIdentification,
+                            identification: user.identification,
+                            contact: user.contact,
+                            email: user.email,
+                            address: user.address,
+                            token: token,
+                            aduser: true
+                        };
+                    } else {
+                        userData = {
+                            name: user.name,
+                            lastName: user.lastName,
+                            typeIdentification: user.typeIdentification,
+                            identification: user.identification,
+                            contact: user.contact,
+                            email: user.email,
+                            address: user.address,
+                            token: token,
+                        };
+                    }
 
                     res.status(201).json(userData);
                     return;
@@ -194,16 +209,14 @@ const verifyToken = (req, res, next) => {
 
 const updatePersonalData = async (req, res) => {
     let id = req.authdata.id;
-
+    console.log(id)
     const {
         name,
         lastName,
         typeIdentification,
         identification,
         contact,
-        email,
         address,
-        password,
     } = req.body;
     try {
         let dataUser = await User.findByPk(id);
@@ -216,22 +229,41 @@ const updatePersonalData = async (req, res) => {
                 identification,
                 contact,
                 address,
-                email,
-                password,
+
             });
+            let userData
+            if (dataUser.isAdmin) {
+                userData = {
+                    name: dataUser.name,
+                    lastName: dataUser.lastName,
+                    typeIdentification: dataUser.typeIdentification,
+                    identification: dataUser.identification,
+                    contact: dataUser.contact,
+                    email: dataUser.email,
+                    address: dataUser.address,
+                    aduser: true
+                };
+            } else {
+                userData = {
+                    name: dataUser.name,
+                    lastName: dataUser.lastName,
+                    typeIdentification: dataUser.typeIdentification,
+                    identification: dataUser.identification,
+                    contact: dataUser.contact,
+                    email: dataUser.email,
+                    address: dataUser.address,
+                };
+            }
+
+            return res.status(201).json(userData);
+        }else {
+            return res.send({message:"User is not found"}).status(400)
         }
-        let userData = {
-            name: dataUser.name,
-            lastName: dataUser.lastName,
-            typeIdentification: dataUser.typeIdentification,
-            identification: dataUser.identification,
-            contact: dataUser.contact,
-            address: dataUser.address,
-            email: dataUser.email,
-        };
-        return res.status(201).json(userData); //====>>>> respuesta al front-end
+
+         //====>>>> respuesta al front-end
     } catch (error) {
         console.log(error);
+        return res.send(error.message).status(400)
     }
 };
 

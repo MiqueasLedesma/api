@@ -7,6 +7,8 @@ const server = express();
 const cors = require("cors");
 const fileUpload = require('express-fileupload'); 
 
+
+
 require('./database/db')
 
 // db= "authentication";
@@ -21,6 +23,9 @@ server.use(fileUpload({
     useTempFiles : true,
     tempFileDir : './uploads'
   }));
+
+
+
 server.use("/", routes);
 
 // Error catching endware.

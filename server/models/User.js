@@ -28,12 +28,12 @@ module.exports = (sequelize) => {
             },
             typeIdentification: {
                 type: DataTypes.STRING, //validar
-                allowNull: false,
+                allowNull: true,
             },
             identification: {
                 type: DataTypes.STRING,
 
-                allowNull: false,
+                allowNull: true,
             },
             contact: {
                 type: DataTypes.STRING,
@@ -49,7 +49,7 @@ module.exports = (sequelize) => {
             },
             address: {
                 type: DataTypes.TEXT,
-                allowNull: false,
+                allowNull: true,
             },
             password: {
                 type: DataTypes.STRING,
