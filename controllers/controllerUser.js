@@ -23,16 +23,12 @@ const postUser = async (req, res) => {
         if (
             !name ||
             !lastName ||
-            !typeIdentification ||
-            !identification ||
-            !contact ||
             !email ||
-            !address ||
             !password
         ) {
             return res.status(400).send("Information is required!");
         }
-        let allUser = await User.findAll();
+        /* let allUser = await User.findAll();
         let iduser = allUser.find(
             (e) =>
                 e.name.toLowerCase() === name.toLowerCase() &&
@@ -40,22 +36,36 @@ const postUser = async (req, res) => {
         );
 
         if (iduser) {
+<<<<<<< HEAD
             res.status(400).send(
                 "A user with these credentials already exists."
             );
             return;
         }
+=======
+            return res
+                .status(400)
+                .send("A user with these credentials already exists.");
+        } */
+
+>>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
         bcrypt.hash(password, saltRounds, async function (err, hash) {
-            const newUser = await User.create({
-                name,
-                lastName,
-                typeIdentification,
-                identification,
-                contact,
-                email,
-                address,
-                password: hash,
+            const newUser = await User.findOrCreate({
+                where: {
+                    email
+                },
+                defaults: {
+                    name,
+                    lastName,
+                    typeIdentification,
+                    identification,
+                    contact,
+                    email,
+                    address,
+                    password: hash,
+                }
             });
+<<<<<<< HEAD
             const token = jwt.sign({ id: newUser.id }, JWT_SECRET);
 
             let userData = {
@@ -68,15 +78,30 @@ const postUser = async (req, res) => {
                 address: newUser.address,
                 token,
                 isAdmin: true
+=======
+            const token = jwt.sign({ id: newUser[0].id }, JWT_SECRET);
+            let userData = {
+                name: newUser[0].name,
+                lastName: newUser[0].lastName,
+                typeIdentification: newUser[0].typeIdentification || "",
+                identification: newUser[0].identification || "",
+                contact: newUser[0].contact || "",
+                email: newUser[0].email,
+                address: newUser[0].address || "",
+                token: token,
+>>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
             };
 
-            console.log("User created with succefully!!");
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
         return;
     } catch (error) {
         console.log(error);
+<<<<<<< HEAD
         return res.status(400).send(error);
+=======
+        return res.send(error.message).status(400)
+>>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
     }
     //res.status(201).redirect("/welcome");
 };
@@ -93,7 +118,11 @@ const postLogin = async (req, res) => {
                 bcrypt.compare(password, user.password, function (err, result) {
                     if (result === true) {
                         const token = jwt.sign({ id: user.id }, JWT_SECRET);
+<<<<<<< HEAD
                         let userData;
+=======
+                        let userData
+>>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
                         if (user.isAdmin) {
                             userData = {
                                 name: user.name,
@@ -104,7 +133,11 @@ const postLogin = async (req, res) => {
                                 email: user.email,
                                 address: user.address,
                                 token: token,
+<<<<<<< HEAD
                                 isAdmin: true,
+=======
+                                aduser: true
+>>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
                             };
                         } else {
                             userData = {
@@ -116,17 +149,27 @@ const postLogin = async (req, res) => {
                                 email: user.email,
                                 address: user.address,
                                 token: token,
+<<<<<<< HEAD
                                 isAdmin: false,
                             };
                         }
                         console.log("welcome");
+=======
+                            };
+                        }
+
+>>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
                         res.status(201).json(userData);
                         return;
                     } else {
                         console.log("Please validate the information.");
+<<<<<<< HEAD
                         return res.status(404).json({
                             message: "Please validate the information.",
                         });
+=======
+                        return res.status(404).redirect("/register");
+>>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
                     }
                 });
             } else {
@@ -135,7 +178,11 @@ const postLogin = async (req, res) => {
             }
         }
     } catch (error) {
+<<<<<<< HEAD
         console.log(error);
+=======
+        return res(error.message).status(400)
+>>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
     }
 
 };
@@ -217,20 +264,20 @@ const verifyToken = (req, res, next) => {
 
 const updatePersonalData = async (req, res) => {
     let id = req.authdata.id;
-
+    console.log(id)
     const {
         name,
         lastName,
         typeIdentification,
         identification,
         contact,
-        email,
         address,
     } = req.body;
 
     try {
         let dataUser = await User.findByPk(id);
 
+<<<<<<< HEAD
         dataUser.update({
             name,
             lastName,
@@ -254,8 +301,47 @@ const updatePersonalData = async (req, res) => {
             email: dataUser.email,
         };
         return res.status(201).json(userData); //====>>>> respuesta al front-end
+=======
+        if (dataUser) {
+            dataUser.update({
+                name,
+                lastName,
+                typeIdentification,
+                identification,
+                contact,
+                address,
+            });
+            let userData
+            if (dataUser.isAdmin) {
+                userData = {
+                    name: dataUser.name,
+                    lastName: dataUser.lastName,
+                    typeIdentification: dataUser.typeIdentification,
+                    identification: dataUser.identification,
+                    contact: dataUser.contact,
+                    address: dataUser.address,
+                    aduser: true
+                };
+            } else {
+                userData = {
+                    name: dataUser.name,
+                    lastName: dataUser.lastName,
+                    typeIdentification: dataUser.typeIdentification,
+                    identification: dataUser.identification,
+                    contact: dataUser.contact,
+                    address: dataUser.address,
+                };
+            }
+
+            return res.status(201).json(userData);
+        } else {
+            return res.send({ message: "User is not found" }).status(400)
+        }
+
+>>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
     } catch (error) {
         console.log(error);
+        return res.send(error.message).status(400)
     }
 };
 
