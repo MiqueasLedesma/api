@@ -36,19 +36,11 @@ const postUser = async (req, res) => {
         );
 
         if (iduser) {
-<<<<<<< HEAD
-            res.status(400).send(
-                "A user with these credentials already exists."
-            );
-            return;
-        }
-=======
             return res
                 .status(400)
                 .send("A user with these credentials already exists.");
         } */
 
->>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
         bcrypt.hash(password, saltRounds, async function (err, hash) {
             const newUser = await User.findOrCreate({
                 where: {
@@ -65,20 +57,6 @@ const postUser = async (req, res) => {
                     password: hash,
                 }
             });
-<<<<<<< HEAD
-            const token = jwt.sign({ id: newUser.id }, JWT_SECRET);
-
-            let userData = {
-                name: newUser.name,
-                lastName: newUser.lastName,
-                typeIdentification: newUser.typeIdentification,
-                identification: newUser.identification,
-                contact: newUser.contact,
-                email: newUser.email,
-                address: newUser.address,
-                token,
-                isAdmin: true
-=======
             const token = jwt.sign({ id: newUser[0].id }, JWT_SECRET);
             let userData = {
                 name: newUser[0].name,
@@ -89,7 +67,7 @@ const postUser = async (req, res) => {
                 email: newUser[0].email,
                 address: newUser[0].address || "",
                 token: token,
->>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
+                isAdmin: true
             };
 
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
@@ -97,11 +75,7 @@ const postUser = async (req, res) => {
         return;
     } catch (error) {
         console.log(error);
-<<<<<<< HEAD
-        return res.status(400).send(error);
-=======
         return res.send(error.message).status(400)
->>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
     }
     //res.status(201).redirect("/welcome");
 };
@@ -118,11 +92,7 @@ const postLogin = async (req, res) => {
                 bcrypt.compare(password, user.password, function (err, result) {
                     if (result === true) {
                         const token = jwt.sign({ id: user.id }, JWT_SECRET);
-<<<<<<< HEAD
-                        let userData;
-=======
                         let userData
->>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
                         if (user.isAdmin) {
                             userData = {
                                 name: user.name,
@@ -133,11 +103,7 @@ const postLogin = async (req, res) => {
                                 email: user.email,
                                 address: user.address,
                                 token: token,
-<<<<<<< HEAD
                                 isAdmin: true,
-=======
-                                aduser: true
->>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
                             };
                         } else {
                             userData = {
@@ -149,27 +115,15 @@ const postLogin = async (req, res) => {
                                 email: user.email,
                                 address: user.address,
                                 token: token,
-<<<<<<< HEAD
                                 isAdmin: false,
                             };
                         }
                         console.log("welcome");
-=======
-                            };
-                        }
-
->>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
                         res.status(201).json(userData);
                         return;
                     } else {
                         console.log("Please validate the information.");
-<<<<<<< HEAD
-                        return res.status(404).json({
-                            message: "Please validate the information.",
-                        });
-=======
                         return res.status(404).redirect("/register");
->>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
                     }
                 });
             } else {
@@ -178,11 +132,7 @@ const postLogin = async (req, res) => {
             }
         }
     } catch (error) {
-<<<<<<< HEAD
-        console.log(error);
-=======
         return res(error.message).status(400)
->>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
     }
 
 };
@@ -277,31 +227,6 @@ const updatePersonalData = async (req, res) => {
     try {
         let dataUser = await User.findByPk(id);
 
-<<<<<<< HEAD
-        dataUser.update({
-            name,
-            lastName,
-            typeIdentification,
-            identification,
-            contact,
-            address,
-            email,
-        });
-
-        console.log("User updated with succefully!!");
-        //res.status(201).send(dataUser);
-
-        let userData = {
-            name: dataUser.name,
-            lastame: dataUser.lastName,
-            typeIdentification: dataUser.typeIdentification,
-            identification: dataUser.identification,
-            contact: dataUser.contact,
-            address: dataUser.address,
-            email: dataUser.email,
-        };
-        return res.status(201).json(userData); //====>>>> respuesta al front-end
-=======
         if (dataUser) {
             dataUser.update({
                 name,
@@ -320,7 +245,7 @@ const updatePersonalData = async (req, res) => {
                     identification: dataUser.identification,
                     contact: dataUser.contact,
                     address: dataUser.address,
-                    aduser: true
+                    isAdmin: true
                 };
             } else {
                 userData = {
@@ -338,7 +263,6 @@ const updatePersonalData = async (req, res) => {
             return res.send({ message: "User is not found" }).status(400)
         }
 
->>>>>>> 878fd6a3d7a304a5797c5dfd3ead381fd8c12849
     } catch (error) {
         console.log(error);
         return res.send(error.message).status(400)
