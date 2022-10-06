@@ -1,7 +1,7 @@
 const { Image } = require("../server/database/db")
 
 const createImages = async () => {
-    await Image.bulkCreate([
+    await Image.findOrCreate([
         {
             url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1664340381/tech-store/tec-1_ewrjdr.jpg",
             pathImage: "tech-store/tec-1_ewrjdr",

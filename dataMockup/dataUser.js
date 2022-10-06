@@ -8,7 +8,7 @@ const hasPassword = (password) => {
 }
 
 const createUser = async () => {
-    await User.bulkCreate([
+    await User.findOrCreate([
         {
             name: "Pedrito",
             lastName: "Fernandez",

@@ -1,7 +1,7 @@
 const { Brand } = require("../server/database/db")
 
 const createBrands = async () => {
-    await Brand.bulkCreate([
+    await Brand.findOrCreate([
         { name: "Intel" },
         { name: "AMD" },
         { name: "Asus" },

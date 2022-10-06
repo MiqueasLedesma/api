@@ -1,7 +1,7 @@
 const { Category } = require("../server/database/db")
 
 const createCategories = async () => {
-    await Category.bulkCreate([
+    await Category.findOrCreate([
         { name: "Mother Board" },
         { name: "Memory" },
         { name: "Processor" },
