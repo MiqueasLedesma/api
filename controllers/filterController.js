@@ -21,7 +21,8 @@ const sortAndFilter = async (req, res) => {
                 brandId: brand,
                 name: {
                     [Op.iLike]: '%' + nameSearch + '%'
-                }
+                },
+                status: true
             },
             limit: size,
             offset: page * size,
