@@ -67,6 +67,7 @@ const postUser = async (req, res) => {
                 email: newUser.email,
                 address: newUser.address,
                 token,
+                isAdmin: true
             };
 
             console.log("User created with succefully!!");
@@ -88,7 +89,6 @@ const postLogin = async (req, res) => {
             const user = users.find(
                 (user) => user.email.toLowerCase() === email.toLowerCase()
             );
-
             if (user) {
                 bcrypt.compare(password, user.password, function (err, result) {
                     if (result === true) {
@@ -104,7 +104,7 @@ const postLogin = async (req, res) => {
                                 email: user.email,
                                 address: user.address,
                                 token: token,
-                                aduser: true,
+                                isAdmin: true,
                             };
                         } else {
                             userData = {
@@ -116,6 +116,7 @@ const postLogin = async (req, res) => {
                                 email: user.email,
                                 address: user.address,
                                 token: token,
+                                isAdmin: false,
                             };
                         }
                         console.log("welcome");
@@ -123,9 +124,9 @@ const postLogin = async (req, res) => {
                         return;
                     } else {
                         console.log("Please validate the information.");
-                        return res
-                            .status(404)
-                            .json({ message: "Please validate the information." });
+                        return res.status(404).json({
+                            message: "Please validate the information.",
+                        });
                     }
                 });
             } else {
@@ -134,8 +135,7 @@ const postLogin = async (req, res) => {
             }
         }
     } catch (error) {
-        console.log(error.message);
-        return res.status(400).send(error.message);
+        console.log(error);
     }
 
 };
@@ -227,23 +227,23 @@ const updatePersonalData = async (req, res) => {
         email,
         address,
     } = req.body;
+
     try {
         let dataUser = await User.findByPk(id);
-        bcrypt.hash(password, saltRounds, async function (err, hash) {
-            if (result === true) {
-                dataUser.update({
-                    name,
-                    lastName,
-                    typeIdentification,
-                    identification,
-                    contact,
-                    address,
-                    email,
-                });
-                console.log("User updated with succefully!!");
-                res.status(201).send(dataUser);
-            }
+
+        dataUser.update({
+            name,
+            lastName,
+            typeIdentification,
+            identification,
+            contact,
+            address,
+            email,
         });
+
+        console.log("User updated with succefully!!");
+        //res.status(201).send(dataUser);
+
         let userData = {
             name: dataUser.name,
             lastame: dataUser.lastName,
