@@ -20,7 +20,7 @@ const createBrands = async () => {
             where: {
                 name: e
             }
-        })).then(console.log(e))
+        }))
     } catch (error) {
         console.log(error.message);
     }
