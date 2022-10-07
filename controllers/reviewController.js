@@ -37,12 +37,12 @@ const getReviews = async (req, res) => {
             where: {
                 status: true
             },
-            limit: 2,
-            offset: page * 2
+            limit: 4,
+            offset: page * 4
         })
             .then(r => res.send({
                 content: r.rows,
-                totalPage: Math.ceil(r.count / (2 * 2))
+                totalPage: Math.ceil(r.count / (4 * 2))
             }));
     } catch (error) {
         console.log(error.message);
@@ -114,15 +114,15 @@ const getAllDeletedReviews = async (req, res) => {
     let page = !isANumber.test(req.query.page) ? 0 : req.query.page;
     try {
         await Review.findAndCountAll({
-            limit: 2,
-            offset: page * 2,
+            limit: 8,
+            offset: page * 8,
             where: {
                 status: false
             }
         })
             .then(r => res.send({
                 content: r.rows,
-                totalPage: Math.ceil(r.count / (2 * 2))
+                totalPage: Math.ceil(r.count / (8 * 2))
             }))
     } catch (error) {
         console.log(error.message);
