@@ -1,4 +1,4 @@
-const { Review } = require('../server/database/db');
+const { Review, User } = require('../server/database/db');
 
 const postReview = async (req, res) => {
     const { productId, stars, detail, userId } = req.body;
@@ -41,6 +41,9 @@ const getReviews = async (req, res) => {
             offset: page * 4,
             order: [
                 ['stars', 'DESC']
+            ],
+            include: [
+                User
             ]
         })
             .then(r => res.send({
