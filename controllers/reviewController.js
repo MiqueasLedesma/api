@@ -38,7 +38,10 @@ const getReviews = async (req, res) => {
                 status: true
             },
             limit: 4,
-            offset: page * 4
+            offset: page * 4,
+            order: [
+                ['stars', 'DESC']
+            ]
         })
             .then(r => res.send({
                 content: r.rows,
