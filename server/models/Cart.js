@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 module.exports = function(sequelize) {
     sequelize.define (
-        'cart',
+        "cart",
         {
             email: {
                 type: DataTypes.STRING,
@@ -25,7 +25,7 @@ module.exports = function(sequelize) {
             },
             discount: {
                 type: DataTypes.FLOAT,
-                allowNull: true,
+                defaultValue: 0,
             },
             subTotal: {
                 type: DataTypes.FLOAT,
