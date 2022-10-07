@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
 const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, NODE_ENV } = process.env;
 
 const sequelize =
-    NODE_ENV === "develop"
+    NODE_ENV === "production"
         ? new Sequelize({
             database: DB_NAME,
             dialect: "postgres",
