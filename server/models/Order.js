@@ -9,8 +9,8 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.NOW
       },
       paymentType:{
-        type: DataTypes.ENUM('Efectivo','Tarjeta'),
-        defaultValue: 'Efectivo'
+        type: DataTypes.ENUM('Tarjeta','Mercado Pago'),
+        defaultValue: 'Tarjeta'
       },
       shippingType:{
         type: DataTypes.ENUM('Tienda','Domicilio'),
