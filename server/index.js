@@ -7,6 +7,8 @@ const server = express();
 const cors = require("cors");
 const fileUpload = require('express-fileupload');
 
+
+
 require('./database/db')
 
 // db= "authentication";

@@ -23,16 +23,12 @@ const postUser = async (req, res) => {
         if (
             !name ||
             !lastName ||
-            !typeIdentification ||
-            !identification ||
-            !contact ||
             !email ||
-            !address ||
             !password
         ) {
             return res.status(400).send("Information is required!");
         }
-        let allUser = await User.findAll();
+        /* let allUser = await User.findAll();
         let iduser = allUser.find(
             (e) =>
                 e.name.toLowerCase() === name.toLowerCase() &&
@@ -40,43 +36,46 @@ const postUser = async (req, res) => {
         );
 
         if (iduser) {
-            res.status(400).send(
-                "A user with these credentials already exists."
-            );
-            return;
-        }
-        bcrypt.hash(password, saltRounds, async function (err, hash) {
-            const newUser = await User.create({
-                name,
-                lastName,
-                typeIdentification,
-                identification,
-                contact,
-                email,
-                address,
-                password: hash,
-            });
-            const token = jwt.sign({ id: newUser.id }, JWT_SECRET);
+            return res
+                .status(400)
+                .send("A user with these credentials already exists.");
+        } */
 
+        bcrypt.hash(password, saltRounds, async function (err, hash) {
+            const newUser = await User.findOrCreate({
+                where: {
+                    email
+                },
+                defaults: {
+                    name,
+                    lastName,
+                    typeIdentification,
+                    identification,
+                    contact,
+                    email,
+                    address,
+                    password: hash,
+                }
+            });
+            const token = jwt.sign({ id: newUser[0].id }, JWT_SECRET);
             let userData = {
-                name: newUser.name,
-                lastName: newUser.lastName,
-                typeIdentification: newUser.typeIdentification,
-                identification: newUser.identification,
-                contact: newUser.contact,
-                email: newUser.email,
-                address: newUser.address,
-                token,
+                name: newUser[0].name,
+                lastName: newUser[0].lastName,
+                typeIdentification: newUser[0].typeIdentification || "",
+                identification: newUser[0].identification || "",
+                contact: newUser[0].contact || "",
+                email: newUser[0].email,
+                address: newUser[0].address || "",
+                token: token,
                 isAdmin: true
             };
 
-            console.log("User created with succefully!!");
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
         return;
     } catch (error) {
         console.log(error);
-        return res.status(400).send(error);
+        return res.send(error.message).status(400)
     }
     //res.status(201).redirect("/welcome");
 };
@@ -93,7 +92,7 @@ const postLogin = async (req, res) => {
                 bcrypt.compare(password, user.password, function (err, result) {
                     if (result === true) {
                         const token = jwt.sign({ id: user.id }, JWT_SECRET);
-                        let userData;
+                        let userData
                         if (user.isAdmin) {
                             userData = {
                                 name: user.name,
@@ -124,9 +123,7 @@ const postLogin = async (req, res) => {
                         return;
                     } else {
                         console.log("Please validate the information.");
-                        return res.status(404).json({
-                            message: "Please validate the information.",
-                        });
+                        return res.status(404).redirect("/register");
                     }
                 });
             } else {
@@ -135,7 +132,7 @@ const postLogin = async (req, res) => {
             }
         }
     } catch (error) {
-        console.log(error);
+        return res(error.message).status(400)
     }
 
 };
@@ -217,45 +214,58 @@ const verifyToken = (req, res, next) => {
 
 const updatePersonalData = async (req, res) => {
     let id = req.authdata.id;
-
+    console.log(id)
     const {
         name,
         lastName,
         typeIdentification,
         identification,
         contact,
-        email,
         address,
     } = req.body;
 
     try {
         let dataUser = await User.findByPk(id);
 
-        dataUser.update({
-            name,
-            lastName,
-            typeIdentification,
-            identification,
-            contact,
-            address,
-            email,
-        });
+        if (dataUser) {
+            dataUser.update({
+                name,
+                lastName,
+                typeIdentification,
+                identification,
+                contact,
+                address,
+            });
+            let userData
+            if (dataUser.isAdmin) {
+                userData = {
+                    name: dataUser.name,
+                    lastName: dataUser.lastName,
+                    typeIdentification: dataUser.typeIdentification,
+                    identification: dataUser.identification,
+                    contact: dataUser.contact,
+                    address: dataUser.address,
+                    isAdmin: true
+                };
+            } else {
+                userData = {
+                    name: dataUser.name,
+                    lastName: dataUser.lastName,
+                    typeIdentification: dataUser.typeIdentification,
+                    identification: dataUser.identification,
+                    contact: dataUser.contact,
+                    address: dataUser.address,
+                };
+            }
 
-        console.log("User updated with succefully!!");
-        //res.status(201).send(dataUser);
+            return res.status(201).json(userData);
+        } else {
+            return res.send({ message: "User is not found" }).status(400)
+        }
 
-        let userData = {
-            name: dataUser.name,
-            lastame: dataUser.lastName,
-            typeIdentification: dataUser.typeIdentification,
-            identification: dataUser.identification,
-            contact: dataUser.contact,
-            address: dataUser.address,
-            email: dataUser.email,
-        };
-        return res.status(201).json(userData); //====>>>> respuesta al front-end
     } catch (error) {
         console.log(error);
+        return res.send(error.message).status(400)
     }
 };
 
