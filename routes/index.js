@@ -8,6 +8,7 @@ const routeFilter = require('./routeFilter');
 const routeCategorys = require('../controllers/controllerCategory');
 const routeBrands = require('../controllers/brandController');
 const routeUpdateAndDelete = require('./routeUpdateAndDelete');
+const routeReviews = require('./routeReviews')
 
 router.use('/products', routeProducts);
 router.use('/users', routeUsers);
@@ -15,5 +16,6 @@ router.use('/filter', routeFilter);
 router.use('/categorys', routeCategorys);
 router.use('/brands', routeBrands);
 router.use('/updateordelete', routeUpdateAndDelete);
+router.use('/reviews' ,routeReviews);
 
 module.exports = router;
