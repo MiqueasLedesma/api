@@ -35,7 +35,8 @@ const getReviews = async (req, res) => {
     try {
         await Review.findAndCountAll({
             where: {
-                status: true
+                status: true,
+                productId
             },
             limit: 4,
             offset: page * 4,
