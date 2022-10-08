@@ -23,7 +23,7 @@ const postReview = async (req, res) => {
             return res.status(400).send(error.message);
         };
     } else {
-        return res.status(400).send('This user already has a review for this product!')
+        return res.send('This user already has a review for this product!')
     };
 };
 
