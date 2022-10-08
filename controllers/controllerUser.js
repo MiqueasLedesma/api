@@ -104,6 +104,7 @@ const postLogin = async (req, res) => {
                                 address: user.address,
                                 token: token,
                                 isAdmin: true,
+                                id: user.id
                             };
                         } else {
                             userData = {
@@ -116,6 +117,7 @@ const postLogin = async (req, res) => {
                                 address: user.address,
                                 token: token,
                                 isAdmin: false,
+                                id: user.id
                             };
                         }
                         console.log("welcome");
