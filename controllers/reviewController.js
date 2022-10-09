@@ -3,13 +3,14 @@ const { Review, User } = require('../server/database/db');
 const postReview = async (req, res) => {
     const { productId, stars, detail, userId } = req.body;
     if (!productId || !stars || !detail || !userId) return res.status(400).send('All camps are obligatories!');
-    const repetidos = await Review.findAll({
+    const repeat = await Review.findAll({
         where: {
             userId,
-            productId
+            productId,
+            status: true
         }
     })
-    if (!repetidos[0]) {
+    if (!repeat[0]) {
         try {
             await Review.create({
                 productId,
