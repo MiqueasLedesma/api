@@ -19,6 +19,6 @@ router.use('/categorys', routeCategorys);
 router.use('/brands', routeBrands);
 router.use('/updateordelete', routeUpdateAndDelete);
 router.use('/reviews' ,routeReviews);
-router.use("/cart",routeCart);
+router.use("/carts",routeCart);
 
 module.exports = router;
