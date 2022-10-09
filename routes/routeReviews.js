@@ -7,6 +7,6 @@ router.get('/', getReviews);    // Recibe por body productId, userId, detail y s
 router.put('/delete', deleteReview); //Recibe el id de la review por query;
 router.get('/alldeleted', getAllDeletedReviews); // devuelve todos los productos que fueron eliminados;
 router.put('/revertdelete', revertDeleteReview);  //Recibe el id de la review por query;
-router.put('/update', changeReview); //  //Recibe el id de la review por query;
+router.put('/update', changeReview); //  //Recibe el id de la review por body;
 
 module.exports = router;
