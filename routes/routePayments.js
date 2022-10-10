@@ -4,6 +4,6 @@ const router = Router();
 
 
 router.get('/', getPaymentLink);
-router.get('/cart', getPaymentCartLink);
+router.post('/cart', getPaymentCartLink);
 
 module.exports = router;
