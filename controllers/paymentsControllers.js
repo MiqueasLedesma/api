@@ -46,7 +46,8 @@ async function getPaymentLink(req, res) {
 
 const getPaymentCartLink = async (req, res) => {
     const { cart } = req.body;
-    // console.log(cart);
+    console.log(req.params, req.body, req.query);
+    
     try {
 
         const info = cart.map(e => {
@@ -59,7 +60,7 @@ const getPaymentCartLink = async (req, res) => {
             }
         });
 
-        console.log(info);
+    
 
         const preferences = {
             payer_email: "test_user_42159412@testuser.com",
