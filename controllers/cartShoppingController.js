@@ -48,13 +48,15 @@ const getCartShopping = async (req, res) => {
     try {
         const { email } = req.query;
         /* Nos fijamos si el usuario ya tiene productos en el carrito */
-        const allProductsCart = await Cart.findAll({ where:{email} });
-        if (allProductsCart === null) return;
-        res.json(allProductsCart);
-        return
+        console.log(email);
+        if(email === undefined || email === null || email.length === 0) return res.status(404).send("Not found")
+        
+        const allProductsCart = Cart.findAll({ where:{email} }).then(list=>res.json(list));
+        return allProductsCart
+
     } catch (error) {
         console.log(error.mesage);
-        res.status(400).send("failed");
+        res.status(400).send("failed")
     }
 };
 
