@@ -8,7 +8,7 @@ async function getPaymentLink(req, res) {
     const { tittle, description, categaryName, quantity, salePrice } = req.body;
 
 
-    if (!tittle || !description || !categaryName || !quantity || !salePrice) return res.send('Faltan Datos!')
+    // if (!tittle || !description || !categaryName || !quantity || !salePrice) return res.send('Faltan Datos!')
 
     try {
         const preferences = {
@@ -46,6 +46,7 @@ async function getPaymentLink(req, res) {
 
 const getPaymentCartLink = async (req, res) => {
     const { cart } = req.body;
+    // console.log(cart);
     try {
 
         const info = cart.map(e => {
@@ -53,10 +54,12 @@ const getPaymentCartLink = async (req, res) => {
                 title: e.name,
                 description: e.description,
                 category_id: e.category.name,
-                quantity: e.quantity,
-                unit_price: e.salePrice
+                quantity: Number(e.quantity),
+                unit_price: Number(e.salePrice)
             }
         });
+
+        console.log(info);
 
         const preferences = {
             payer_email: "test_user_42159412@testuser.com",
