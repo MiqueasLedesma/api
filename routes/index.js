@@ -21,9 +21,6 @@ router.use('/brands', routeBrands);
 router.use('/updateordelete', routeUpdateAndDelete);
 router.use('/reviews' ,routeReviews);
 router.use("/carts",routeCart);
-<<<<<<< HEAD
-=======
 router.use('/payments', routePayments)
->>>>>>> origin/master
 
 module.exports = router;

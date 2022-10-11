@@ -11,7 +11,6 @@ const getAllCartShopping = async (req, res) => {
 
 const addProductCart = async (req, res) => {
     try {
-<<<<<<< HEAD
         const {
             email,
             name,
@@ -19,9 +18,6 @@ const addProductCart = async (req, res) => {
             image,
             quantity
         } = req.body;
-=======
-        const { email, name, salePrice, image, quantity } = req.body;
->>>>>>> origin/master
 
         /* Nos fijamos si todos los campos vienen con info */
         const notFull = name !== "" && email !== "" && image !== "" && salePrice !== "" && quantity !== "";
@@ -37,13 +33,9 @@ const addProductCart = async (req, res) => {
 
         /* Si nos envian algo y no esta en el carrito lo agregamos */
         if (notFull) {
-<<<<<<< HEAD
             Cart.create(fullCart).then((resp) => {
                 res.json(resp);
             });
-=======
-            Cart.create(fullCart).then((resp)=>{res.json(resp);});
->>>>>>> origin/master
             return fullCart;
         }
     } catch (error) {
@@ -51,7 +43,6 @@ const addProductCart = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
 const cleanCartShopping = async (req, res) => { 
     const inCart = Cart.findAll({where: {
             email
@@ -62,19 +53,6 @@ const cleanCartShopping = async (req, res) => {
                 email
             }});
     }
-=======
-const cleanCartShopping =async (req, res) => {
-            /* Nos fijamos si el producto ya esta en el carrito */
-        const inCart = Cart.findAll({ where:{email}  });
-
-        if (!!inCart) {
-            Cart.destroy({
-                where: {
-                    email,
-                },
-            });
-        }
->>>>>>> origin/master
 }
 
 const getCartShopping = async (req, res) => {
@@ -82,7 +60,6 @@ const getCartShopping = async (req, res) => {
         const {email} = req.query;
         /* Nos fijamos si el usuario ya tiene productos en el carrito */
         console.log(email);
-<<<<<<< HEAD
         if (email === undefined || email === null || email.length === 0) 
             return res.status(404).send("Not found")
 
@@ -91,11 +68,6 @@ const getCartShopping = async (req, res) => {
         const allProductsCart = Cart.findAll({where: {
                 email
             }}).then(list => res.json(list));
-=======
-        if(email === undefined || email === null || email.length === 0) return res.status(404).send("Not found")
-        
-        const allProductsCart = Cart.findAll({ where:{email} }).then(list=>res.json(list));
->>>>>>> origin/master
         return allProductsCart
 
     } catch (error) {
@@ -104,7 +76,6 @@ const getCartShopping = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
 
 
 module.exports = {
@@ -113,6 +84,3 @@ module.exports = {
     cleanCartShopping,
     getAllCartShopping
 };
-=======
-module.exports = { addProductCart, getCartShopping, cleanCartShopping };
->>>>>>> origin/master
