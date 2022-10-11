@@ -32,15 +32,12 @@ const addProductCart = async (req, res) => {
         };
 
         /* Si nos envian algo y no esta en el carrito lo agregamos */
-        let listCart= await Cart.findAll()
-        console.log(listCart)
-        await listCart.map(p => Cart.findOrCreate({
-          where: {
-              name: p.name
-            }
-        }))
-
-        return fullCart;
+        if (notFull) {
+            Cart.create(fullCart).then((resp) => {
+                res.json(resp);
+            });
+            return fullCart;
+        }
 
     } catch (error) {
         console.log(error.message);
