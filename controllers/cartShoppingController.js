@@ -4,10 +4,6 @@ const addProductCart = async (req, res) => {
     try {
         const { email, name, salePrice, image, quantity } = req.body;
 
-        /* Nos fijamos si tenemos el producto */
-        const productCart = await Product.findOne({ name });
-        console.log(productCart);
-
         /* Nos fijamos si todos los campos vienen con info */
         const notFull =
             name !== "" &&
@@ -24,38 +20,44 @@ const addProductCart = async (req, res) => {
             quantity,
             subTotal: salePrice * quantity,
         };
-        /* Nos fijamos si el producto ya esta en el carrito */
-        const inCart = await Cart.findOne({ email });
-
-        if (inCart) {
-            Cart.destroy({
-                where: {
-                    email,
-                },
-            });
-        }
 
         /* Si nos envian algo y no esta en el carrito lo agregamos */
-        if (notFull && !inCart) {
-            const newCart = Cart.create(fullCart);
-            res.json(newCart);
+        if (notFull) {
+            Cart.create(fullCart).then((resp)=>{res.json(resp);});
+            return fullCart;
         }
     } catch (error) {
         console.log(error.message);
     }
 };
 
+const cleanCartShopping =async (req, res) => {
+            /* Nos fijamos si el producto ya esta en el carrito */
+        const inCart = Cart.findAll({ where:{email}  });
+
+        if (!!inCart) {
+            Cart.destroy({
+                where: {
+                    email,
+                },
+            });
+        }
+}
+
 const getCartShopping = async (req, res) => {
     try {
         const { email } = req.query;
         /* Nos fijamos si el usuario ya tiene productos en el carrito */
-        const allProductsCart = await Cart.findOne({ email });
-        if (allProductsCart === null) return;
-        res.json(allProductsCart);
+        console.log(email);
+        if(email === undefined || email === null || email.length === 0) return res.status(404).send("Not found")
+        
+        const allProductsCart = Cart.findAll({ where:{email} }).then(list=>res.json(list));
+        return allProductsCart
+
     } catch (error) {
         console.log(error.mesage);
-        return res.status(400).send("failed");
+        res.status(400).send("failed")
     }
 };
 
-module.exports = { addProductCart, getCartShopping };
+module.exports = { addProductCart, getCartShopping, cleanCartShopping };
