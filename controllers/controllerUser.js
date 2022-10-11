@@ -57,6 +57,7 @@ const postUser = async (req, res) => {
                     password: hash,
                 }
             });
+
             const token = jwt.sign({ id: newUser[0].id }, JWT_SECRET);
             let userData = {
                 name: newUser[0].name,
@@ -67,7 +68,8 @@ const postUser = async (req, res) => {
                 email: newUser[0].email,
                 address: newUser[0].address || "",
                 token: token,
-                isAdmin: true
+                isAdmin: true,
+                id: newUser[0].id
             };
 
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
@@ -104,6 +106,7 @@ const postLogin = async (req, res) => {
                                 address: user.address,
                                 token: token,
                                 isAdmin: true,
+                                id: user.id
                             };
                         } else {
                             userData = {
@@ -116,6 +119,7 @@ const postLogin = async (req, res) => {
                                 address: user.address,
                                 token: token,
                                 isAdmin: false,
+                                id: user.id
                             };
                         }
                         console.log("welcome");

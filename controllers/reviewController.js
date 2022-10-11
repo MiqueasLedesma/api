@@ -1,15 +1,16 @@
-const { Review } = require('../server/database/db');
+const { Review, User } = require('../server/database/db');
 
 const postReview = async (req, res) => {
     const { productId, stars, detail, userId } = req.body;
     if (!productId || !stars || !detail || !userId) return res.status(400).send('All camps are obligatories!');
-    const repetidos = await Review.findAll({
+    const repeat = await Review.findAll({
         where: {
             userId,
-            productId
+            productId,
+            status: true
         }
     })
-    if (!repetidos[0]) {
+    if (!repeat[0]) {
         try {
             await Review.create({
                 productId,
@@ -23,7 +24,7 @@ const postReview = async (req, res) => {
             return res.status(400).send(error.message);
         };
     } else {
-        return res.status(400).send('This user already has a review for this product!')
+        return res.send('This user already has a review for this product!')
     };
 };
 
@@ -35,12 +36,16 @@ const getReviews = async (req, res) => {
     try {
         await Review.findAndCountAll({
             where: {
-                status: true
+                status: true,
+                productId
             },
             limit: 4,
             offset: page * 4,
             order: [
                 ['stars', 'DESC']
+            ],
+            include: [
+                User
             ]
         })
             .then(r => res.send({

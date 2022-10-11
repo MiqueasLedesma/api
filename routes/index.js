@@ -9,8 +9,9 @@ const routeFilter = require('./routeFilter');
 const routeCategorys = require('../controllers/controllerCategory');
 const routeBrands = require('../controllers/brandController');
 const routeUpdateAndDelete = require('./routeUpdateAndDelete');
-const routeReviews = require('./routeReviews')
-const routeCart = require("./routeCart")
+const routeReviews = require('./routeReviews');
+const routeCart = require("./routeCart");
+const routePayments = require("./routePayments");
 
 router.use('/products', routeProducts);
 router.use('/users', routeUsers);
@@ -20,5 +21,9 @@ router.use('/brands', routeBrands);
 router.use('/updateordelete', routeUpdateAndDelete);
 router.use('/reviews' ,routeReviews);
 router.use("/carts",routeCart);
+<<<<<<< HEAD
+=======
+router.use('/payments', routePayments)
+>>>>>>> origin/master
 
 module.exports = router;
