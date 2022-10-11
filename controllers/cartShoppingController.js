@@ -44,14 +44,21 @@ const addProductCart = async (req, res) => {
 };
 
 const cleanCartShopping = async (req, res) => { 
+  
+  try{
+    const {email} = req.query;
     const inCart = Cart.findAll({where: {
             email
         }});
 
-    if (!! inCart) {
+    if (!!inCart) {
         Cart.destroy({where: {
                 email
             }});
+    }
+    } catch (error) {
+        console.log(error.mesage);
+        res.status(400).send("failed")
     }
 }
 
