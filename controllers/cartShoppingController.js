@@ -56,6 +56,7 @@ const cleanCartShopping = async (req, res) => {
                 email
             }});
     }
+    return
     } catch (error) {
         console.log(error.mesage);
         res.status(400).send("failed")
