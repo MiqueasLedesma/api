@@ -32,7 +32,7 @@ const addProductCart = async (req, res) => {
         };
 
         /* Si nos envian algo y no esta en el carrito lo agregamos */
-        let listCart= getAllCartShopping().then(()=>{})
+        let listCart= await getAllCartShopping()
         if(listCart.length > 0) {
           await listCart.map(p => Cart.findOrCreate({
             where: {
@@ -44,8 +44,8 @@ const addProductCart = async (req, res) => {
             Cart.create(fullCart).then((resp) => {
                 res.json(resp);
             });
-            return fullCart;
         }
+       return fullCart;
     } catch (error) {
         console.log(error.message);
     }
