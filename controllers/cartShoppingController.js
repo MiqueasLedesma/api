@@ -44,8 +44,9 @@ const addProductCart = async (req, res) => {
             Cart.create(fullCart).then((resp) => {
                 res.json(resp);
             });
+          return fullCart;
         }
-       return fullCart;
+       
     } catch (error) {
         console.log(error.message);
     }
