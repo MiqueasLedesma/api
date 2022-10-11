@@ -3,7 +3,7 @@ const { getPaymentLink, getPaymentCartLink } = require('../controllers/paymentsC
 const router = Router();
 
 
-router.get('/', getPaymentLink);
+router.post('/', getPaymentLink);
 router.post('/cart', getPaymentCartLink);
 
 module.exports = router;
