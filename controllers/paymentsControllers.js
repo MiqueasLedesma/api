@@ -23,9 +23,9 @@ async function getPaymentLink(req, res) {
                 },
             ],
             back_urls: {
-                failure: "/failure",
+                failure: "https://techstore-ruby.vercel.app",
                 pending: "/pending",
-                success: "https://google.com.ar"
+                success: "https://techstore-ruby.vercel.app"
             }
         };
 
@@ -66,9 +66,9 @@ const getPaymentCartLink = async (req, res) => {
             payer_email: "test_user_42159412@testuser.com",
             items: info,
             back_urls: {
-                failure: "/failure",
+                failure: "https://techstore-ruby.vercel.app",
                 pending: "/pending",
-                success: "https://google.com.ar"
+                success: "https://techstore-ruby.vercel.app"
             }
         };
 
