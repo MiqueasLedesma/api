@@ -1,4 +1,4 @@
-const { Order } = require('../server/database/db');
+const { Order, OrderDetail } = require('../server/database/db');
 
 const howManyPayments = async (req, res) => {
     const { id } = req.query;
@@ -36,6 +36,9 @@ const getAllOrders = async (req, res) => {
             offset: page * 5,
             order: [
                 ['id', 'DESC']
+            ],
+            include: [
+                OrderDetail
             ]
         })
             .then(r => res.send({
@@ -48,7 +51,26 @@ const getAllOrders = async (req, res) => {
     };
 };
 
+const createOrder = async (req, res) => {
+    const { total, discount, subTotal, status, userId } = req.body;
+    if (!total || !discount || !subTotal || !status || !userId) return res.status(400).send('Faltan Datos!');
+    try {
+        await Order.create({
+            total,
+            discount,
+            subTotal,
+            status,
+            userId
+        })
+            .then(r => res.send('Orden Creada!'));
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).send(error.message);
+    };
+};
+
 module.exports = {
     howManyPayments,
-    getAllOrders
+    getAllOrders,
+    createOrder
 }
