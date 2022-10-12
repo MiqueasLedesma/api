@@ -13,7 +13,7 @@ const {
 
 
 router.get("/", verifyToken, getUsers);
-//router.get("/:id",  getIdUsers);
+router.get("/:id",  getIdUsers);
 
 router.post("/register", postUser, async (req, res) => {
     /*  try {
