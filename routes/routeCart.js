@@ -6,6 +6,7 @@ router.get('/all', getAllCartShopping);
 router.delete('/',cleanCartShopping);
 router.get('/', getCartShopping);
 router.post('/', addProductCart);
+router.delete('/', cleanCartShopping);
 
 
 module.exports = router;
