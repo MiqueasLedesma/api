@@ -12,6 +12,7 @@ const routeUpdateAndDelete = require('./routeUpdateAndDelete');
 const routeReviews = require('./routeReviews');
 const routeCart = require("./routeCart");
 const routePayments = require("./routePayments");
+const routeOrders = require("./routeOrders");
 
 router.use('/products', routeProducts);
 router.use('/users', routeUsers);
@@ -21,6 +22,7 @@ router.use('/brands', routeBrands);
 router.use('/updateordelete', routeUpdateAndDelete);
 router.use('/reviews' ,routeReviews);
 router.use("/carts",routeCart);
-router.use('/payments', routePayments)
+router.use('/payments', routePayments);
+router.use('/orders', routeOrders);
 
 module.exports = router;
