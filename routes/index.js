@@ -12,6 +12,7 @@ const routeUpdateAndDelete = require('./routeUpdateAndDelete');
 const routeReviews = require('./routeReviews');
 const routeCart = require("./routeCart");
 const routePayments = require("./routePayments");
+const routeEmails = require("./routeEmails")
 
 router.use('/products', routeProducts);
 router.use('/users', routeUsers);
@@ -22,5 +23,6 @@ router.use('/updateordelete', routeUpdateAndDelete);
 router.use('/reviews' ,routeReviews);
 router.use("/carts",routeCart);
 router.use('/payments', routePayments)
+router.use('/email',routeEmails)
 
 module.exports = router;
