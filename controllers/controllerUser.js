@@ -196,7 +196,7 @@ const userDetail = async function (id) {
 
 const getIdUsers = async (req, res) => {
     const { id } = req.params;
-
+    console.log(id);
     try {
         let userData = await userDetail(id);
         res.status(200).send(userData);

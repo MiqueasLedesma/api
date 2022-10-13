@@ -3,9 +3,10 @@ const { addProductCart, getCartShopping, getAllCartShopping, cleanCartShopping }
 const router = Router();
 
 router.get('/all', getAllCartShopping);
-router.post('/destroy',cleanCartShopping);
+router.delete('/',cleanCartShopping);
 router.get('/', getCartShopping);
 router.post('/', addProductCart);
+router.delete('/', cleanCartShopping);
 
 
 module.exports = router;
