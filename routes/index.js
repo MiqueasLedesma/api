@@ -13,7 +13,7 @@ const routeReviews = require('./routeReviews');
 const routeCart = require("./routeCart");
 const routePayments = require("./routePayments");
 const routeOrders = require("./routeOrders");
-const routeEmails = require("./routeEmails")
+const routeEmails = require("./routeEmails");
 
 router.use('/products', routeProducts);
 router.use('/users', routeUsers);
