@@ -61,7 +61,7 @@ const getPaymentCartLink = async (req, res) => {
             }
         });
 
-        console.log(info)
+console.log(info)
 
         const preferences = {
             payer_email: "test_user_42159412@testuser.com",
