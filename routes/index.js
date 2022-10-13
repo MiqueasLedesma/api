@@ -14,10 +14,7 @@ const routeCart = require("./routeCart");
 const routePayments = require("./routePayments");
 const routeOrders = require("./routeOrders");
 const routeEmails = require("./routeEmails");
-<<<<<<< HEAD
 const routeGeolocation = require("./routeGeolocation")
-=======
->>>>>>> 1f45bf7cf336272dcec30f03abb11ca9fe00065f
 
 router.use('/products', routeProducts);
 router.use('/users', routeUsers);
