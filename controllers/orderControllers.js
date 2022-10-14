@@ -52,15 +52,16 @@ const getAllOrders = async (req, res) => {
 };
 
 const createOrder = async (req, res) => {
-    const { total, discount, subTotal, status, userId } = req.body;
-    if (!total || !discount || !subTotal || !status || !userId) return res.status(400).send('Faltan Datos!');
+    const { total, discount, subTotal, status, userId, sucursalId } = req.body;
+    if (!total || !discount || !subTotal || !status || !userId || !sucursalId) return res.status(400).send('Faltan Datos!');
     try {
         await Order.create({
             total,
             discount,
             subTotal,
             status,
-            userId
+            userId,
+            sucursalId
         })
             .then(r => res.send('Orden Creada!'));
     } catch (error) {
