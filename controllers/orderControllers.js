@@ -25,7 +25,7 @@ const getAllOrders = async (req, res) => {
     const isANumber = /^([0-9])*$/;
     if (!id || !isANumber.test(id)) return res.status(400).send('Problem with the ID');
     try {
-        let status = req.query.status ? req.query.status : "Completado"
+        let status = req.query.state ? req.query.state : "Completado"
         let page = !isANumber.test(req.query.page) ? 0 : req.query.page;
         await Order.findAndCountAll({
             where: {
