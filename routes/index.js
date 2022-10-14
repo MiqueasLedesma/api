@@ -28,6 +28,6 @@ router.use('/payments', routePayments)
 router.use('/email',routeEmails)
 router.use('/orders', routeOrders);
 router.use('/sucursal', routeSucursal);
-router.use('/geo', routeGeolocation)
+// router.use('/geo', routeGeolocation)
 
 module.exports = router;
