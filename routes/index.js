@@ -2,7 +2,6 @@ require("dotenv").config();
 const { Router } = require("express");
 const router = Router();
 
-
 const routeProducts = require('./routeProducts');
 const routeUsers = require('./routeUsers');
 const routeFilter = require('./routeFilter');
@@ -31,6 +30,5 @@ router.use('/orders', routeOrders);
 router.use('/sucursal', routeSucursal);
 router.use('/geo', routeGeolocation);
 router.use('/users', routeUsers);
-
 
 module.exports = router;
