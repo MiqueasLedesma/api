@@ -31,4 +31,5 @@ router.use('/sucursal', routeSucursal);
 router.use('/geo', routeGeolocation);
 router.use('/users', routeUsers);
 
+
 module.exports = router;
