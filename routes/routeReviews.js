@@ -6,11 +6,13 @@ const {
   deleteReview,
   revertDeleteReview,
   getAllDeletedReviews,
-  getAllReviews
+  getAllReviews,
+  getAllReviewsByIdUser
 } = require('../controllers/reviewController');
 const router = Router();
 
 router.get('/all', getAllReviews); // Recibe todas las reviews;
+router.get('/idUser', getAllReviewsByIdUser); // Recibe todas las reviews; 
 router.post('/', postReview); // Recibe por query productId, un usuario solo puede publicar una review para cada producto
 router.get('/', getReviews); // Recibe por body productId, userId, detail y stars;
 router.put('/delete', deleteReview); // Recibe el id de la review por query;

@@ -133,9 +133,38 @@ const getAllDeletedReviews = async (req, res) => {
 
 
 const getAllReviews = async (req, res) => {
+
   try {
     Review.findAll(
       {
+        include: [
+          {
+            model: User,
+          }
+          ,
+          {
+            model: Product,
+          },
+
+        ]
+      }
+    ).then(data=> res.json(data)) 
+  } catch (error) {
+    console.log(error.message);
+    return res.status(400).send(error.message);
+  }
+}
+
+
+const getAllReviewsByIdUser = async (req, res) => {
+
+  try {
+    const {userId}= req.query;
+
+    Review.findAll(
+      {where: {
+        userId,
+      },
         include: [
           {
             model: User,
@@ -161,5 +190,6 @@ module.exports = {
   deleteReview,
   revertDeleteReview,
   getAllDeletedReviews,
-  getAllReviews
+  getAllReviews,
+  getAllReviewsByIdUser
 };
