@@ -1,4 +1,4 @@
-const { Sucursal, Order } = require('../server/models/Sucursal')
+const { Sucursal } = require('../server/database/db')
 
 const getAllSucursal = async (req, res) => {
   try {
@@ -17,9 +17,11 @@ const addSucursal = async (req, res) => {
       const notFull = name !== "" && address !== "" && latitude !== "" && longitude !== "" ;
 
       const dataSucursal = { name, address, latitude, longitude}
+      console.log(dataSucursal)
 
       if(notFull) {
         Sucursal.create(dataSucursal).then(data => res.json(data))
+        return dataSucursal
       }
   } catch (error) {
       console.log(error);
