@@ -53,7 +53,7 @@ const getAllOrders = async (req, res) => {
 
 const createOrder = async (req, res) => {
     const { total, discount, subTotal, status, userId, sucursalId } = req.body;
-    if (!total || !discount || !subTotal || !status || !userId || !sucursalId) return res.status(400).send('Faltan Datos!');
+    if (!quantity ||!total || !discount || !subTotal || !status || !userId || !sucursalId) return res.status(400).send('Faltan Datos!');
     try {
         await Order.create({
             total,
@@ -61,7 +61,8 @@ const createOrder = async (req, res) => {
             subTotal,
             status,
             userId,
-            sucursalId
+            sucursalId,
+            quantity
         })
             .then(r => res.send('Orden Creada!'));
     } catch (error) {
