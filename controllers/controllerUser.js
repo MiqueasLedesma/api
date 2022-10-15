@@ -20,12 +20,7 @@ const postUser = async (req, res) => {
     } = req.body;
 
     try {
-        if (
-            !name ||
-            !lastName ||
-            !email ||
-            !password
-        ) {
+        if (!name || !lastName || !email || !password) {
             return res.status(400).send("Information is required!");
         }
         /* let allUser = await User.findAll();
@@ -44,7 +39,7 @@ const postUser = async (req, res) => {
         bcrypt.hash(password, saltRounds, async function (err, hash) {
             const newUser = await User.findOrCreate({
                 where: {
-                    email
+                    email,
                 },
                 defaults: {
                     name,
@@ -55,7 +50,7 @@ const postUser = async (req, res) => {
                     email,
                     address,
                     password: hash,
-                }
+                },
             });
 
             const token = jwt.sign({ id: newUser[0].id }, JWT_SECRET);
@@ -69,7 +64,7 @@ const postUser = async (req, res) => {
                 address: newUser[0].address || "",
                 token: token,
                 isAdmin: true,
-                id: newUser[0].id
+                id: newUser[0].id,
             };
 
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
@@ -77,7 +72,7 @@ const postUser = async (req, res) => {
         return;
     } catch (error) {
         console.log(error);
-        return res.send(error.message).status(400)
+        return res.send(error.message).status(400);
     }
     //res.status(201).redirect("/welcome");
 };
@@ -94,7 +89,7 @@ const postLogin = async (req, res) => {
                 bcrypt.compare(password, user.password, function (err, result) {
                     if (result === true) {
                         const token = jwt.sign({ id: user.id }, JWT_SECRET);
-                        let userData
+                        let userData;
                         if (user.isAdmin) {
                             userData = {
                                 name: user.name,
@@ -106,7 +101,7 @@ const postLogin = async (req, res) => {
                                 address: user.address,
                                 token: token,
                                 isAdmin: true,
-                                id: user.id
+                                id: user.id,
                             };
                         } else {
                             userData = {
@@ -119,7 +114,7 @@ const postLogin = async (req, res) => {
                                 address: user.address,
                                 token: token,
                                 isAdmin: false,
-                                id: user.id
+                                id: user.id,
                             };
                         }
                         console.log("welcome");
@@ -136,18 +131,17 @@ const postLogin = async (req, res) => {
             }
         }
     } catch (error) {
-        return res(error.message).status(400)
+        return res(error.message).status(400);
     }
-
 };
 
 const getUsers = async (req, res) => {
-    /* esta es una funcion solo para el administrador 
-     const { id } = req.params;
-    const admin = await User.findOne({ where: { isAdmin: true } });
-    if (admin.id !== id || !id) {
-        return res.status(400).send("Not found!");
-    } */
+    let id = req.authdata.id;
+
+    if (!id) {
+        res.status(404).send("credential invalidated");
+        return;
+    }
 
     try {
         const allUsers = await User.findAndCountAll();
@@ -187,7 +181,15 @@ const userDetail = async function (id) {
 
 const getIdUsers = async (req, res) => {
     const { id } = req.params;
+    let iddos = req.authdata.id;
+
     console.log(id);
+    console.log(iddos);
+
+    if (!iddos) {
+        return res.status(404).send("credential invalidated");
+    }
+
     try {
         let userData = await userDetail(id);
         res.status(200).send(userData);
@@ -218,7 +220,7 @@ const verifyToken = (req, res, next) => {
 
 const updatePersonalData = async (req, res) => {
     let id = req.authdata.id;
-    console.log(id)
+    console.log(id);
     const {
         name,
         lastName,
@@ -240,7 +242,7 @@ const updatePersonalData = async (req, res) => {
                 contact,
                 address,
             });
-            let userData
+            let userData;
             if (dataUser.isAdmin) {
                 userData = {
                     name: dataUser.name,
@@ -249,7 +251,7 @@ const updatePersonalData = async (req, res) => {
                     identification: dataUser.identification,
                     contact: dataUser.contact,
                     address: dataUser.address,
-                    isAdmin: true
+                    isAdmin: true,
                 };
             } else {
                 userData = {
@@ -264,12 +266,11 @@ const updatePersonalData = async (req, res) => {
 
             return res.status(201).json(userData);
         } else {
-            return res.send({ message: "User is not found" }).status(400)
+            return res.send({ message: "User is not found" }).status(400);
         }
-
     } catch (error) {
         console.log(error);
-        return res.send(error.message).status(400)
+        return res.send(error.message).status(400);
     }
 };
 

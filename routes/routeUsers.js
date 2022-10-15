@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
 const router = Router();
-const { CLIENT_URL } = process.env
+const { CLIENT_URL } = process.env;
 const {
     postUser,
     postLogin,
@@ -11,9 +11,8 @@ const {
     verifyToken,
 } = require("../controllers/controllerUser");
 
-
 router.get("/", verifyToken, getUsers);
-router.get("/:id",  getIdUsers);
+router.get("/:id", verifyToken, getIdUsers);
 
 router.post("/register", postUser, async (req, res) => {
     /*  try {
