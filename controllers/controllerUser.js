@@ -9,8 +9,7 @@ const { JWT_SECRET } = process.env;
 const {
     sendEmail,
     welcomeEmail,
-    welcome
-
+    welcome,
 } = require("../controllers/emailController");
 
 const postUser = async (req, res) => {
@@ -70,7 +69,7 @@ const postUser = async (req, res) => {
                 email: newUser[0].email,
                 address: newUser[0].address || "",
                 token: token,
-                isAdmin: true,
+                isAdmin: false,
                 id: newUser[0].id,
             };
 
