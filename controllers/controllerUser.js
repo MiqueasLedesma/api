@@ -6,6 +6,13 @@ const { User } = require("../server/database/db");
 const fs = require("fs");
 const { JWT_SECRET } = process.env;
 
+const {
+    sendEmail,
+    welcomeEmail,
+    welcome
+
+} = require("../controllers/emailController");
+
 const postUser = async (req, res) => {
     let saltRounds = 11;
     const {
@@ -66,6 +73,8 @@ const postUser = async (req, res) => {
                 isAdmin: true,
                 id: newUser[0].id,
             };
+
+            //await sendEmail(welcome(userData.email))
 
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });

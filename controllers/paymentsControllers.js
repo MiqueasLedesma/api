@@ -45,7 +45,7 @@ async function getPaymentLink(req, res) {
 };
 
 const getPaymentCartLink = async (req, res) => {
-    const { cart } = req.body;
+    const { cart, email } = req.body;
 
     console.log(req.body);
     
@@ -61,11 +61,13 @@ const getPaymentCartLink = async (req, res) => {
             }
         });
 
-console.log(info)    
+console.log(info)
 
         const preferences = {
             payer_email: "test_user_42159412@testuser.com",
             items: info,
+            external_reference: email,
+            notification_url: "https://techstore123.herokuapp.com/payments/notification",
             back_urls: {
                 failure: "https://techstore-ruby.vercel.app/final-shopping",
                 pending: "https://techstore-ruby.vercel.app/",
@@ -88,7 +90,41 @@ console.log(info)
     };
 };
 
+async function getPaymentNotification(req, res) {
+    const { data } = req.body
+    // console.log("query ===>", req.query)
+    // const paymentStatus = await axios.get(`https://api.mercadopago.com/v1/payments/${data.id}`)
+    // console.log("data ====>", data)
+
+    if (data) {
+        const paymentStatus = await axios.get(`https://api.mercadopago.com/v1/payments/${data.id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${process.env.ACCESS_TOKEN}` //usario vendedor
+            }
+        })
+        console.log(paymentStatus)
+
+        const operationInfo = {
+            id: paymentStatus.data.id,
+            userEmail: paymentStatus.data.external_reference,
+            notification_url: paymentStatus.data.notification_url,
+            statement_descriptor: paymentStatus.data.statement_descriptor,
+            status: paymentStatus.data.status,
+            status_detail: paymentStatus.data.status_detail,
+            transaction_amount: paymentStatus.data.transaction_amount,
+        }
+        
+        console.log(operationInfo)
+        return res.status(200).json(data)
+    } else {
+        console.log("no existe data")
+        return res.status(400).send("no existe data")
+    }
+}
+
 module.exports = {
     getPaymentLink,
-    getPaymentCartLink
+    getPaymentCartLink,
+    getPaymentNotification
 };

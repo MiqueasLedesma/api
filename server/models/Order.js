@@ -33,7 +33,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       status :{
-        type: DataTypes.ENUM('Procesando Pago','Preparando Envio', 'Enviado','Completado','Anulado'),
+        type: DataTypes.STRING,
         defaultValue: 'Procesando Pago'
       }
     }
