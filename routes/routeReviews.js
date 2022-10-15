@@ -6,7 +6,8 @@ const {
   deleteReview,
   revertDeleteReview,
   getAllDeletedReviews,
-  getAllReviews
+  getAllReviews,
+  getAllReviewsByIdUser
 } = require('../controllers/reviewController');
 const router = Router();
 
