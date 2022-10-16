@@ -68,7 +68,7 @@ const getCartShopping = async (req, res) => {
     try {
         const {email} = req.query;
         /* Nos fijamos si el usuario ya tiene productos en el carrito */
-        console.log(userId);
+  
         if (email === undefined || email === null || email.length === 0) 
             return res.status(404).send("Not found")
 
