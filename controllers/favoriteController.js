@@ -18,6 +18,9 @@ const postFavorite = async (req, res) => {
 const getAllFavorites = async (req,res) => {
     try {
         const { id } = req.query
+        if(id == "undefined") return res.send({products: []})
+        
+        //if(id == "undefined") console.log("undefined")
         //console.log(id)
         const favorite = await User.findOne({
             where: { id },
