@@ -77,32 +77,32 @@ const { User, Brand, Category, Image, Product, Review, Order, OrderDetail, Cart,
 //User.belongsTo(Product, {throw: "user_product"})
 //Product.belongsTo(User,{throw: "user_product"})
 
-Product.belongsTo(Brand)
-Brand.hasMany(Product)
+Product.belongsTo(Brand,{constraints: false})
+Brand.hasMany(Product,{constraints: false})
 
-Product.belongsTo(Category)
-Category.hasMany(Product)
+Product.belongsTo(Category,{constraints: false})
+Category.hasMany(Product,{constraints: false})
 
-Product.hasMany(Image)
-Image.belongsTo(Product)
+Product.hasMany(Image,{constraints: false})
+Image.belongsTo(Product,{constraints: false})
 
-Product.hasMany(Review)
-Review.belongsTo(Product)
+Product.hasMany(Review,{constraints: false})
+Review.belongsTo(Product,{constraints: false})
 
-User.hasMany(Review)
-Review.belongsTo(User)
+User.hasMany(Review,{constraints: false})
+Review.belongsTo(User,{constraints: false})
 
-User.hasMany(Order)
-Order.belongsTo(User)
+User.hasMany(Order,{constraints: false})
+Order.belongsTo(User,{constraints: false})
 
-Product.hasMany(OrderDetail)
-OrderDetail.belongsTo(Product)
+Product.belongsTo(OrderDetail,{constraints: false})
+OrderDetail.hasMany(Product,{constraints: false})
 
-Order.hasMany(OrderDetail)
-OrderDetail.belongsTo(Order)
+Order.belongsTo(OrderDetail,{constraints: false})
+OrderDetail.belongsTo(Order,{constraints: false})
 
-Sucursal.hasMany(Order)
-Order.belongsTo(Sucursal)
+Sucursal.hasMany(Order,{constraints: false})
+Order.belongsTo(Sucursal,{constraints: false})
 
 
 
