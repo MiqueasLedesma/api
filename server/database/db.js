@@ -77,6 +77,7 @@ const { User, Brand, Category, Image, Product, Review, Order, OrderDetail, Cart,
 User.belongsToMany(Product, { through: "user_favorite" })
 Product.belongsToMany(User, { through: "user_favorite" })
 
+
 Product.belongsTo(Brand,{constraints: false})
 Brand.hasMany(Product,{constraints: false})
 
