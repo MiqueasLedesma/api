@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
                 },
             },
             typeIdentification: {
-                type: DataTypes.STRING, //validar
+                type: DataTypes.STRING, 
                 allowNull: true,
             },
             identification: {

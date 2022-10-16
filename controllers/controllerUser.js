@@ -23,6 +23,7 @@ const postUser = async (req, res) => {
         email,
         address,
         password,
+        isAdmin,
     } = req.body;
 
     try {
@@ -56,6 +57,7 @@ const postUser = async (req, res) => {
                     email,
                     address,
                     password: hash,
+                    isAdmin,
                 },
             });
 
@@ -228,19 +230,25 @@ const verifyToken = (req, res, next) => {
 
 const updatePersonalData = async (req, res) => {
     let id = req.authdata.id;
-    console.log(id);
+    console.log('estoy dentro')
+    //console.log(id);
     const {
         name,
         lastName,
         typeIdentification,
         identification,
         contact,
+        email,
         address,
-    } = req.body;
+        password,
+        isAdmin,
 
-    try {
-        let dataUser = await User.findByPk(id);
+    } = req.body;    
 
+    try {  //let dataUser = await User.findByPk(id);
+        
+            let data = await User.findAll()
+            let dataUser = data.find((dataUser)=> dataUser.email.toLowerCase() === email.toLowerCase())
         if (dataUser) {
             dataUser.update({
                 name,
@@ -249,6 +257,8 @@ const updatePersonalData = async (req, res) => {
                 identification,
                 contact,
                 address,
+                email,
+                isAdmin,
             });
             let userData;
             if (dataUser.isAdmin) {
@@ -259,6 +269,7 @@ const updatePersonalData = async (req, res) => {
                     identification: dataUser.identification,
                     contact: dataUser.contact,
                     address: dataUser.address,
+                    email: dataUser.email,
                     isAdmin: true,
                 };
             } else {
@@ -269,6 +280,8 @@ const updatePersonalData = async (req, res) => {
                     identification: dataUser.identification,
                     contact: dataUser.contact,
                     address: dataUser.address,
+                    email: dataUser.email,
+                    isAdmin: false,
                 };
             }
 
