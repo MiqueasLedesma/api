@@ -11,7 +11,7 @@ const { PORT } = process.env;
 
 // Syncing all the models at once.
 
-conn.sync({ force: true }).then(async () => {
+conn.sync({ force: false }).then(async () => {
     await createBrands();
     await createCategories();
     await createProducts();
