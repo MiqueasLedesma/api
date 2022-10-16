@@ -12,7 +12,6 @@ const getAllCartShopping = async (req, res) => {
 const addProductCart = async (req, res) => {
     try {
         const {
-            email,
             name,
             salePrice,
             image,
@@ -23,7 +22,6 @@ const addProductCart = async (req, res) => {
         const notFull = name !== "" && email !== "" && image !== "" && salePrice !== "" && quantity !== "";
 
         const fullCart = {
-            email,
             name,
             salePrice,
             image,
@@ -47,14 +45,14 @@ const addProductCart = async (req, res) => {
 const cleanCartShopping = async (req, res) => { 
   
   try{
-    const {email} = req.query;
+    const {userId} = req.query;
     const inCart = Cart.findAll({where: {
-            email
+            userId
         }});
 
     if (!!inCart) {
         Cart.destroy({where: {
-                email
+                userId
             }});
     }
     return res.send("success");
@@ -66,16 +64,16 @@ const cleanCartShopping = async (req, res) => {
 
 const getCartShopping = async (req, res) => {
     try {
-        const {email} = req.query;
+        const {userId} = req.query;
         /* Nos fijamos si el usuario ya tiene productos en el carrito */
-        console.log(email);
-        if (email === undefined || email === null || email.length === 0) 
+        console.log(userId);
+        if (userId === undefined || userId === null || userId.length === 0) 
             return res.status(404).send("Not found")
 
         
 
         const allProductsCart = Cart.findAll({where: {
-                email
+                userId
             }}).then(list => res.json(list));
         return allProductsCart
 
