@@ -131,24 +131,21 @@ const getAllDeletedReviews = async (req, res) => {
   };
 };
 
-
 const getAllReviews = async (req, res) => {
-
   try {
-    Review.findAll(
-      {
-        include: [
-          {
-            model: User,
-          }
-          ,
-          {
-            model: Product,
-          },
+    Review.findAll({
+      where: {
+        status: true
+      },
+      include: [
+        {
+          model: User
+        }, {
+          model: Product
+        },
 
-        ]
-      }
-    ).then(data=> res.json(data)) 
+      ]
+    }).then(data => res.json(data))
   } catch (error) {
     console.log(error.message);
     return res.status(400).send(error.message);
@@ -159,24 +156,22 @@ const getAllReviews = async (req, res) => {
 const getAllReviewsByIdUser = async (req, res) => {
 
   try {
-    const {userId}= req.query;
+    const {userId} = req.query;
 
-    Review.findAll(
-      {where: {
+    Review.findAll({
+      where: {
         userId,
+        status: true
       },
-        include: [
-          {
-            model: User,
-          }
-          ,
-          {
-            model: Product,
-          },
+      include: [
+        {
+          model: User
+        }, {
+          model: Product
+        },
 
-        ]
-      }
-    ).then(data=> res.json(data)) 
+      ]
+    }).then(data => res.json(data))
   } catch (error) {
     console.log(error.message);
     return res.status(400).send(error.message);
