@@ -19,7 +19,7 @@ const addProductCart = async (req, res) => {
         } = req.body;
 
         /* Nos fijamos si todos los campos vienen con info */
-        const notFull = name !== "" && email !== "" && image !== "" && salePrice !== "" && quantity !== "";
+        const notFull = name !== "" && image !== "" && salePrice !== "" && quantity !== "";
 
         const fullCart = {
             name,
