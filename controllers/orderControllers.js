@@ -1,4 +1,4 @@
-const { Order, OrderDetail, Product } = require('../server/database/db');
+const { Order, OrderDetail } = require('../server/database/db');
 
 const howManyPayments = async (req, res) => {
     const { id } = req.query;
@@ -53,7 +53,7 @@ const getAllOrders = async (req, res) => {
 
 const createOrder = async (req, res) => {
     const { total, discount, subTotal, status, userId, sucursalId, quantity, productsId } = req.body;
-    if (!quantity || !total || !discount || !subTotal || !status || !userId || !sucursalId || !productsId[0]) return res.status(400).send('Faltan Datos!');
+    if (!quantity || !total || !discount || !subTotal || !status || !userId || !Object.keys(productsId)[0]) return res.status(400).send('Faltan Datos!');
     try {
         await Order.create({
             total,
@@ -63,11 +63,11 @@ const createOrder = async (req, res) => {
             userId,
             sucursalId,
             quantity,
-            productsId
+            productsId: JSON.stringify(productsId)
         })
             .then(r => res.send('Orden Creada!'));
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
         return res.status(400).send(error.message);
     };
 };
@@ -77,11 +77,7 @@ const getOrderDetail = async (req, res) => {
     const isANumber = /^([0-9])*$/;
     if (!id || !isANumber.test(id)) return res.status(400).send('El ID debe ser un numero!');
     try {
-        await OrderDetail.findByPk(id, {
-            include:[
-                Product
-            ]
-        }).then(r => res.send(r))
+        await OrderDetail.findByPk(id).then(r => res.send(r))
     } catch (error) {
         console.log(error.message);
         return res.status(400).send(error.message);
@@ -94,3 +90,26 @@ module.exports = {
     createOrder,
     getOrderDetail
 }
+
+
+
+// {
+//     "name": "venex",
+//     "address": "Prigles",
+//     "latitude": "11.22",
+//     "longitude": "11.22"
+// }
+
+
+// {
+//     "total": "200",
+//     "discount": "0",
+//     "subTotal": "150",
+//     "status": "Preparando",
+//     "userId": "2",
+//     "sucursalId": "1",
+//     "quantity": "1",
+//     "productsId": {
+//         "cart": "aca iria la info del carro"
+//     }
+// }
