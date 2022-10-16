@@ -91,5 +91,6 @@ module.exports = {
     addProductCart,
     getCartShopping,
     cleanCartShopping,
-    getAllCartShopping
+    getAllCartShopping,
+    
 };
