@@ -132,7 +132,6 @@ const getAllDeletedReviews = async (req, res) => {
 };
 
 const getAllReviews = async (req, res) => {
-
   try {
     Review.findAll({
       where: {
