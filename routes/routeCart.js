@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { addProductCart, getCartShopping, getAllCartShopping, cleanCartShopping } = require('../controllers/cartShoppingController');
+const { addProductCart, getCartShopping, getAllCartShopping, cleanCartShopping,  } = require('../controllers/cartShoppingController');
 const router = Router();
 
 router.get('/all', getAllCartShopping);

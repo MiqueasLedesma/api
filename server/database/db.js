@@ -32,17 +32,17 @@ const sequelize =
                     require: true,
                     rejectUnauthorized: false
                 },
-                keepAlive:true,
+                keepAlive: true,
             },
             ssl: true,
         })
-        : 
-    new Sequelize(
+        :
+        new Sequelize(
             `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
             {
                 logging: false, // set to console.log to see the raw SQL queries
                 native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-                
+
             }
         );
 
@@ -74,8 +74,9 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { User, Brand, Category, Image, Product, Review, Order, OrderDetail, Cart, DataShipping, Geo, Sucursal } = sequelize.models;
 
-//User.belongsTo(Product, {throw: "user_product"})
-//Product.belongsTo(User,{throw: "user_product"})
+User.belongsToMany(Product, { through: "user_favorite" })
+Product.belongsToMany(User, { through: "user_favorite" })
+
 
 Product.belongsTo(Brand,{constraints: false})
 Brand.hasMany(Product,{constraints: false})
@@ -103,6 +104,9 @@ OrderDetail.belongsTo(Order,{constraints: false})
 
 Sucursal.hasMany(Order,{constraints: false})
 Order.belongsTo(Sucursal,{constraints: false})
+
+//User.hasMany(Cart,{constraints: false})
+//Cart.belongsTo(User,{constraints: false}
 
 
 

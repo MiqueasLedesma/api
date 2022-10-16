@@ -20,7 +20,7 @@ const addProductCart = async (req, res) => {
         } = req.body;
 
         /* Nos fijamos si todos los campos vienen con info */
-        const notFull = name !== "" && email !== "" && image !== "" && salePrice !== "" && quantity !== "";
+        const notFull = name !== "" && image !== "" && salePrice !== "" && quantity !== "";
 
         const fullCart = {
             email,
@@ -68,7 +68,7 @@ const getCartShopping = async (req, res) => {
     try {
         const {email} = req.query;
         /* Nos fijamos si el usuario ya tiene productos en el carrito */
-        console.log(email);
+  
         if (email === undefined || email === null || email.length === 0) 
             return res.status(404).send("Not found")
 
@@ -91,5 +91,6 @@ module.exports = {
     addProductCart,
     getCartShopping,
     cleanCartShopping,
-    getAllCartShopping
+    getAllCartShopping,
+    
 };

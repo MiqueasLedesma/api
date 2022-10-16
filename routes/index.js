@@ -14,8 +14,8 @@ const routePayments = require("./routePayments");
 const routeOrders = require("./routeOrders");
 const routeSucursal = require("./routeSucursals")  
 const routeEmails = require("./routeEmails");
-const routeGeolocation = require("./routeGeolocation");
-
+const routeGeolocation = require("./routeGeolocation")
+const routeFavorite = require("./routeFavorite")
 
 router.use('/products', routeProducts);
 router.use('/filter', routeFilter);
@@ -30,6 +30,7 @@ router.use('/orders', routeOrders);
 router.use('/sucursal', routeSucursal);
 router.use('/geo', routeGeolocation);
 router.use('/users', routeUsers);
+router.use('/favorite', routeFavorite)
 
 
 module.exports = router;
