@@ -104,8 +104,8 @@ OrderDetail.belongsTo(Order,{constraints: false})
 Sucursal.hasMany(Order,{constraints: false})
 Order.belongsTo(Sucursal,{constraints: false})
 
-User.hasMany(Cart,{constraints: false})
-Cart.belongsTo(User,{constraints: false}
+//User.hasMany(Cart,{constraints: false})
+//Cart.belongsTo(User,{constraints: false}
 
 
 
