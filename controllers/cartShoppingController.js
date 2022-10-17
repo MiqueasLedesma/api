@@ -1,12 +1,12 @@
-const {Product, Cart} = require("../server/database/db");
+const { Product, Cart } = require("../server/database/db");
 
 const getAllCartShopping = async (req, res) => {
-  try {
-      await Cart.findAll().then(r => res.send(r));
-  } catch (error) {
-      console.log(error);
-      return res.status(400).send('failed!');
-  }
+    try {
+        await Cart.findAll().then(r => res.send(r));
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send('failed!');
+    }
 };
 
 const addProductCart = async (req, res) => {
@@ -20,7 +20,7 @@ const addProductCart = async (req, res) => {
         } = req.body;
 
         /* Nos fijamos si todos los campos vienen con info */
-        const notFull = name !== "" && email !== "" && image !== "" && salePrice !== "" && quantity !== "";
+        const notFull = name !== "" && image !== "" && salePrice !== "" && quantity !== "";
 
         const fullCart = {
             email,
@@ -33,10 +33,10 @@ const addProductCart = async (req, res) => {
 
         /* Si nos envian algo y no esta en el carrito lo agregamos */
         if (notFull) {
-            Cart.create(fullCart).then((resp) => {
+            await Cart.create(fullCart).then((resp) => {
                 res.json(resp);
             });
-            return fullCart;
+            //return fullCart;
         }
 
     } catch (error) {
@@ -44,20 +44,24 @@ const addProductCart = async (req, res) => {
     }
 };
 
-const cleanCartShopping = async (req, res) => { 
-  
-  try{
-    const {email} = req.query;
-    const inCart = Cart.findAll({where: {
-            email
-        }});
+const cleanCartShopping = async (req, res) => {
 
-    if (!!inCart) {
-        Cart.destroy({where: {
+    try {
+        const { email } = req.query;
+        const inCart = await Cart.findAll({
+            where: {
                 email
-            }});
-    }
-    return res.send("success");
+            }
+        });
+
+        if (!!inCart) {
+            await Cart.destroy({
+                where: {
+                    email
+                }
+            });
+        }
+        return res.send("success");
     } catch (error) {
         console.log(error.mesage);
         res.status(400).send("failed")
@@ -66,17 +70,19 @@ const cleanCartShopping = async (req, res) => {
 
 const getCartShopping = async (req, res) => {
     try {
-        const {email} = req.query;
+        const { email } = req.query;
         /* Nos fijamos si el usuario ya tiene productos en el carrito */
-        console.log(email);
-        if (email === undefined || email === null || email.length === 0) 
+
+        if (email === undefined || email === null || email.length === 0)
             return res.status(404).send("Not found")
 
-        
 
-        const allProductsCart = Cart.findAll({where: {
+
+        const allProductsCart = Cart.findAll({
+            where: {
                 email
-            }}).then(list => res.json(list));
+            }
+        }).then(list => res.json(list));
         return allProductsCart
 
     } catch (error) {
@@ -86,10 +92,41 @@ const getCartShopping = async (req, res) => {
 };
 
 
+const deleteByPk = async (req, res) => {
+    const { id } = req.query;
+    try {
+        await Cart.destroy({
+            where: {
+                id
+            }
+        })
+            .then(r => res.send('Eliminado correctamente!'));
+    } catch (error) {
+        console.log(error.message);
+        return res.send(error.message);
+    }
+}
+
+const updateCart = async (req, res) => {
+    const { id, quantity } = req.query;
+    try {
+        await Cart.update({ quantity: quantity }, {
+            where: {
+                id
+            }
+        })
+            .then(r => res.send('Actualizado!'));
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).send(error.message)
+    }
+}
 
 module.exports = {
     addProductCart,
     getCartShopping,
     cleanCartShopping,
-    getAllCartShopping
+    getAllCartShopping,
+    deleteByPk,
+    updateCart
 };

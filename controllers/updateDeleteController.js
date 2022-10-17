@@ -1,3 +1,4 @@
+
 const { Product, Category, Brand, Image } = require('../server/database/db');
 
 const deleteProduct = async (req, res) => {
@@ -61,8 +62,35 @@ const getDeletedItems = async (req, res) => {
     }
 }
 
+const updateItem = async (req, res) => {
+    const { name, stock, purchasePrice, salePrice, id, categoryId, brandId } = req.body;
+    if (!name || !stock || !purchasePrice || !salePrice || !categoryId || !brandId) return res.status(400).send('Faltan Datos!');
+    try {
+        Product.update({
+            name,
+            stock,
+            purchasePrice,
+            salePrice,
+            categoryId,
+            brandId
+        }, {
+            where: {
+                id
+            }
+        })
+            .then(r => res.send('Se actualizo correctamente!'));
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).send(error.message);
+    }
+}
+
+
+
+
 module.exports = {
     deleteProduct,
     revertDelete,
-    getDeletedItems
+    getDeletedItems,
+    updateItem
 }
