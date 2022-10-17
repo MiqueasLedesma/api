@@ -48,14 +48,14 @@ const cleanCartShopping = async (req, res) => {
 
     try {
         const { email } = req.query;
-        const inCart = Cart.findAll({
+        const inCart = await Cart.findAll({
             where: {
                 email
             }
         });
 
         if (!!inCart) {
-            Cart.destroy({
+            await Cart.destroy({
                 where: {
                     email
                 }
