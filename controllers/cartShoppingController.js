@@ -9,7 +9,7 @@ const getAllCartShopping = async (req, res) => {
     }
 };
 
-const addProductCart = (req, res) => {
+const addProductCart = async (req, res) => {
     try {
         const {
             email,
@@ -33,10 +33,10 @@ const addProductCart = (req, res) => {
 
         /* Si nos envian algo y no esta en el carrito lo agregamos */
         if (notFull) {
-            Cart.create(fullCart).then((resp) => {
+            await Cart.create(fullCart).then((resp) => {
                 res.json(resp);
             });
-            return fullCart;
+            //return fullCart;
         }
 
     } catch (error) {
