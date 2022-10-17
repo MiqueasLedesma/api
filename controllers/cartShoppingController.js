@@ -9,7 +9,7 @@ const getAllCartShopping = async (req, res) => {
     }
 };
 
-const addProductCart = async (req, res) => {
+const addProductCart = (req, res) => {
     try {
         const {
             email,
