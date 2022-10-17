@@ -100,18 +100,33 @@ const deleteByPk = async (req, res) => {
                 id
             }
         })
-            .then(r => res.send('Eliminado correctamente'));
+            .then(r => res.send('Eliminado correctamente!'));
     } catch (error) {
         console.log(error.message);
         return res.send(error.message);
     }
 }
 
+const updateCart = async (req, res) => {
+    const { id, quantity } = req.query;
+    try {
+        await Cart.update({ quantity: quantity }, {
+            where: {
+                id
+            }
+        })
+            .then(r => res.send('Actualizado!'));
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).send(error.message)
+    }
+}
 
 module.exports = {
     addProductCart,
     getCartShopping,
     cleanCartShopping,
     getAllCartShopping,
-    deleteByPk
+    deleteByPk,
+    updateCart
 };
