@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
         defaultValue: 'Procesando Pago'
       },
       productsId:{
-        type:DataTypes.STRING,
+        type:DataTypes.TEXT,
         allowNull: false
       },
     }
