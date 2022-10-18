@@ -11,7 +11,8 @@ const {
     verifyToken,
     changeAdmin,
     forgotPassword,
-    changePassword
+    changePassword,
+    verifyTokenChange
 } = require("../controllers/controllerUser");
 
 
@@ -39,6 +40,6 @@ router.put("/updateprofile", verifyToken, updatePersonalData);
 router.put("/update/:id", changeAdmin)
 
 router.post("/forgot", forgotPassword)
-router.put("/change-password", changePassword)
+router.put("/change-password", verifyTokenChange, changePassword)
 
 module.exports = router;
