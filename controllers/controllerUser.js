@@ -282,6 +282,45 @@ const updatePersonalData = async (req, res) => {
     }
 };
 
+const changeAdmin = async (req, res) => {
+    try {
+        const { id } = req.params
+        const user = await User.findByPk(id)
+        if (user.email !== "admin@admin.com") {
+            const updated = await User.update(
+                {
+                    isAdmin: !user.isAdmin
+                }, {
+                where: { id },
+                returning: true
+            },
+
+            )
+
+            return res.send(updated[1][0])
+        } return res.status(400).send({ message: "Can't change this user" })
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+}
+
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body
+        
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+}
+
+const changePassword = async (req, res) => {
+    try {
+        res.send("change")
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+}
+
 module.exports = {
     postUser,
     postLogin,
@@ -289,4 +328,7 @@ module.exports = {
     getUsers,
     getIdUsers,
     verifyToken,
+    changeAdmin,
+    forgotPassword,
+    changePassword
 };
