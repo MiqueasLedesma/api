@@ -68,7 +68,7 @@ const createOrder = async (req, res) => {
             .then(r => res.send('Orden Creada!'));
     } catch (error) {
         console.log(error);
-        return res.status(400).send(error.message);
+        return res.status(400).send('soy una banana');
     };
 };
 
