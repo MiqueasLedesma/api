@@ -32,4 +32,14 @@ const welcomeEmail = async(req,res) => {
     }
 }
 
-module.exports = { sendEmail,welcomeEmail,welcome };
+const forgotPasswordEmail = (toEmail, url) => ({
+    from: "techstore@techstore.com",
+    to: toEmail,
+    subject: "Cambiar Contraseña",
+    html: `
+    <h1>Cambiar Contraseña</h1>
+    <p>Para cambiar la contraseña presione el siguiente link <a href=${url}>${url}</a></p>
+    `
+});
+
+module.exports = { sendEmail,welcomeEmail,welcome, forgotPasswordEmail };
