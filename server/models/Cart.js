@@ -3,6 +3,10 @@ module.exports = function(sequelize) {
     sequelize.define (
         "cart",
         {
+            // products: {
+            //     type: DataTypes.TEXT,
+            //     allowNull: false
+            // },
             email: {
                 type: DataTypes.STRING,
                 allowNull: true,

@@ -78,35 +78,35 @@ User.belongsToMany(Product, { through: "user_favorite" })
 Product.belongsToMany(User, { through: "user_favorite" })
 
 
-Product.belongsTo(Brand,{constraints: false})
-Brand.hasMany(Product,{constraints: false})
+Product.belongsTo(Brand, { constraints: false })
+Brand.hasMany(Product, { constraints: false })
 
-Product.belongsTo(Category,{constraints: false})
-Category.hasMany(Product,{constraints: false})
+Product.belongsTo(Category, { constraints: false })
+Category.hasMany(Product, { constraints: false })
 
-Product.hasMany(Image,{constraints: false})
-Image.belongsTo(Product,{constraints: false})
+Product.hasMany(Image, { constraints: false })
+Image.belongsTo(Product, { constraints: false })
 
-Product.hasMany(Review,{constraints: false})
-Review.belongsTo(Product,{constraints: false})
+Product.hasMany(Review, { constraints: false })
+Review.belongsTo(Product, { constraints: false })
 
-User.hasMany(Review,{constraints: false})
-Review.belongsTo(User,{constraints: false})
+User.hasMany(Review, { constraints: false })
+Review.belongsTo(User, { constraints: false })
 
-User.hasMany(Order,{constraints: false})
-Order.belongsTo(User,{constraints: false})
+User.hasMany(Order, { constraints: false })
+Order.belongsTo(User, { constraints: false })
 
-Product.belongsTo(OrderDetail,{constraints: false})
-OrderDetail.hasMany(Product,{constraints: false})
+Product.belongsTo(OrderDetail, { constraints: false })
+OrderDetail.hasMany(Product, { constraints: false })
 
-Order.belongsTo(OrderDetail,{constraints: false})
-OrderDetail.belongsTo(Order,{constraints: false})
+Order.belongsTo(OrderDetail, { constraints: false })
+OrderDetail.belongsTo(Order, { constraints: false })
 
-Sucursal.hasMany(Order,{constraints: false})
-Order.belongsTo(Sucursal,{constraints: false})
+Sucursal.hasMany(Order, { constraints: false })
+Order.belongsTo(Sucursal, { constraints: false })
 
-//User.hasMany(Cart,{constraints: false})
-//Cart.belongsTo(User,{constraints: false}
+// User.belongsTo(Cart, { constraints: false })
+// Cart.belongsTo(User, { constraints: false })
 
 
 
