@@ -39,13 +39,15 @@ const createUser = async () => {
     try {
         await arr.map(e => User.findOrCreate({
             where: {
+                email: e.email
+            },
+            defaults: {
                 name: e.name,
                 lastName: e.lastName,
                 username: e.username,
                 typeIdentification: e.username,
                 identification: e.password,
                 contact: e.contact,
-                email: e.email,
                 address: e.address,
                 password: e.password,
                 isAdmin: e.isAdmin,
