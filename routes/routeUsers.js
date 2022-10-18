@@ -9,11 +9,16 @@ const {
     getUsers,
     getIdUsers,
     verifyToken,
+    changeAdmin,
+    forgotPassword,
+    changePassword,
+    verifyTokenChange
 } = require("../controllers/controllerUser");
 
 
-router.get("/", verifyToken, getUsers);
-router.get("/:id",  getIdUsers);
+//router.get("/", verifyToken, getUsers);
+router.get("/", getUsers);
+//router.get("/:id",  getIdUsers);
 
 router.post("/register", postUser, async (req, res) => {
     /*  try {
@@ -31,5 +36,10 @@ router.post("/register", postUser, async (req, res) => {
 
 router.post("/login", postLogin);
 router.put("/updateprofile", verifyToken, updatePersonalData);
+
+router.put("/update/:id", changeAdmin)
+
+router.post("/forgot", forgotPassword)
+router.put("/change-password", verifyTokenChange, changePassword)
 
 module.exports = router;
