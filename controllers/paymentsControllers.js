@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { ACCESS_TOKEN } = process.env;
+const { Order } = require('../server/database/db');
 
 const mercadopagoApi = "https://api.mercadopago.com/checkout/preferences";
 
