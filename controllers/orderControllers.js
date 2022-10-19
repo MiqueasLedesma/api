@@ -104,13 +104,29 @@ const updateOrder = async (req, res) => {
     }
 }
 
+const getAllOrdersAdmin = async (req, res) => {
+    try {
+        await Order.findAll()
+            .then(r => res.send(r))
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).send(error.message);
+    }
+}
+
+
+
+// 'approved'
+//'Enviado'
+//'Finalizado'
 
 module.exports = {
     howManyPayments,
     getAllOrders,
     createOrder,
     getOrderDetail,
-    updateOrder
+    updateOrder,
+    getAllOrdersAdmin
 }
 
 
