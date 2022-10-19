@@ -45,10 +45,12 @@ async function getPaymentLink(req, res) {
 };
 
 const getPaymentCartLink = async (req, res) => {
-    const { cart, email } = req.body;
+    const { cart, userId } = req.body;
+
+    if (!cart ||!userId) return res.status(400).send('Faltan Datos!');
 
     console.log(req.body);
-    
+
     try {
 
         const info = cart.map(e => {
@@ -61,12 +63,12 @@ const getPaymentCartLink = async (req, res) => {
             }
         });
 
-console.log(info)
+        console.log(info)
 
         const preferences = {
             payer_email: "test_user_42159412@testuser.com",
             items: info,
-            external_reference: email,
+            external_reference: userId,
             notification_url: "https://techstore123.herokuapp.com/payments/notification",
             back_urls: {
                 failure: "https://techstore-ruby.vercel.app/final-shopping",
@@ -107,14 +109,63 @@ async function getPaymentNotification(req, res) {
 
         const operationInfo = {
             id: paymentStatus.data.id,
-            userEmail: paymentStatus.data.external_reference,
+            userId: paymentStatus.data.external_reference,
             notification_url: paymentStatus.data.notification_url,
             statement_descriptor: paymentStatus.data.statement_descriptor,
             status: paymentStatus.data.status,
             status_detail: paymentStatus.data.status_detail,
             transaction_amount: paymentStatus.data.transaction_amount,
         }
-        
+
+        if (operationInfo.status === 'approved') {
+            try {
+                await Order.update({
+                    status: 'approved'
+                }, {
+                    where: {
+                        userId: operationInfo.userId,
+                        status: 'Preparando'
+                    }
+                })
+            } catch (error) {
+                console.log(error.message);
+                return res.status(400).send(error.message);
+            };
+        };
+
+        if (operationInfo.status === 'rejected') {
+            try {
+                await Order.update({
+                    status: 'rejected'
+                }, {
+                    where: {
+                        userId: operationInfo.userId,
+                        status: 'Preparando'
+                    }
+                })
+            } catch (error) {
+                console.log(error.message);
+                return res.status(400).send(error.message);
+            };
+        };
+
+        if (operationInfo.status === 'in_process') {
+            try {
+                await Order.update({
+                    status: 'in_process'
+                }, {
+                    where: {
+                        userId: operationInfo.userId,
+                        status: 'Preparando'
+                    }
+                })
+            } catch (error) {
+                console.log(error.message);
+                return res.status(400).send(error.message);
+            };
+        };
+
+
         console.log(operationInfo)
         return res.status(200).json(data)
     } else {
