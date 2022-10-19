@@ -79,7 +79,7 @@ const postUser = async (req, res) => {
                 id: newUser[0].id
             };
 
-            await sendEmail(welcome(userData.email))
+            //await sendEmail(welcome(userData.email))
 
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
