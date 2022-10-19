@@ -63,17 +63,16 @@ const getDeletedItems = async (req, res) => {
 }
 
 const updateItem = async (req, res) => {
-    // let isANumber = /^([0-9])*$/
-    const isANumber = /^([0-9])*$/;
-    const { name, stock, purchasePrice, salePrice, id} = req.body;
+    // const isANumber = /^([0-9])*$/;
+    const { name, stock, purchasePrice, salePrice, id } = req.body;
     if (!name || !stock || !purchasePrice || !salePrice) return res.status(400).send('Faltan Datos!');
-    if( isANumber.test(stock) && isANumber.test(purchasePrice) && isANumber.test(salePrice)) return res.status(400).send('Datos Incorrectos!')
+    // if (isANumber.test(stock) && isANumber.test(purchasePrice) && isANumber.test(salePrice)) return res.status(400).send('Datos Incorrectos!')
     try {
         Product.update({
             name,
-            stock,
-            purchasePrice,
-            salePrice,
+            stock: Number(stock),
+            purchasePrice: Number(purchasePrice),
+            salePrice: Number(salePrice),
         }, {
             where: {
                 id
