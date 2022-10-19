@@ -23,6 +23,26 @@ const getProductByID = async (req, res) => {
     };
 };
 
+
+// ===> Controlador para buscar producto por name, devuelve toda la informacion disponible del producto en la tabla
+const getProductByName = async  (req, res) => {
+    const { name } = req.query;
+    if (!name) return res.status(400).send('bad request!') // Si no recibe ningun name retorna bad request
+    else {
+        try {
+            await Product.findOne({where:{name},  include: [
+                Category,
+                Brand,
+                Image
+            ]}).then(r => res.json(r));
+        } catch (error) {
+            console.log(error);
+            res.status(400).send('failed!')
+        };
+    };
+};
+
+
 // ===>>>> Controlador para todos los productos y por query.name
 const getProducts = async (req, res) => {
     const pageAsNumber = Number.parseInt(req.query.page);
@@ -163,4 +183,4 @@ const postCategory = async (req, res) => {
 
 
 
-module.exports = { getProducts, postProduct, getProductByID, postImage, postCategory };
+module.exports = { getProducts, postProduct, getProductByID, postImage, postCategory, getProductByName };
