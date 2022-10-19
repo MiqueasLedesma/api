@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer")
+const welc = require("../emailtemplates/welcome")
 
 const transport = nodemailer.createTransport({
     host: "smtp.mailtrap.io",
@@ -13,10 +14,7 @@ const welcome = (toEmail) => ({
     from: "techstore@techstore.com",
     to: toEmail,
     subject: "Welcome to tech Store",
-    html: `
-    <h1>Welcome</h1>
-    <p>Welcome to tech Store ${toEmail}</p>
-    `
+    html: welc
 });
 const sendEmail = async (email) => {
     const info = await transport.sendMail(email)
