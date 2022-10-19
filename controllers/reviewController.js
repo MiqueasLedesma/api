@@ -14,7 +14,6 @@ const postReview = async (req, res) => {
   })
   if (!repeat[0]) {
     try {
-<<<<<<< HEAD
       await Review.create({productId, userId, detail, stars})
       const products = await Review.findAll(
         {
@@ -29,10 +28,6 @@ const postReview = async (req, res) => {
         }
       })
       return res.send('Review has been created!')
-=======
-      await Review.create({ productId, userId, detail, stars })
-        .then(r => res.send('La review fue creada!'))
->>>>>>> e6a11833e905ea68fa1a57e59ed67ed8ed5f5198
     } catch (error) {
       console.log(error.message);
       return res.status(400).send(error.message);
