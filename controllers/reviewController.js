@@ -152,7 +152,7 @@ const getAllDeletedReviews = async (req, res) => {
 
 const getAllReviews = async (req, res) => {
   try {
-    Review.findAll({
+   await Review.findAll({
       where: {
         status: true
       },
@@ -177,7 +177,7 @@ const getAllReviewsByIdUser = async (req, res) => {
   try {
     const { userId } = req.query;
 
-    Review.findAll({
+   await Review.findAll({
       where: {
         userId,
         status: true
