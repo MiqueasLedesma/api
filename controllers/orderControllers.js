@@ -84,11 +84,33 @@ const getOrderDetail = async (req, res) => {
     };
 };
 
+const updateOrder = async (req, res) => {
+    const { id, status } = req.query;
+    const isANumber = /^([0-9])*$/;
+    if (!id || !isANumber.test(id)) return res.status(400).send('El id debe ser un numero!');
+    if (typeof (status) !== 'string') return res.status(400).send('El estado debe ser una cadena de texto');
+    try {
+        await Order.update({
+            status
+        }, {
+            where: {
+                id
+            }
+        })
+            .then(r => res.send('Estado actualizado correctamente!'));
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).send(error.message);
+    }
+}
+
+
 module.exports = {
     howManyPayments,
     getAllOrders,
     createOrder,
-    getOrderDetail
+    getOrderDetail,
+    updateOrder
 }
 
 
