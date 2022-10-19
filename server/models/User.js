@@ -46,6 +46,7 @@ module.exports = (sequelize) => {
                 validate: {
                     isEmail: true, //==>> contains: '@.'
                 },
+                unique: true
             },
             address: {
                 type: DataTypes.TEXT,
