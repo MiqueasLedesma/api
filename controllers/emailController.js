@@ -34,4 +34,4 @@ const forgotPasswordEmail = (toEmail, url) => ({
     `
 });
 
-module.exports = { sendEmail,welcomeEmail,welcome, forgotPasswordEmail };
+module.exports = { sendEmail,welcomeEmail, forgotPasswordEmail };
