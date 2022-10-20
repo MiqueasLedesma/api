@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { ACCESS_TOKEN } = process.env;
-const { Order } = require('../server/database/db');
+const { Order, User } = require('../server/database/db');
 
 const mercadopagoApi = "https://api.mercadopago.com/checkout/preferences";
 
@@ -82,7 +82,6 @@ const getPaymentCartLink = async (req, res) => {
         };
 
         const user = await User.findOne({where:{id:userId}})
-
         await sendEmail(endOrder(user.email))
 
         const payment = await axios.post(mercadopagoApi, preferences, {
