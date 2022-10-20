@@ -10,4 +10,6 @@ const getAllBrands = async (req, res) => {
     };
 };
 
+
+
 module.exports = getAllBrands;

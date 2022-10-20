@@ -4,6 +4,9 @@ const { Order } = require('../server/database/db');
 
 const mercadopagoApi = "https://api.mercadopago.com/checkout/preferences";
 
+const { sendEmail } = require("./emailController")
+const { endOrder } = require("../emailtemplates/endOrder")
+
 async function getPaymentLink(req, res) {
 
     const { tittle, description, categaryName, quantity, salePrice } = req.body;
@@ -48,7 +51,7 @@ async function getPaymentLink(req, res) {
 const getPaymentCartLink = async (req, res) => {
     const { cart, userId } = req.body;
 
-    if (!cart ||!userId) return res.status(400).send('Faltan Datos!');
+    if (!cart || !userId) return res.status(400).send('Faltan Datos!');
 
     console.log(req.body);
 
@@ -120,7 +123,7 @@ async function getPaymentNotification(req, res) {
 
         if (operationInfo.status === 'approved') {
             try {
-                await Order.update({
+                const order = await Order.update({
                     status: 'approved'
                 }, {
                     where: {
@@ -128,6 +131,8 @@ async function getPaymentNotification(req, res) {
                         status: 'Preparando'
                     }
                 })
+                const user = await User.findOne({where:{id:operationInfo.userId}})
+                await sendEmail(endOrder(user.email))
             } catch (error) {
                 console.log(error.message);
                 return res.status(400).send(error.message);
