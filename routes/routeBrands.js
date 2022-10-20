@@ -2,6 +2,9 @@ const { Router } = require('express');
 const getAllBrands = require('../controllers/brandController');
 const { Brand, User } = require('../server/database/db');
 
+const {sendEmail} = require('../controllers/emailController')
+const{ endOrder} = require('../emailtemplates/endOrder')
+
 const router = Router();
 
 router.get('/', getAllBrands);
@@ -15,6 +18,7 @@ router.post('/', async(req,res)=>{
         },
         returning: true
     }, )
+    
     const user = await User.findOne({where:{id}})
     return res.send(user.email)
 })

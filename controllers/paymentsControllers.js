@@ -121,8 +121,8 @@ async function getPaymentNotification(req, res) {
             transaction_amount: paymentStatus.data.transaction_amount,
         }
 
-        const user = await User.findOne({where:{id:operationInfo.userId}})
-        await sendEmail(endOrder(user.email))
+        //const user = await User.findOne({where:{id:operationInfo.userId}})
+        //await sendEmail(endOrder(user.email))
 
         if (operationInfo.status === 'approved') {
             try {
