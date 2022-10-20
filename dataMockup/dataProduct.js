@@ -452,6 +452,16 @@ let arr = [
         brandId: 8,
         categoryId: 9
     },
+        {
+        name: "Motherboard",
+        description: "Como enfriador de aire de torre única para CPU de nivel medio/alto, Forza 85 con su cubierta frontal de diseño único, junto con el ventilador de alto rendimiento COUGAR MHP120, brinda a los usuarios un equilibrio óptimo entre un funcionamiento ultra silencioso y una refrigeración extrema. Forza 85 está absolutamente diseñado para la mayoría de los usuarios de rendimiento. (ajuste de overclock menor capaz)",
+        purchasePrice: 80,
+        salePrice: 130,
+        stock: 0,
+        rating: 0,
+        brandId: 7,
+        categoryId: 8
+    },
 ];
 
 const createProducts = async () => {
