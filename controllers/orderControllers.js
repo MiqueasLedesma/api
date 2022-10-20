@@ -85,7 +85,7 @@ const getOrderDetail = async (req, res) => {
 };
 
 const updateOrder = async (req, res) => {
-    const { id, status } = req.query;
+    const { id, status } = req.body;
     const isANumber = /^([0-9])*$/;
     if (!id || !isANumber.test(id)) return res.status(400).send('El id debe ser un numero!');
     if (typeof (status) !== 'string') return res.status(400).send('El estado debe ser una cadena de texto');

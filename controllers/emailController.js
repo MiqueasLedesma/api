@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer")
 
+
 const transport = nodemailer.createTransport({
     host: "smtp.mailtrap.io",
     port: 2525,
@@ -9,15 +10,6 @@ const transport = nodemailer.createTransport({
     }
 });
 
-const welcome = (toEmail) => ({
-    from: "techstore@techstore.com",
-    to: toEmail,
-    subject: "Welcome to tech Store",
-    html: `
-    <h1>Welcome</h1>
-    <p>Welcome to tech Store ${toEmail}</p>
-    `
-});
 const sendEmail = async (email) => {
     const info = await transport.sendMail(email)
     //console.log(info.messageId)
@@ -42,4 +34,4 @@ const forgotPasswordEmail = (toEmail, url) => ({
     `
 });
 
-module.exports = { sendEmail,welcomeEmail,welcome, forgotPasswordEmail };
+module.exports = { sendEmail,welcomeEmail, forgotPasswordEmail };

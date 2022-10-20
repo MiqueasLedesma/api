@@ -14,8 +14,20 @@ const postReview = async (req, res) => {
   })
   if (!repeat[0]) {
     try {
-      await Review.create({ productId, userId, detail, stars })
-        .then(r => res.send('La review fue creada!'))
+      await Review.create({productId, userId, detail, stars})
+      const products = await Review.findAll(
+        {
+          where: { productId }
+        }
+      )
+      const sum = products.reduce((sum,rev) => sum + rev.stars,0)
+      const prom = Math.round(sum/products.length)
+      await Product.update({rating: prom},{
+        where: {
+          id: productId
+        }
+      })
+      return res.send('Review has been created!')
     } catch (error) {
       console.log(error.message);
       return res.status(400).send(error.message);
@@ -140,7 +152,7 @@ const getAllDeletedReviews = async (req, res) => {
 
 const getAllReviews = async (req, res) => {
   try {
-    Review.findAll({
+   await Review.findAll({
       where: {
         status: true
       },
@@ -165,7 +177,7 @@ const getAllReviewsByIdUser = async (req, res) => {
   try {
     const { userId } = req.query;
 
-    Review.findAll({
+   await Review.findAll({
       where: {
         userId,
         status: true

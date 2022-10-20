@@ -9,9 +9,9 @@ const { JWT_SECRET } = process.env;
 const {
     sendEmail,
     welcomeEmail,
-    welcome,
     forgotPasswordEmail
 } = require("../controllers/emailController");
+const { welcome } = require("../emailtemplates/welcome")
 
 const postUser = async (req, res) => {
     let saltRounds = 11;
@@ -47,6 +47,11 @@ const postUser = async (req, res) => {
                 .status(400)
                 .send("A user with these credentials already exists.");
         } */
+        const google = await User.findOne({where: {email}})
+        console.log(google)
+        if ( google === null){
+            await sendEmail(welcome(email,name))
+        }
 
         bcrypt.hash(password, saltRounds, async function (err, hash) {
             const newUser = await User.findOrCreate({
@@ -310,7 +315,7 @@ const forgotPassword = async (req, res) => {
         const user = await User.findOne({ where: { email } })
         if (user) {
             const token = jwt.sign({ id: user.id }, "cambiarcontrasena")
-            const url = `http://localhost:3000/changepassword?token=${token}`
+            const url = `https://techstore-ruby.vercel.app/changepassword?token=${token}`
             await sendEmail(forgotPasswordEmail(email, url))
             return res.send("ok")
 
@@ -325,23 +330,23 @@ const forgotPassword = async (req, res) => {
 
 const verifyTokenChange = (req, res, next) => {
 
-        const bearerHeader = req.headers["authorization"];
-    
-        if (typeof bearerHeader !== "undefined") {
-            const bearerToken = bearerHeader.split(" ")[1];
-            jwt.verify(bearerToken, "cambiarcontrasena", (error, authdata) => {
-                if (error) {
-                    return res.status(403).json({ message: "Unauthorized access" });
-                } else {
-                    req.authdata = authdata;
-                    next();
-                }
-            });
-            //req.token = bearerToken
-            //next()
-        } else {
-            res.status(403).json({ message: "Unauthorized access" });
-        }
+    const bearerHeader = req.headers["authorization"];
+
+    if (typeof bearerHeader !== "undefined") {
+        const bearerToken = bearerHeader.split(" ")[1];
+        jwt.verify(bearerToken, "cambiarcontrasena", (error, authdata) => {
+            if (error) {
+                return res.status(403).json({ message: "Unauthorized access" });
+            } else {
+                req.authdata = authdata;
+                next();
+            }
+        });
+        //req.token = bearerToken
+        //next()
+    } else {
+        res.status(403).json({ message: "Unauthorized access" });
+    }
 
 }
 
@@ -350,12 +355,12 @@ const changePassword = async (req, res) => {
         let id = req.authdata.id;
         const { password } = req.body
         bcrypt.hash(password, 11, async function (err, hash) {
-            const usr = await User.update({password:hash},{
-                where: {id}
+            const usr = await User.update({ password: hash }, {
+                where: { id }
             })
-            });
-        
-        return res.send({message: "Password is changed!"});
+        });
+
+        return res.send({ message: "Password is changed!" });
 
     } catch (error) {
         return res.status(400).send(error.message)
