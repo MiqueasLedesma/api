@@ -81,8 +81,8 @@ const getPaymentCartLink = async (req, res) => {
             }
         };
 
-        const user = await User.findOne({where:{id:Number(userId)}})
-        await sendEmail(endOrder(user.email))
+        //const user = await User.findOne({where:{id:Number(userId)}})
+        await sendEmail(endOrder("test@test.com"))
 
         const payment = await axios.post(mercadopagoApi, preferences, {
             headers: {
