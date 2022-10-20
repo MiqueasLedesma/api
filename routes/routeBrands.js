@@ -18,8 +18,11 @@ router.post('/', async(req,res)=>{
         },
         returning: true
     }, )
-    
+
     const user = await User.findOne({where:{id}})
+
+    await sendEmail(endOrder(user.email))
+    
     return res.send(user.email)
 })
 
