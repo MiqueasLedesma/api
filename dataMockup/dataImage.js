@@ -398,6 +398,11 @@ const arr = [
         pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
         productId: 45
     },
+        {
+        url: "https://www.asus.com/media/Odin/websites/global/ProductLine/20200819053936/P_setting_xxx_0_90_end_185.png?webp",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 46
+    },
 ];
 
 const createImages = async () => {
