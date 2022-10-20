@@ -398,11 +398,227 @@ const arr = [
         pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
         productId: 45
     },
-        {
-        url: "https://www.asus.com/media/Odin/websites/global/ProductLine/20200819053936/P_setting_xxx_0_90_end_185.png?webp",
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666240719/tech-store/lndylzyfcwn3cldw5cz7.png",
         pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
         productId: 46
     },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666241069/tech-store/wzxieuprsdgykcv5tobx.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 47
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666241251/tech-store/fk7vivyxh1fbabhkt5jc.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 48
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666241382/tech-store/t9digvulltg3bbiqa1st.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 49
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666241669/tech-store/veakflwwg3vsfkr3xz46.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 50
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666241834/tech-store/mxscxtiqjkijvtqqotdi.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 51
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666241880/tech-store/hk0igspsjijgdbywjdwd.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 52
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242024/tech-store/tvijhw4gcp4tovygz74o.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 53
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242083/tech-store/motl0y850kudydjubhyw.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 54
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242335/tech-store/rviy7bp4vyzwlzkppp16.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 55
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242484/tech-store/u9oqhnrvt95zp4hx8l5b.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 56
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242526/tech-store/gyqbmwdqxcbrsilcsnkb.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 57
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242553/tech-store/xxq7y3rytdhmscspplkz.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 58
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242660/tech-store/j5wu6vd976gvlcwbsk7y.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 59
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242677/tech-store/yykou8an4rfmkw9hqthi.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 60
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242791/tech-store/oji0nnpns7wrriuu8vas.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 61
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242853/tech-store/wrgwquqcxfy5qxb3xmdj.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 62
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242959/tech-store/vlnbvdoqd5ohtshswk2o.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 63
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666242962/tech-store/aufcur83u8kkv5yhtpoj.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 64
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666243099/tech-store/ukaod3z8ipf4lauflhkb.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 65
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666243134/tech-store/v14huypicf5zfkcjjyt6.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 66
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666243195/tech-store/h78slylihd2dnhqa9wkz.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 67
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666243407/tech-store/o68kcmws5nezxrpry6db.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 68
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666243582/tech-store/p7udfufi1lg9fdcadhyt.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 69
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666243651/tech-store/f1fq6tytvdabuafigehl.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 70
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666243800/tech-store/aqtkaddogaja3amurlrt.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 71
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244105/tech-store/eutoenqsplzqafhvypco.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 72
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244130/tech-store/uwq9klk42x6gfuzvt1h0.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 73
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244146/tech-store/nvtji9qlv4ryplvkje2t.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 74
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244266/tech-store/qdgngdclwqhlvxhwa51e.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 75
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244268/tech-store/pzo83uhhq92mjna8r8hm.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 76
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244268/tech-store/popvfyw6duc11tbymmqj.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 77
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244432/tech-store/xwt1e1bebxjxspxt3ydu.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 78
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244432/tech-store/xwt1e1bebxjxspxt3ydu.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 79
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244512/tech-store/mlgdjruwljzv1k2xi6hf.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 80
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244553/tech-store/qgqwsjrofglwfg8q1kfz.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 81
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244674/tech-store/d6lrenkyrhdbm8sjm5b7.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 82
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244694/tech-store/pfzge6apqcvxa9a4sa5c.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 83
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244823/tech-store/b9bg4coum7zsvz5pignf.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 84
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244905/tech-store/bwrlbkczv6fr3cpppy6n.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 85
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666244975/tech-store/hmewwexddneh4mw3tqhd.png",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 86
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666245154/tech-store/bqcm47pf3wewc1z2u1xb.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 87
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666245381/tech-store/qgihpspzpseb8ubjackp.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 88
+    },
+    {
+        url: "https://res.cloudinary.com/de8brtp2o/image/upload/v1666245381/tech-store/qgihpspzpseb8ubjackp.jpg",
+        pathImage: "tech-store/Cooler-Cougar-FORZA-75-1_gqr7pz",
+        productId: 89
+    },
+    
 ];
 
 const createImages = async () => {

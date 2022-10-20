@@ -80,7 +80,7 @@ const postUser = async (req, res) => {
                 email: newUser[0].email,
                 address: newUser[0].address || "",
                 token: token,
-                isAdmin: true,
+                isAdmin: false,
                 id: newUser[0].id
             };
 
