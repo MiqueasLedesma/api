@@ -47,6 +47,11 @@ const postUser = async (req, res) => {
                 .status(400)
                 .send("A user with these credentials already exists.");
         } */
+        const google = await User.findOne({where: {email}})
+        console.log(google)
+        if ( google === null){
+            await sendEmail(welcome(email,name))
+        }
 
         bcrypt.hash(password, saltRounds, async function (err, hash) {
             const newUser = await User.findOrCreate({
@@ -79,7 +84,7 @@ const postUser = async (req, res) => {
                 id: newUser[0].id
             };
 
-            await sendEmail(welcome(userData.email))
+            //await sendEmail(welcome(userData.email))
 
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
@@ -310,7 +315,7 @@ const forgotPassword = async (req, res) => {
         const user = await User.findOne({ where: { email } })
         if (user) {
             const token = jwt.sign({ id: user.id }, "cambiarcontrasena")
-            const url = `http://localhost:3000/changepassword?token=${token}`
+            const url = `https://techstore-ruby.vercel.app/changepassword?token=${token}`
             await sendEmail(forgotPasswordEmail(email, url))
             return res.send("ok")
 

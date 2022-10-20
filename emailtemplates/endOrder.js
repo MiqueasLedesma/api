@@ -1,10 +1,9 @@
-const welcome  = (email, name) => ({
+const endOrder  = (email) => ({
     from: "techstore@techstore.com",
     to: email,
     subject: "Welcome to tech Store",
     html: 
     `
-    
     <html>
     <div class="">
         <div class="aHl"></div>
@@ -18,6 +17,11 @@ const welcome  = (email, name) => ({
                             <tr>
                                 <td>
                                     <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                        role="presentation">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0"
                                         role="presentation">
                                         <tbody>
                                             <tr>
@@ -59,6 +63,10 @@ const welcome  = (email, name) => ({
                                             </tr>
                                         </tbody>
                                     </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0"
                                         role="presentation">
                                         <tbody>
@@ -84,7 +92,7 @@ const welcome  = (email, name) => ({
                                                                                     <div align="center"
                                                                                         style="line-height:10px"><img
                                                                                             class="m_-4812302678217875376big CToWUd a6T"
-                                                                                            src="https://img.freepik.com/vector-gratis/asociacion-rentable-cowork-socios-comerciales_335657-3010.jpg?w=1380&t=st=1661440903~exp=1661441503~hmac=5ee161d635567b0b66de9897213aee28295ca363da2d4720af6c5d05357ec5f9"
+                                                                                            src="https://img.freepik.com/free-vector/parcel-delivery-unpacking-receiving-order-box-contents-inspecting-female-consignee-cartoon-character-targeted-shipping-service_335657-1170.jpg?w=740&t=st=1661717477~exp=1661718077~hmac=2a64b4101da1e4c24f2acef4924a2bb1b011e4637f7e522d1164850f0e5da2a0"
                                                                                             style="display:block;height:auto;border:0;width:488px;max-width:100%"
                                                                                             width="488" alt="Image"
                                                                                             title="Image" tabindex="0">
@@ -123,8 +131,8 @@ const welcome  = (email, name) => ({
                                                                                                 style="margin:0;font-size:14px;text-align:center">
                                                                                                 <span
                                                                                                     style="font-size:38px"><strong><span
-                                                                                                            style="font-size:38px">Bienvenido ${name} ahora puedes comprar tus equipos tecnológicos  <span
-                                                                                                                style="color:#e93f33;font-size:38px"> favoritos o armar tu PC con los mejores componentes!</span></span></strong></span>
+                                                                                                            style="font-size:38px">Tu pedido <span
+                                                                                                                style="color:#e93f33;font-size:38px"> ha sido Confirmado!</span></span></strong></span>
                                                                                             </p>
                                                                                         </div>
                                                                                     </div>
@@ -147,8 +155,8 @@ const welcome  = (email, name) => ({
                                                                                                 <span
                                                                                                     style="font-size:22px"><span
                                                                                                         style="font-size:22px">Gracias
-                                                                                                        por elegir </span><span style="color:#e93f33;">
-                                                                                                        Tech-Store</span></span>
+                                                                                                        por elegir
+                                                                                                        <span style="color:#e93f33;"> TechStore </span></span></span>
                                                                                             </p>
                                                                                         </div>
                                                                                     </div>
@@ -178,18 +186,20 @@ const welcome  = (email, name) => ({
                                                         <tbody>
                                                             <tr>
                                                                 <td class="m_-4812302678217875376column" width="100%"
-                                                                    style="font-weight:400;text-align:left;vertical-align:top;padding-top:15px;padding-bottom:15px;border-top:0;border-right:0;border-bottom:0;border-left:0">
+                                                                    style="font-weight:400;text-align:left;vertical-align:top;padding-top:15px;padding-bottom:35px;border-top:0;border-right:0;border-bottom:0;border-left:0">
                                                                     <table width="100%" border="0" cellpadding="10"
                                                                         cellspacing="0" role="presentation">
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td>
                                                                                     <div align="center">
-                                                                                        <a href="https://techstore-ruby.vercel.app/"
-                                                                                            style="text-decoration:none;display:inline-block;color:#000;background-color:#fff;border-radius:3px;width:auto;border-top:1px solid #fff;font-weight:400;border-right:1px solid #fff;border-bottom:1px solid #fff;border-left:1px solid #fff;padding-top:5px;padding-bottom:5px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;text-align:center;word-break:keep-all"><span
-                                                                                                style="padding-left:15px;padding-right:15px;font-size:18px;display:inline-block;letter-spacing:normal"><span
+                                                                                        <a href="https://techstore-ruby.vercel.app/userprofile"
+                                                                                            style="text-decoration:none;display:inline-block;color:#000;background-color:#fff;border-radius:15px;width:auto;border-top:1px solid #fff;font-weight:400;border-right:1px solid #fff;border-bottom:1px solid #fff;border-left:1px solid #fff;padding-top:5px;padding-bottom:5px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;text-align:center;word-break:keep-all"><span
+                                                                                                style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal"><span
                                                                                                     style="font-size:16px;line-height:2;word-break:break-word"><span
-                                                                                                        style="font-size:18px;line-height:36px"><strong>Comienza a comprar</strong></span></span></span></a>
+                                                                                                        style="font-size:18px;line-height:36px"><strong>Ver
+                                                                                                            tu
+                                                                                                            compra</strong></span></span></span></a>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
@@ -239,8 +249,9 @@ const welcome  = (email, name) => ({
         </div>
     </div>
     </html>
+
     `
 
 })
 
-module.exports = { welcome };
+module.exports = { endOrder };
