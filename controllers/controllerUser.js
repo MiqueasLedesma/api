@@ -9,9 +9,9 @@ const { JWT_SECRET } = process.env;
 const {
     sendEmail,
     welcomeEmail,
-    forgotPasswordEmail
+    forgotPasswordEmail,
 } = require("../controllers/emailController");
-const { welcome } = require("../emailtemplates/welcome")
+const { welcome } = require("../emailtemplates/welcome");
 
 const postUser = async (req, res) => {
     let saltRounds = 11;
@@ -76,7 +76,7 @@ const postUser = async (req, res) => {
                 id: newUser[0].id,
             };
 
-            await sendEmail(welcome(userData.email))
+            await sendEmail(welcome(userData.email));
 
             return res.status(201).json(userData); //===========>>>>>> respuesta al front-end
         });
@@ -293,47 +293,45 @@ const updatePersonalData = async (req, res) => {
 
 const changeAdmin = async (req, res) => {
     try {
-        const { id } = req.params
-        const user = await User.findByPk(id)
+        const { id } = req.params;
+        const user = await User.findByPk(id);
         if (user.email !== "admin@admin.com") {
             const updated = await User.update(
                 {
-                    isAdmin: !user.isAdmin
-                }, {
-                where: { id },
-                returning: true
-            },
+                    isAdmin: !user.isAdmin,
+                },
+                {
+                    where: { id },
+                    returning: true,
+                }
+            );
 
-            )
-
-            return res.send(updated[1][0])
-        } return res.status(400).send({ message: "Can't change this user" })
+            return res.send(updated[1][0]);
+        }
+        return res.status(400).send({ message: "Can't change this user" });
     } catch (error) {
-        return res.status(400).send(error.message)
+        return res.status(400).send(error.message);
     }
-}
+};
 
 const forgotPassword = async (req, res) => {
     try {
-        const { email } = req.body
-        const user = await User.findOne({ where: { email } })
+        const { email } = req.body;
+        const user = await User.findOne({ where: { email } });
         if (user) {
-            const token = jwt.sign({ id: user.id }, "cambiarcontrasena")
-            const url = `http://localhost:3000/changepassword?token=${token}`
-            await sendEmail(forgotPasswordEmail(email, url))
-            return res.send("ok")
-
+            const token = jwt.sign({ id: user.id }, "cambiarcontrasena");
+            const url = `http://localhost:3000/changepassword?token=${token}`;
+            await sendEmail(forgotPasswordEmail(email, url));
+            return res.send("ok");
         } else {
-            res.status(400).send("Error")
+            res.status(400).send("Error");
         }
-
     } catch (error) {
-        return res.status(400).send(error.message)
+        return res.status(400).send(error.message);
     }
-}
+};
 
 const verifyTokenChange = (req, res, next) => {
-
     const bearerHeader = req.headers["authorization"];
 
     if (typeof bearerHeader !== "undefined") {
@@ -351,25 +349,26 @@ const verifyTokenChange = (req, res, next) => {
     } else {
         res.status(403).json({ message: "Unauthorized access" });
     }
-
-}
+};
 
 const changePassword = async (req, res) => {
     try {
         let id = req.authdata.id;
-        const { password } = req.body
+        const { password } = req.body;
         bcrypt.hash(password, 11, async function (err, hash) {
-            const usr = await User.update({ password: hash }, {
-                where: { id }
-            })
+            const usr = await User.update(
+                { password: hash },
+                {
+                    where: { id },
+                }
+            );
         });
 
         return res.send({ message: "Password is changed!" });
-
     } catch (error) {
-        return res.status(400).send(error.message)
+        return res.status(400).send(error.message);
     }
-}
+};
 
 module.exports = {
     postUser,
@@ -381,5 +380,5 @@ module.exports = {
     changeAdmin,
     forgotPassword,
     changePassword,
-    verifyTokenChange
+    verifyTokenChange,
 };
