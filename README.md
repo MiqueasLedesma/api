@@ -26,7 +26,7 @@
 <h2> Equipo de trabajo 💪</h2>
 
 <ul>
-  <li> Billy Oscar Mendieta Cabrera <a href="https://github.com/oscararald">GitHub</a> <a href="https://www.linkedin.com/in/billy-mendieta-cabrera/">LinkedIn</a></li>
+  <li> Billy Oscar Mendieta Cabrera <a href="https://github.com/oscarald">GitHub</a> <a href="https://www.linkedin.com/in/billy-mendieta-cabrera/">LinkedIn</a></li>
   <li> Ignacio Orellana <a href="https://github.com/IgnacioOrellana">GitHub</a> <a href="https://www.linkedin.com/in/ignacio-o-484356246/">LinkedIn</a></li>
   <li> Jander Gomez Barrueta <a href="https://github.com/Jander1016">GitHub</a> <a href="https://www.linkedin.com/in/jander-gomez-barrueta-8091811a3/">LinkedIn</a></li>
   <li> Julian David Nuñez Franco <a href="https://github.com/juliandavidnunesfranco">GitHub</a> <a href="https://www.linkedin.com/in/juliandavidnunezfranco/">LinkedIn</a></li>
